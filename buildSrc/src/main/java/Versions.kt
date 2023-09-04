@@ -14,4 +14,11 @@ object Versions {
     const val COMPILE_SDK = 33
     const val MIN_SDK = 21
     const val TARGET_SDK = 33
+
+    const val DUS = "1.0.3"
+
+    const val COMPOSE = "1.2.0"
+    const val ACTIVITY_COMPOSE = "1.3.1"
+    const val COMPOSE_MATERIAL = "1.2.0"
+    const val COMPOSE_COMPILER = "1.3.2"
 }
