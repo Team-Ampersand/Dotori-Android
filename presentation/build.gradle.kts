@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-    namespace = "com.msg.view"
+    namespace = "com.msg.presentation"
     compileSdk = Versions.COMPILE_SDK
 
     defaultConfig {
