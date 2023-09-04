@@ -1,15 +1,8 @@
 object Dependency {
-    object GradlePlugin {
-        const val ANDROID_APPLICATION = "com.android.application"
-        const val ANDROID_LIBRARY = "com.android.library"
-        const val KOTLIN_ANDROID = "org.jetbrains.kotlin.android"
-    }
-
     object Androidx {
         const val CORE_KTX = "androidx.core:core-ktx:${Versions.CORE_KTX}"
         const val APP_COMPAT = "androidx.appcompat:appcompat:${Versions.APP_COMPAT}"
     }
-
 
     object Google {
         const val MATERIAL = "com.google.android.material:material:${Versions.MATERIAL}"
