@@ -1,16 +1,16 @@
 plugins {
-    id(Dependency.GradlePlugin.ANDROID_APPLICATION)
-    id(Dependency.GradlePlugin.KOTLIN_ANDROID)
+    id(ProjectProperties.GradlePlugin.ANDROID_APPLICATION)
+    id(ProjectProperties.GradlePlugin.KOTLIN_ANDROID)
 }
 
 android {
     namespace = "com.msg.dotori"
-    compileSdk = Versions.COMPILE_SDK
+    compileSdk = ProjectProperties.Versions.COMPILE_SDK
 
     defaultConfig {
         applicationId = "com.msg.dotori"
-        minSdk = Versions.MIN_SDK
-        targetSdk = Versions.TARGET_SDK
+        minSdk = ProjectProperties.Versions.MIN_SDK
+        targetSdk = ProjectProperties.Versions.TARGET_SDK
         versionCode = 1
         versionName = "1.0"
 
