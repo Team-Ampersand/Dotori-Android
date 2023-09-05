@@ -31,7 +31,6 @@ android {
 }
 
 dependencies {
-
     implementation(Dependency.Androidx.CORE_KTX)
     implementation(Dependency.Androidx.APP_COMPAT)
     implementation(Dependency.Google.MATERIAL)
