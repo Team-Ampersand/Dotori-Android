@@ -13,8 +13,6 @@ import androidx.compose.ui.viewinterop.AndroidView
 @SuppressLint("SetJavaScriptEnabled")
 @Composable
 fun SignUpScreen() {
-    val url = "https://www.dotori-gsm.com/signup"
-
     AndroidView(factory = {
         WebView(it).apply {
             layoutParams = ViewGroup.LayoutParams(
@@ -34,7 +32,7 @@ fun SignUpScreen() {
                     handler!!.proceed()
                 }
             }
-            loadUrl(url)
+            loadUrl("https://www.dotori-gsm.com/signup")
         }
     })
 }
