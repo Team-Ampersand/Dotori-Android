@@ -7,6 +7,7 @@ import android.webkit.SslErrorHandler
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.viewinterop.AndroidView
 
 @SuppressLint("SetJavaScriptEnabled")
@@ -36,4 +37,10 @@ fun SignUpScreen() {
             loadUrl(url)
         }
     })
+}
+
+@Preview
+@Composable
+fun SignUpScreenPreview() {
+    SignUpScreen()
 }
