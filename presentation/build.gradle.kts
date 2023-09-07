@@ -38,6 +38,8 @@ android {
 }
 
 dependencies {
+    implementation(project(":domain"))
+
     implementation(Dependency.Androidx.CORE_KTX)
     implementation(Dependency.Androidx.APP_COMPAT)
     implementation(Dependency.Google.MATERIAL)
