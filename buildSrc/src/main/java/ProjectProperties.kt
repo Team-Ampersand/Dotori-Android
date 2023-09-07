@@ -4,6 +4,8 @@ object ProjectProperties {
         const val ANDROID_LIBRARY = "com.android.library"
         const val KOTLIN_ANDROID = "org.jetbrains.kotlin.android"
         const val KTLINT = "org.jlleitschuh.gradle.ktlint"
+        const val HILT_PLUGIN = "com.google.dagger.hilt.android"
+        const val KAPT = "kapt"
     }
 
     object Versions {

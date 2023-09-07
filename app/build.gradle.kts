@@ -1,6 +1,11 @@
+import java.io.FileInputStream
+import java.util.Properties
+
 plugins {
     id(ProjectProperties.GradlePlugin.ANDROID_APPLICATION)
     id(ProjectProperties.GradlePlugin.KOTLIN_ANDROID)
+    id(ProjectProperties.GradlePlugin.HILT_PLUGIN)
+    kotlin(ProjectProperties.GradlePlugin.KAPT)
 }
 
 android {
@@ -15,6 +20,18 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+        buildConfigField(
+            "String",
+            "RELEASE_URL",
+            getApiKey("RELEASE_URL")
+        )
+
+        buildConfigField(
+            "String",
+            "DEVELOP_URL",
+            getApiKey("DEVELOP_URL")
+        )
     }
 
     buildTypes {
@@ -39,4 +56,19 @@ dependencies {
     testImplementation(Dependency.UnitTest.JUNIT)
     androidTestImplementation(Dependency.AndroidTest.ANDROID_JUNIT)
     androidTestImplementation(Dependency.AndroidTest.ESPRESSO_CORE)
+
+    implementation(Dependency.Google.HILT)
+    kapt(Dependency.Google.HILT_COMPILER)
+
+    implementation(Dependency.Libraries.RETROFIT)
+    implementation(Dependency.Libraries.RETROFIT_CONVERTER_GSON)
+    implementation(Dependency.Libraries.OKHTTP)
+    implementation(Dependency.Libraries.OKHTTP_LOGGING_INTERCEPTOR)
+}
+
+fun getApiKey(propertyKey: String): String {
+    val propFile = rootProject.file("./local.properties")
+    val properties = Properties()
+    properties.load(FileInputStream(propFile))
+    return properties.getProperty(propertyKey)
 }
