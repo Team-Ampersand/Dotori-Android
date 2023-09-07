@@ -23,8 +23,8 @@ android {
 
         buildConfigField(
             "String",
-            "BASE_URL",
-            getApiKey("BASE_URL")
+            "RELEASE_URL",
+            getApiKey("RELEASE_URL")
         )
 
         buildConfigField(
