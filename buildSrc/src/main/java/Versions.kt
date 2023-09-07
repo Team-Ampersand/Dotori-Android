@@ -5,6 +5,7 @@ object Versions {
 
     const val CORE_KTX = "1.9.0"
     const val APP_COMPAT = "1.6.1"
+    const val DATASTORE = "1.0.0"
 
     const val MATERIAL = "1.8.0"
     const val HILT = "2.44"

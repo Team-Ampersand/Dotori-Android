@@ -2,6 +2,7 @@ object Dependency {
     object Androidx {
         const val CORE_KTX = "androidx.core:core-ktx:${Versions.CORE_KTX}"
         const val APP_COMPAT = "androidx.appcompat:appcompat:${Versions.APP_COMPAT}"
+        const val DATASTORE = "androidx.datastore:datastore-preferences:${Versions.DATASTORE}"
     }
 
     object Google {
