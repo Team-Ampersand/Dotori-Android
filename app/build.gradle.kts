@@ -50,6 +50,8 @@ android {
 }
 
 dependencies {
+    implementation(project(":data"))
+
     implementation(Dependency.Androidx.CORE_KTX)
     implementation(Dependency.Androidx.APP_COMPAT)
     implementation(Dependency.Google.MATERIAL)
