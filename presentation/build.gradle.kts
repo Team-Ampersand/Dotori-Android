@@ -1,6 +1,7 @@
 plugins {
     id(ProjectProperties.GradlePlugin.ANDROID_LIBRARY)
     id(ProjectProperties.GradlePlugin.KOTLIN_ANDROID)
+    kotlin(ProjectProperties.GradlePlugin.KAPT)
 }
 
 android {
@@ -50,4 +51,7 @@ dependencies {
     implementation(Dependency.Compose.COMPOSE_TOOL)
     implementation(Dependency.Compose.COMPOSE_MATERIAL)
     implementation(Dependency.Compose.COMPOSE_PREVIEW)
+
+    implementation(Dependency.Google.HILT)
+    kapt(Dependency.Google.HILT_COMPILER)
 }
