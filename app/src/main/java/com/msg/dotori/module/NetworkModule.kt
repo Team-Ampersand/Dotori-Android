@@ -1,5 +1,6 @@
 package com.msg.dotori.module
 
+import com.msg.data.remote.network.AuthApi
 import com.msg.dotori.BuildConfig
 import dagger.Module
 import dagger.Provides
@@ -42,4 +43,8 @@ object NetworkModule {
     fun provideConverterFactory(): GsonConverterFactory {
         return GsonConverterFactory.create()
     }
+
+    @Provides
+    @Singleton
+    fun provideAuthApi(retrofit: Retrofit): AuthApi = retrofit.create(AuthApi::class.java)
 }
