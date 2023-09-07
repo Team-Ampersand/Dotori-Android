@@ -1,5 +1,6 @@
 package com.msg.dotori.module
 
+import com.msg.dotori.BuildConfig
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -30,7 +31,7 @@ object NetworkModule {
         gsonConverterFactory: GsonConverterFactory
     ): Retrofit {
         return Retrofit.Builder()
-            .baseUrl("")
+            .baseUrl(BuildConfig.DEVELOP_URL)
             .client(okHttpClient)
             .addConverterFactory(gsonConverterFactory)
             .build()
