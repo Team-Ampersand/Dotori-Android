@@ -5,14 +5,18 @@ object Versions {
 
     const val CORE_KTX = "1.9.0"
     const val APP_COMPAT = "1.6.1"
+    const val DATASTORE = "1.0.0"
 
     const val MATERIAL = "1.8.0"
+    const val HILT = "2.44"
 
     const val JUNIT = "4.13.2"
     const val ANDROID_JUNIT = "1.1.5"
     const val ESPRESSO_CORE = "3.5.1"
 
     const val DUS = "1.0.8"
+    const val RETROFIT = "2.9.0"
+    const val OKHTTP = "4.10.0"
 
     const val COMPOSE = "1.2.0"
     const val ACTIVITY_COMPOSE = "1.3.1"
