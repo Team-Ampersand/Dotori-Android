@@ -3,21 +3,14 @@ package com.msg.presentation.view.music
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.LocalOverscrollConfiguration
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Divider
 import androidx.compose.material.ExperimentalMaterialApi
-import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.getValue
@@ -25,19 +18,13 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.dotori.dotori_components.components.bottomsheet.DotoriBottomSheetDialog
 import com.dotori.dotori_components.components.dialog.DotoriDialog
 import com.dotori.dotori_components.components.music.DotoriMusicListItem
-import com.dotori.dotori_components.components.toggle.DotoriThemeSwitchButton
-import com.dotori.dotori_components.theme.CalendarIcon
-import com.dotori.dotori_components.theme.DotoriText
 import com.dotori.dotori_components.theme.DotoriTheme
-import com.dotori.dotori_components.theme.PlusIcon
-import com.dotori.dotori_components.theme.White
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalFoundationApi::class, ExperimentalMaterialApi::class)
@@ -76,8 +63,8 @@ fun MusicScreen(modifier: Modifier = Modifier) {
                 }
                 stickyHeader {
                     MusicHeader(
-                        showMusicDialog = { showDialog = true },
-                        showCalendar = {
+                        onMusicClick = { showDialog = true },
+                        onCalendarClick = {
                             currentBottomSheetType = BottomSheetType.Calendar
                             coroutineScope.launch { sheetState.show() }
                         }
@@ -126,38 +113,6 @@ fun MusicScreen(modifier: Modifier = Modifier) {
                 }
             }
         }
-    }
-}
-
-
-
-@Composable
-fun MusicHeader(
-    modifier: Modifier = Modifier,
-    showMusicDialog: () -> Unit,
-    showCalendar: () -> Unit
-) {
-    Row(
-        modifier = modifier
-            .fillMaxWidth()
-            .background(DotoriTheme.colors.cardBackground)
-            .padding(horizontal = 20.dp, vertical = 12.dp)
-    ) {
-        Text(
-            text = "기상음악 신청",
-            style = DotoriTheme.typography.subTitle1,
-            color = DotoriTheme.colors.neutral10
-        )
-        Spacer(modifier = Modifier.weight(1f))
-        CalendarIcon(
-            modifier = Modifier.clickable { showCalendar() },
-            tint = DotoriTheme.colors.neutral20
-        )
-        Spacer(modifier = Modifier.width(12.dp))
-        PlusIcon(
-            modifier = Modifier.clickable { showMusicDialog() },
-            tint = DotoriTheme.colors.neutral20,
-        )
     }
 }
 
