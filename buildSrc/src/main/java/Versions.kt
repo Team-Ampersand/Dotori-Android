@@ -12,7 +12,7 @@ object Versions {
     const val ANDROID_JUNIT = "1.1.5"
     const val ESPRESSO_CORE = "3.5.1"
 
-    const val DUS = "1.0.4"
+    const val DUS = "1.0.8"
 
     const val COMPOSE = "1.2.0"
     const val ACTIVITY_COMPOSE = "1.3.1"
