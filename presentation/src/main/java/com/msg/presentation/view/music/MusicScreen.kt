@@ -3,7 +3,9 @@ package com.msg.presentation.view.music
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.LocalOverscrollConfiguration
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
@@ -59,7 +61,13 @@ fun MusicScreen(modifier: Modifier = Modifier) {
         ) {
             LazyColumn(modifier = modifier.fillMaxSize()) {
                 item {
-                    DotoriTopBar { isDark = it }
+                    Column(verticalArrangement = Arrangement.Center) {
+                        DotoriTopBar { isDark = it }
+                        Divider(
+                            thickness = 1.dp,
+                            color = DotoriTheme.colors.neutral40
+                        )
+                    }
                 }
                 stickyHeader {
                     MusicHeader(
