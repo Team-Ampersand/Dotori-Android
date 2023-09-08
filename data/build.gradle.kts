@@ -1,6 +1,7 @@
 plugins {
     id(ProjectProperties.GradlePlugin.ANDROID_LIBRARY)
     id(ProjectProperties.GradlePlugin.KOTLIN_ANDROID)
+    kotlin(ProjectProperties.GradlePlugin.KAPT)
 }
 
 android {
@@ -31,10 +32,20 @@ android {
 }
 
 dependencies {
+    implementation(project(":domain"))
+
     implementation(Dependency.Androidx.CORE_KTX)
     implementation(Dependency.Androidx.APP_COMPAT)
+    implementation(Dependency.Androidx.DATASTORE)
     implementation(Dependency.Google.MATERIAL)
     testImplementation(Dependency.UnitTest.JUNIT)
     androidTestImplementation(Dependency.AndroidTest.ANDROID_JUNIT)
     androidTestImplementation(Dependency.AndroidTest.ESPRESSO_CORE)
+
+    implementation(Dependency.Google.HILT)
+    kapt(Dependency.Google.HILT_COMPILER)
+
+    implementation(Dependency.Libraries.RETROFIT)
+    implementation(Dependency.Libraries.OKHTTP)
+    implementation(Dependency.Libraries.OKHTTP_LOGGING_INTERCEPTOR)
 }
