@@ -19,7 +19,7 @@ class LoginViewModel @Inject constructor(
 ): ViewModel() {
 
     private val _loginState = MutableStateFlow<Event<LoginResponseModel>>(Event.Loading)
-    var loginState = _loginState.asStateFlow()
+    val loginState = _loginState.asStateFlow()
 
     fun login(loginRequestModel: LoginRequestModel) {
         viewModelScope.launch {
