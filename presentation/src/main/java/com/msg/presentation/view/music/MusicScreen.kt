@@ -72,9 +72,7 @@ fun MusicScreen(modifier: Modifier = Modifier) {
         ) {
             LazyColumn(modifier = modifier.fillMaxSize()) {
                 item {
-                    DotoriTopBar {
-                        isDark = it
-                    }
+                    DotoriTopBar { isDark = it }
                 }
                 stickyHeader {
                     MusicHeader(
@@ -131,22 +129,7 @@ fun MusicScreen(modifier: Modifier = Modifier) {
     }
 }
 
-@Composable
-fun DotoriTopBar(onSwitchClick: (Boolean) -> Unit) {
-    Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .background(White)
-            .padding(horizontal = 20.dp, vertical = 12.dp),
-        horizontalArrangement = Arrangement.SpaceBetween,
-        verticalAlignment = Alignment.CenterVertically
-    ) {
-        DotoriText()
-        DotoriThemeSwitchButton(
-            onSwitchClick = onSwitchClick
-        )
-    }
-}
+
 
 @Composable
 fun MusicHeader(
