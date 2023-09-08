@@ -34,7 +34,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.dotori.dotori_components.components.bottomsheet.DotoriBottomSheetDialog
 import com.dotori.dotori_components.components.button.DotoriButton
-import com.dotori.dotori_components.components.calendar.DotoriCalendar
 import com.dotori.dotori_components.components.dialog.DotoriDialog
 import com.dotori.dotori_components.components.music.DotoriMusicListItem
 import com.dotori.dotori_components.components.text_field.DotoriTextField
@@ -43,8 +42,6 @@ import com.dotori.dotori_components.theme.CalendarIcon
 import com.dotori.dotori_components.theme.DotoriText
 import com.dotori.dotori_components.theme.DotoriTheme
 import com.dotori.dotori_components.theme.PlusIcon
-import com.dotori.dotori_components.theme.ShortcutsIcon
-import com.dotori.dotori_components.theme.TrashCanIcon
 import com.dotori.dotori_components.theme.WarningIcon
 import com.dotori.dotori_components.theme.White
 import kotlinx.coroutines.launch
@@ -61,14 +58,12 @@ fun MusicScreen(modifier: Modifier = Modifier) {
     DotoriBottomSheetDialog(
         sheetContent = {
             currentBottomSheetType?.let { sheetType ->
-                when (sheetType) {
-                    BottomSheetType.Option -> MusicBottomSheetContent(
-                        onLinkClick = { /*TODO*/ },
-                        onDeleteClick = { /*TODO*/ }
-                    )
-
-                    BottomSheetType.Calendar -> DotoriCalendar { /*TODO*/ }
-                }
+                BottomSheetContent(
+                    bottomSheetType = sheetType,
+                    onLinkClick = { /*TODO*/ },
+                    onDeleteClick = { /*TODO*/ },
+                    onDaySelected = { /*TODO*/ }
+                )
             }
         }
     ) { sheetState ->
@@ -221,39 +216,7 @@ fun MusicDialog(
     }
 }
 
-@Composable
-fun MusicBottomSheetContent(
-    onLinkClick: () -> Unit,
-    onDeleteClick: () -> Unit
-) {
-    Column(
-        modifier = Modifier.padding(horizontal = 20.dp, vertical = 32.dp),
-        verticalArrangement = Arrangement.spacedBy(32.dp)
-    ) {
-        Row(
-            modifier = Modifier.clickable { onLinkClick() },
-            horizontalArrangement = Arrangement.spacedBy(12.dp),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            ShortcutsIcon(tint = DotoriTheme.colors.neutral20)
-            Text(
-                text = "바로가기",
-                style = DotoriTheme.typography.body
-            )
-        }
-        Row(
-            modifier = Modifier.clickable { onDeleteClick() },
-            horizontalArrangement = Arrangement.spacedBy(12.dp),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            TrashCanIcon(tint = DotoriTheme.colors.neutral20)
-            Text(
-                text = "기상음악 삭제",
-                style = DotoriTheme.typography.body
-            )
-        }
-    }
-}
+
 
 @Preview
 @Composable
