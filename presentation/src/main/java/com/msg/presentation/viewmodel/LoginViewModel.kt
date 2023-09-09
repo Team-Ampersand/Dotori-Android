@@ -16,13 +16,12 @@ import javax.inject.Inject
 class LoginViewModel @Inject constructor(
     private val loginUseCase: LoginUseCase,
     private val saveTokenUseCase: SaveTokenUseCase
-): ViewModel() {
+) : ViewModel() {
 
     private val _loginState = MutableStateFlow<Event<LoginResponseModel>>(Event.Loading)
     val loginState = _loginState.asStateFlow()
 
-    fun login(loginRequestModel: LoginRequestModel) {
-        viewModelScope.launch {
+    fun login(loginRequestModel: LoginRequestModel) = viewModelScope.launch {
             loginUseCase(loginRequestModel)
                 .onSuccess {
                     _loginState.value = Event.Success(it)
@@ -39,5 +38,4 @@ class LoginViewModel @Inject constructor(
                     )
                 }
         }
-    }
 }
