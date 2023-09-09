@@ -12,9 +12,9 @@ class SaveTokenUseCase @Inject constructor(
         expiresAt: String
     ) = kotlin.runCatching {
         authRepository.saveToken(
-            accessToken,
-            refreshToken,
-            expiresAt
+            accessToken =  accessToken,
+            refreshToken =  refreshToken,
+            expiresAt =  expiresAt
         )
     }
 }
