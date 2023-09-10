@@ -1,12 +1,14 @@
 package com.msg.presentation.view.music
 
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -30,6 +32,7 @@ fun BottomSheetContent(
                 onDeleteClick = onDeleteClick
             )
         }
+
         BottomSheetType.Calendar -> {
             DotoriCalendar(onDaySelected = onDaySelected)
         }
@@ -46,7 +49,11 @@ fun MusicOption(
         verticalArrangement = Arrangement.spacedBy(32.dp)
     ) {
         Row(
-            modifier = Modifier.clickable { onLinkClick() },
+            modifier = Modifier.clickable(
+                interactionSource = remember { MutableInteractionSource() },
+                indication = null,
+                onClick = onLinkClick
+            ),
             horizontalArrangement = Arrangement.spacedBy(12.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
@@ -57,7 +64,11 @@ fun MusicOption(
             )
         }
         Row(
-            modifier = Modifier.clickable { onDeleteClick() },
+            modifier = Modifier.clickable(
+                interactionSource = remember { MutableInteractionSource() },
+                indication = null,
+                onClick = onDeleteClick
+            ),
             horizontalArrangement = Arrangement.spacedBy(12.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
