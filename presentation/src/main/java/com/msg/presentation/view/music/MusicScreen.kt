@@ -35,6 +35,7 @@ fun MusicScreen(modifier: Modifier = Modifier) {
     var isDark by remember { mutableStateOf(false) }
     var showDialog by remember { mutableStateOf(false) }
     var currentBottomSheetType by remember { mutableStateOf<BottomSheetType?>(null) }
+    var musicUrl by remember { mutableStateOf("") }
 
     val coroutineScope = rememberCoroutineScope()
 
@@ -52,7 +53,10 @@ fun MusicScreen(modifier: Modifier = Modifier) {
     ) { sheetState ->
         if (showDialog) {
             DotoriDialog(onDismiss = { showDialog = false }) {
-                MusicDialogContent(url = "") { /*TODO*/ }
+                MusicDialogContent(
+                    url = musicUrl,
+                    onValueChange = { musicUrl = it }
+                ) { /*TODO*/ }
             }
         }
 

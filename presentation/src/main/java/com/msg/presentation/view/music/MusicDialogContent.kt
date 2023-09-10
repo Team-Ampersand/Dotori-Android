@@ -9,10 +9,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.dotori.dotori_components.components.button.DotoriButton
@@ -23,9 +19,9 @@ import com.dotori.dotori_components.theme.WarningIcon
 @Composable
 fun MusicDialogContent(
     url : String,
+    onValueChange: (String) -> Unit,
     onSubmit: () -> Unit
 ) {
-    var musicUrl by remember { mutableStateOf(url) }
 
     Column {
         Row(horizontalArrangement = Arrangement.spacedBy(4.dp)) {
@@ -38,9 +34,9 @@ fun MusicDialogContent(
         }
         Spacer(modifier = Modifier.height(16.dp))
         DotoriTextField(
-            value = musicUrl,
+            value = url,
             placeholder = "URL을 입력해주세요.",
-            onValueChange = { musicUrl = it }
+            onValueChange = onValueChange
         )
         Spacer(modifier = Modifier.height(8.dp))
         DotoriButton(
