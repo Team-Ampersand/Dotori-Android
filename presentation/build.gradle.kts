@@ -1,6 +1,7 @@
 plugins {
     id(ProjectProperties.GradlePlugin.ANDROID_LIBRARY)
     id(ProjectProperties.GradlePlugin.KOTLIN_ANDROID)
+    kotlin(ProjectProperties.GradlePlugin.KAPT)
 }
 
 android {
@@ -37,6 +38,8 @@ android {
 }
 
 dependencies {
+    implementation(project(":domain"))
+
     implementation(Dependency.Androidx.CORE_KTX)
     implementation(Dependency.Androidx.APP_COMPAT)
     implementation(Dependency.Google.MATERIAL)
@@ -50,4 +53,9 @@ dependencies {
     implementation(Dependency.Compose.COMPOSE_TOOL)
     implementation(Dependency.Compose.COMPOSE_MATERIAL)
     implementation(Dependency.Compose.COMPOSE_PREVIEW)
+
+    implementation(Dependency.Google.HILT)
+    kapt(Dependency.Google.HILT_COMPILER)
+
+    implementation(Dependency.Androidx.VIEWMODEl)
 }
