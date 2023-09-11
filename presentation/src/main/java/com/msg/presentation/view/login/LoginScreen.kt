@@ -24,6 +24,7 @@ import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.dotori.dotori_components.components.button.DotoriButton
 import com.dotori.dotori_components.components.drawer.content.DrawerViewHeader
 import com.dotori.dotori_components.components.text_field.DotoriTextField
@@ -32,10 +33,18 @@ import com.dotori.dotori_components.theme.DotoriTheme
 import com.dotori.dotori_components.theme.LockIcon
 import com.dotori.dotori_components.theme.PersonIcon
 import com.dotori.dotori_components.theme.XMarkIcon
+import com.msg.domain.model.auth.LoginRequestModel
+import com.msg.domain.model.auth.LoginResponseModel
+import com.msg.presentation.viewmodel.LoginViewModel
+import com.msg.presentation.viewmodel.util.Event
 
 @SuppressLint("RememberReturnType")
 @Composable
-fun LoginScreen(modifier: Modifier = Modifier) {
+fun LoginScreen(
+    modifier: Modifier = Modifier,
+    loginViewModel: LoginViewModel = hiltViewModel(),
+    navigateToMain: () -> Unit
+) {
     var idText by remember { mutableStateOf("") }
     var passwordText by remember { mutableStateOf("") }
     var isIdClicked by remember { mutableStateOf(false) }
@@ -110,7 +119,15 @@ fun LoginScreen(modifier: Modifier = Modifier) {
                 .fillMaxWidth()
                 .height(52.dp),
             text = "로그인"
-        ) {}
+        ) {
+            loginViewModel.login(
+                LoginRequestModel(
+                    email = idText,
+                    password = passwordText
+                )
+            )
+            if(loginViewModel.loginState.value == Event.Success<LoginResponseModel>()) navigateToMain()
+        }
         Spacer(modifier = Modifier.height(16.dp))
         Row(
             modifier = Modifier.fillMaxWidth(),
@@ -137,5 +154,5 @@ fun LoginScreen(modifier: Modifier = Modifier) {
 @Preview
 @Composable
 fun LoginScreenPreview() {
-    LoginScreen()
+    LoginScreen {}
 }
