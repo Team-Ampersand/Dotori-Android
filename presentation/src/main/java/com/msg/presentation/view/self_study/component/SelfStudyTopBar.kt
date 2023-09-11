@@ -11,25 +11,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.dotori.dotori_components.components.toggle.DotoriThemeSwitchButton
-import com.dotori.dotori_components.theme.DotoriText
 import com.dotori.dotori_components.theme.DotoriTheme
 import com.dotori.dotori_components.theme.FilterIcon
-
-@Composable
-fun DotoriTopBar(onSwitchClick: (Boolean) -> Unit) {
-    Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .background(DotoriTheme.colors.cardBackground)
-            .padding(horizontal = 20.dp, vertical = 12.dp),
-        horizontalArrangement = Arrangement.SpaceBetween,
-        verticalAlignment = Alignment.CenterVertically
-    ) {
-        DotoriText()
-        DotoriThemeSwitchButton(onSwitchClick = onSwitchClick)
-    }
-}
 
 @Composable
 fun SelfStudyTopBar(onFilterIconClick: () -> Unit) {
