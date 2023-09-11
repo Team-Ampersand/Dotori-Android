@@ -11,6 +11,7 @@ object Versions {
 
     const val MATERIAL = "1.8.0"
     const val HILT = "2.44"
+    const val GSON = "2.8.9"
 
     const val JUNIT = "4.13.2"
     const val ANDROID_JUNIT = "1.1.5"
