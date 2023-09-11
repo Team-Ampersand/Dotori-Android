@@ -14,7 +14,7 @@ import androidx.compose.ui.unit.dp
 import com.dotori.dotori_components.components.card.DotoriStudentCard
 import com.dotori.dotori_components.components.utils.Types
 import com.dotori.dotori_components.theme.DotoriTheme
-import com.msg.presentation.view.massage_chair.component.DotoriTopBar
+import com.msg.presentation.view.component.DotoriTopBar
 import com.msg.presentation.view.massage_chair.component.EmptyMassageChairScreen
 import com.msg.presentation.view.massage_chair.component.MassageChairTopBar
 

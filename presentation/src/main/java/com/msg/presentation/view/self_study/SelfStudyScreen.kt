@@ -22,8 +22,8 @@ import com.dotori.dotori_components.components.bottomsheet.DotoriBottomSheetDial
 import com.dotori.dotori_components.components.card.DotoriStudentCard
 import com.dotori.dotori_components.components.utils.Types
 import com.dotori.dotori_components.theme.DotoriTheme
+import com.msg.presentation.view.component.DotoriTopBar
 import com.msg.presentation.view.self_study.component.BottomSheetContent
-import com.msg.presentation.view.self_study.component.DotoriTopBar
 import com.msg.presentation.view.self_study.component.EmptySelfStudyScreen
 import com.msg.presentation.view.self_study.component.SelfStudyTopBar
 import kotlinx.coroutines.launch
