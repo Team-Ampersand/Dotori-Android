@@ -9,7 +9,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Divider
 import androidx.compose.material.ExperimentalMaterialApi
@@ -88,7 +87,7 @@ fun MusicScreen(modifier: Modifier = Modifier) {
                     )
                 }
                 val musicList = listOf(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
-                items(musicList) {
+                items(musicList.size) {
                     Box(
                         modifier = Modifier
                             .background(color = DotoriTheme.colors.background)
@@ -99,16 +98,16 @@ fun MusicScreen(modifier: Modifier = Modifier) {
                                 .background(
                                     color = DotoriTheme.colors.cardBackground,
                                     shape = RoundedCornerShape(
-                                        topStart = if (musicList.first() == it) 16.dp else 0.dp,
-                                        topEnd = if (musicList.first() == it) 16.dp else 0.dp,
-                                        bottomStart = if (musicList.last() == it) 16.dp else 0.dp,
-                                        bottomEnd = if (musicList.last() == it) 16.dp else 0.dp
+                                        topStart = if (it == 0) 16.dp else 0.dp,
+                                        topEnd = if (it == 0) 16.dp else 0.dp,
+                                        bottomStart = if (musicList.lastIndex == it) 16.dp else 0.dp,
+                                        bottomEnd = if (musicList.lastIndex == it) 16.dp else 0.dp
                                     )
                                 )
                                 .padding(horizontal = 16.dp)
                                 .padding(
-                                    top = if (musicList.first() == it) 16.dp else 8.dp,
-                                    bottom = if (musicList.last() == it) 16.dp else 8.dp
+                                    top = if (it == 0) 16.dp else 8.dp,
+                                    bottom = if (musicList.lastIndex == it) 16.dp else 8.dp
                                 ),
                             imageUrl = "",
                             title = "10cm- 서랍(그 해 우리는 OST Part.1)/가사 Audio Lyrics 21.12.07 New Release",
