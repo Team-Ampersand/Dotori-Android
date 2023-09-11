@@ -32,7 +32,6 @@ import kotlinx.coroutines.launch
 @OptIn(ExperimentalFoundationApi::class, ExperimentalMaterialApi::class)
 @Composable
 fun MusicScreen(modifier: Modifier = Modifier) {
-    var isDark by remember { mutableStateOf(false) }
     var showDialog by remember { mutableStateOf(false) }
     var currentBottomSheetType by remember { mutableStateOf<BottomSheetType?>(null) }
     var musicUrl by remember { mutableStateOf("") }
@@ -66,7 +65,7 @@ fun MusicScreen(modifier: Modifier = Modifier) {
             LazyColumn(modifier = modifier.fillMaxSize()) {
                 item {
                     Column(verticalArrangement = Arrangement.Center) {
-                        DotoriTopBar { isDark = it }
+                        DotoriTopBar { /*TODO*/ }
                         Divider(
                             thickness = 1.dp,
                             color = DotoriTheme.colors.neutral40
