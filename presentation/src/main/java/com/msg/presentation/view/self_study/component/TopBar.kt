@@ -27,9 +27,7 @@ fun DotoriTopBar(onSwitchClick: (Boolean) -> Unit) {
         verticalAlignment = Alignment.CenterVertically
     ) {
         DotoriText()
-        DotoriThemeSwitchButton(
-            onSwitchClick = onSwitchClick
-        )
+        DotoriThemeSwitchButton(onSwitchClick = onSwitchClick)
     }
 }
 
