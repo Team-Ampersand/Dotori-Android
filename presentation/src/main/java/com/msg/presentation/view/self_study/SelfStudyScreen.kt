@@ -3,8 +3,10 @@ package com.msg.presentation.view.self_study
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material.Divider
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -15,9 +17,11 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import com.dotori.dotori_components.components.bottomsheet.DotoriBottomSheetDialog
 import com.dotori.dotori_components.components.card.DotoriStudentCard
 import com.dotori.dotori_components.components.utils.Types
+import com.dotori.dotori_components.theme.DotoriTheme
 import com.msg.presentation.view.self_study.component.BottomSheetContent
 import com.msg.presentation.view.self_study.component.DotoriTopBar
 import com.msg.presentation.view.self_study.component.EmptySelfStudyScreen
@@ -63,6 +67,12 @@ fun SelfStudyIsEmptyContent(onFilterIconClick: () -> Unit, ) {
     Column(modifier = Modifier.fillMaxSize()) {
         DotoriTopBar(onSwitchClick = { /*TODO*/ })
 
+        Divider(
+            modifier = Modifier.fillMaxWidth(),
+            thickness = 1.dp,
+            color = DotoriTheme.colors.background
+        )
+
         SelfStudyTopBar { onFilterIconClick() }
 
         EmptySelfStudyScreen()
@@ -81,6 +91,14 @@ fun SelfStudyStudentListContent(
         modifier = Modifier.fillMaxSize(),
     ) {
         item { DotoriTopBar(onSwitchClick = { /*TODO*/ }) }
+
+        item {
+            Divider(
+                modifier = Modifier.fillMaxWidth(),
+                thickness = 1.dp,
+                color = DotoriTheme.colors.background
+            )
+        }
 
         stickyHeader { SelfStudyTopBar { onFilterIconClick() } }
 
