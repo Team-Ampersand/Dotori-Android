@@ -121,35 +121,17 @@ fun BottomSheetBodyContent(
     )
 
     Row {
-        DotoriButton(
-            modifier = Modifier
-                .padding(end = 8.dp)
-                .weight(1f),
-            text = "1",
-            colors = buttonIsSelect(text = "1", textState = gradeFilterSelectedState),
-            paddingValues = PaddingValues(vertical = 8.dp),
-            textStyle = DotoriTheme.typography.body2
-        ) { onGradeChange("1") }
-
-        DotoriButton(
-            modifier = Modifier
-                .padding(end = 8.dp)
-                .weight(1f),
-            text = "2",
-            colors = buttonIsSelect(text = "2", textState = gradeFilterSelectedState),
-            paddingValues = PaddingValues(vertical = 8.dp),
-            textStyle = DotoriTheme.typography.body2
-        ) { onGradeChange("2") }
-
-        DotoriButton(
-            modifier = Modifier
-                .padding(end = 8.dp)
-                .weight(1f),
-            text = "3",
-            colors = buttonIsSelect(text = "3", textState = gradeFilterSelectedState),
-            paddingValues = PaddingValues(vertical = 8.dp),
-            textStyle = DotoriTheme.typography.body2
-        ) { onGradeChange("3") }
+        repeat(3) { index ->
+            DotoriButton(
+                modifier = Modifier
+                    .padding(end = 8.dp)
+                    .weight(1f),
+                text = "${index + 1}",
+                colors = buttonIsSelect(text = "${index + 1}", textState = gradeFilterSelectedState),
+                paddingValues = PaddingValues(vertical = 8.dp),
+                textStyle = DotoriTheme.typography.body2
+            ) { onGradeChange("${index + 1}") }
+        }
 
         Spacer(modifier = Modifier.weight(1f))
     }
@@ -162,43 +144,17 @@ fun BottomSheetBodyContent(
     )
 
     Row {
-        DotoriButton(
-            modifier = Modifier
-                .padding(end = 8.dp)
-                .weight(1f),
-            text = "1",
-            colors = buttonIsSelect(text = "1", textState = classFilterSelectedState),
-            paddingValues = PaddingValues(vertical = 8.dp),
-            textStyle = DotoriTheme.typography.body2
-        ) { onClassChange("1") }
-
-        DotoriButton(
-            modifier = Modifier
-                .padding(end = 8.dp)
-                .weight(1f),
-            text = "2",
-            colors = buttonIsSelect(text = "2", textState = classFilterSelectedState),
-            paddingValues = PaddingValues(vertical = 8.dp),
-            textStyle = DotoriTheme.typography.body2
-        ) { onClassChange("2") }
-
-        DotoriButton(
-            modifier = Modifier
-                .padding(end = 8.dp)
-                .weight(1f),
-            text = "3",
-            colors = buttonIsSelect(text = "3", textState = classFilterSelectedState),
-            paddingValues = PaddingValues(vertical = 8.dp),
-            textStyle = DotoriTheme.typography.body2
-        ) { onClassChange("3") }
-
-        DotoriButton(
-            modifier = Modifier.weight(1f),
-            text = "4",
-            colors = buttonIsSelect(text = "4", textState = classFilterSelectedState),
-            paddingValues = PaddingValues(vertical = 8.dp),
-            textStyle = DotoriTheme.typography.body2
-        ) { onClassChange("4") }
+        repeat(4) { index ->
+            DotoriButton(
+                modifier = Modifier
+                    .padding(end = if (index == 3) 0.dp else 8.dp)
+                    .weight(1f),
+                text = "${index + 1}",
+                colors = buttonIsSelect(text = "${index + 1}", textState = classFilterSelectedState),
+                paddingValues = PaddingValues(vertical = 8.dp),
+                textStyle = DotoriTheme.typography.body2
+            ) { onClassChange("${index + 1}") }
+        }
     }
 
     Text(
