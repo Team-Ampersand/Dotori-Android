@@ -24,7 +24,14 @@ import com.dotori.dotori_components.theme.SearchIcon
 import com.dotori.dotori_components.theme.Transparent
 
 @Composable
-fun BottomSheetContent(onSearchLogic: (searchText: String, grade: String, `class`: String, gender: String) -> Unit) {
+fun BottomSheetContent(
+    onSearchLogic: (
+        searchText: String,
+        grade: String,
+        `class`: String,
+        gender: String
+    ) -> Unit
+) {
     var textValue by remember { mutableStateOf("") }
 
     var gradeFilterSelectedState by remember { mutableStateOf("null") }
@@ -93,9 +100,7 @@ fun BottomSheetHeaderContent(
     DotoriTextField(
         value = textValue,
         placeholder = "이름을 입력해 주세요",
-        trailingIcon = {
-            SearchIcon(tint = DotoriTheme.colors.neutral30)
-        },
+        trailingIcon = { SearchIcon(tint = DotoriTheme.colors.neutral30) },
         onValueChange = {
             textValue = it
             onTextValueChange(textValue)
