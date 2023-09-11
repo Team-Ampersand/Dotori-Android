@@ -4,6 +4,7 @@ object Dependency {
         const val APP_COMPAT = "androidx.appcompat:appcompat:${Versions.APP_COMPAT}"
         const val DATASTORE = "androidx.datastore:datastore-preferences:${Versions.DATASTORE}"
         const val VIEWMODEl = "androidx.lifecycle:lifecycle-viewmodel-compose:${Versions.VIEWMODEL}"
+        const val HILT_VIEWMODEL = "androidx.hilt:hilt-navigation-compose:${Versions.HILT_VIEWMODEL}"
     }
 
     object Google {
