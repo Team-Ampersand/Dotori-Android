@@ -19,16 +19,14 @@ class LocalDataSourceImpl @Inject constructor(
     companion object {
         private val ACCESS_TOKEN = stringPreferencesKey("access_token")
         private val REFRESH_TOKEN = stringPreferencesKey("refresh_token")
-        private val ACCESS_EXP = stringPreferencesKey("access_exp")
-        private val REFRESH_EXP = stringPreferencesKey("refresh_exp")
+        private val EXPIRES_AT = stringPreferencesKey("expires_at")
     }
 
-    override suspend fun saveToken(accessToken: String, refreshToken: String, accessExp: String, refreshExp: String) {
+    override suspend fun saveToken(accessToken: String, refreshToken: String, expiresAt: String) {
         context.dataStore.edit {
             it[ACCESS_TOKEN] = accessToken
             it[REFRESH_TOKEN] = refreshToken
-            it[ACCESS_EXP] = accessExp
-            it[REFRESH_EXP] = refreshExp
+            it[EXPIRES_AT] = expiresAt
         }
     }
 
@@ -36,7 +34,5 @@ class LocalDataSourceImpl @Inject constructor(
 
     override fun getRefreshToken(): Flow<String> = context.dataStore.data.map { it[REFRESH_TOKEN] ?: "" }
 
-    override fun getAccessTokenExp(): Flow<String> = context.dataStore.data.map { it[ACCESS_EXP] ?: "" }
-
-    override fun getRefreshTokenExp(): Flow<String> = context.dataStore.data.map { it[REFRESH_EXP] ?: "" }
+    override fun getExpiresAt(): Flow<String> = context.dataStore.data.map { it[EXPIRES_AT] ?: "" }
 }

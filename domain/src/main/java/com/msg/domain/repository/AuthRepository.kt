@@ -11,7 +11,6 @@ interface AuthRepository {
     suspend fun saveToken(
         accessToken: String,
         refreshToken: String,
-        accessExp: String,
-        refreshExp: String
+        expiresAt: String
     )
 }

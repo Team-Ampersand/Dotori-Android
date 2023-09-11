@@ -6,6 +6,8 @@ object Versions {
     const val CORE_KTX = "1.9.0"
     const val APP_COMPAT = "1.6.1"
     const val DATASTORE = "1.0.0"
+    const val VIEWMODEL = "2.5.1"
+    const val HILT_VIEWMODEL = "1.0.0"
 
     const val MATERIAL = "1.8.0"
     const val HILT = "2.44"
@@ -14,7 +16,8 @@ object Versions {
     const val ANDROID_JUNIT = "1.1.5"
     const val ESPRESSO_CORE = "3.5.1"
 
-    const val DUS = "1.0.8"
+    const val DUS = "1.0.9"
+  
     const val RETROFIT = "2.9.0"
     const val OKHTTP = "4.10.0"
 

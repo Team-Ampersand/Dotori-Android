@@ -42,10 +42,12 @@ dependencies {
 
     implementation(Dependency.Androidx.CORE_KTX)
     implementation(Dependency.Androidx.APP_COMPAT)
+    implementation(Dependency.Androidx.VIEWMODEl)
+    implementation(Dependency.Androidx.HILT_VIEWMODEL)
+
     implementation(Dependency.Google.MATERIAL)
-    testImplementation(Dependency.UnitTest.JUNIT)
-    androidTestImplementation(Dependency.AndroidTest.ANDROID_JUNIT)
-    androidTestImplementation(Dependency.AndroidTest.ESPRESSO_CORE)
+    implementation(Dependency.Google.HILT)
+    kapt(Dependency.Google.HILT_COMPILER)
 
     implementation(Dependency.Libraries.DUS)
 
@@ -54,6 +56,7 @@ dependencies {
     implementation(Dependency.Compose.COMPOSE_MATERIAL)
     implementation(Dependency.Compose.COMPOSE_PREVIEW)
 
-    implementation(Dependency.Google.HILT)
-    kapt(Dependency.Google.HILT_COMPILER)
+    testImplementation(Dependency.UnitTest.JUNIT)
+    androidTestImplementation(Dependency.AndroidTest.ANDROID_JUNIT)
+    androidTestImplementation(Dependency.AndroidTest.ESPRESSO_CORE)
 }
