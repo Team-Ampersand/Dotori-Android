@@ -16,7 +16,8 @@ object Versions {
     const val ANDROID_JUNIT = "1.1.5"
     const val ESPRESSO_CORE = "3.5.1"
 
-    const val DUS = "1.0.4"
+    const val DUS = "1.0.9"
+  
     const val RETROFIT = "2.9.0"
     const val OKHTTP = "4.10.0"
 
