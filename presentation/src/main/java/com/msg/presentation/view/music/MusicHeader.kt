@@ -2,6 +2,7 @@ package com.msg.presentation.view.music
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -9,6 +10,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.dotori.dotori_components.theme.CalendarIcon
@@ -34,12 +36,20 @@ fun MusicHeader(
         )
         Spacer(modifier = Modifier.weight(1f))
         CalendarIcon(
-            modifier = Modifier.clickable { onCalendarClick() },
+            modifier = Modifier.clickable(
+                interactionSource = remember { MutableInteractionSource() },
+                indication = null,
+                onClick = onCalendarClick
+            ),
             tint = DotoriTheme.colors.neutral20
         )
         Spacer(modifier = Modifier.width(12.dp))
         PlusIcon(
-            modifier = Modifier.clickable { onMusicClick() },
+            modifier = Modifier.clickable(
+                interactionSource = remember { MutableInteractionSource() },
+                indication = null,
+                onClick = onMusicClick
+            ),
             tint = DotoriTheme.colors.neutral20,
         )
     }
