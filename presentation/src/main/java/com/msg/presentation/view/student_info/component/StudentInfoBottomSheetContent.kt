@@ -37,13 +37,16 @@ fun StudentInfoBottomSheetContent(
     studentId: String,
     onModifyClick: () -> Unit,
     onSelfStudyClick: () -> Unit,
+    onSaveClick: () -> Unit,
+    onDismiss: () -> Unit,
 ) {
     when (bottomSheetType) {
         StudentInfoBottomSheetType.Filter -> {
             FilterBottomSheet(
                 onSearchLogic = { searchText, grade, `class`, gender, role, selfStudyCheck ->
 
-                }
+                },
+                onDismiss = onDismiss
             )
         }
 
@@ -58,7 +61,9 @@ fun StudentInfoBottomSheetContent(
         else -> {
             ModifyStudentInfoBottomSheet(
                 name = name,
-                studentId = studentId
+                studentId = studentId,
+                onSaveClick = onSaveClick,
+                onDismiss = onDismiss
             )
         }
     }
@@ -126,6 +131,7 @@ fun FilterBottomSheet(
         role: String?,
         selfStudyCheck: Boolean?
     ) -> Unit,
+    onDismiss: () -> Unit
 ) {
     var textValue: String? by remember { mutableStateOf(null) }
 
@@ -142,7 +148,9 @@ fun FilterBottomSheet(
         )
     ) {
         Row(
-            modifier = Modifier.padding(bottom = 16.dp),
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(bottom = 16.dp),
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
             Text(
@@ -338,6 +346,7 @@ fun FilterBottomSheet(
                 roleFilterSelectedState,
                 selfStudyCheckFilterSelectedState
             )
+            onDismiss()
         }
     }
 }
@@ -345,14 +354,21 @@ fun FilterBottomSheet(
 @Composable
 fun ModifyStudentInfoBottomSheet(
     name: String,
-    studentId: String
+    studentId: String,
+    onDismiss: () -> Unit,
+    onSaveClick: () -> Unit
 ) {
     val genderList = listOf("남", "여")
     val roleList = listOf("학생", "자치위원", "개발자")
 
-    Column(verticalArrangement = Arrangement.spacedBy(24.dp)) {
+    Column(
+        modifier = Modifier.padding(24.dp),
+        verticalArrangement = Arrangement.spacedBy(24.dp)
+    ) {
         Row(
-            modifier = Modifier.padding(bottom = 8.dp),
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(bottom = 8.dp),
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
             Text(
@@ -360,7 +376,14 @@ fun ModifyStudentInfoBottomSheet(
                 style = DotoriTheme.typography.subTitle1,
                 color = DotoriTheme.colors.neutral10
             )
-            XMarkIcon2(tint = DotoriTheme.colors.neutral20)
+            XMarkIcon2(
+                modifier = Modifier.clickable(
+                    interactionSource = remember { MutableInteractionSource() },
+                    indication = null,
+                    onClick = onDismiss
+                ),
+                tint = DotoriTheme.colors.neutral20
+            )
         }
         StudentInfoTextField(
             title = "이름",
@@ -384,7 +407,7 @@ fun ModifyStudentInfoBottomSheet(
                 .fillMaxWidth()
                 .height(48.dp),
             text = "저장"
-        ) {}
+        ) { onSaveClick() }
         Spacer(modifier = Modifier.height(24.dp))
     }
 }
