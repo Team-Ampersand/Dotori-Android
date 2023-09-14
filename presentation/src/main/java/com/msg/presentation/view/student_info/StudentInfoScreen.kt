@@ -69,7 +69,7 @@ fun StudentInfoScreen(modifier: Modifier = Modifier) {
         if (showDialog) {
             DotoriDialog(onDismiss = { showDialog = false }) {
                 StudentInfoDialogContent(
-                    isBaned = false,
+                    isBaned = isBaned,
                     name = "김준",
                     onSubmit = { showDialog = false },
                     onDismiss = { showDialog = false }
@@ -130,7 +130,7 @@ fun StudentInfoScreen(modifier: Modifier = Modifier) {
                                 }
                             ) {
                                 currentBottomSheetType = StudentInfoBottomSheetType.StudentInfo
-                                isBaned = it == 3 // 테스트 용으로 넣었습니다. 원래는 자습금지여부를 넣어줍니다
+                                isBaned = it == 3 // 테스트 용으로 넣었습니다.
                                 coroutineScope.launch { sheetState.show() }
                             }
                         }
