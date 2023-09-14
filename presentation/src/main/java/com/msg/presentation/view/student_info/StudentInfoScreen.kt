@@ -11,6 +11,7 @@ import androidx.compose.material.Divider
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -41,6 +42,7 @@ fun StudentInfoScreen(modifier: Modifier = Modifier) {
     var showDialog by remember { mutableStateOf(false) }
     var name by remember { mutableStateOf("김준") }
     var studentId by remember { mutableStateOf("2105") }
+    var sheetCloseState by remember { mutableStateOf(false) }
     val coroutineScope = rememberCoroutineScope()
 
     DotoriBottomSheetDialog(
@@ -53,10 +55,17 @@ fun StudentInfoScreen(modifier: Modifier = Modifier) {
                     studentId = studentId,
                     onModifyClick = { currentBottomSheetType = StudentInfoBottomSheetType.ModifyStudentInfo },
                     onSelfStudyClick = { showDialog = true },
+                    onDismiss = { sheetCloseState = true },
+                    onSaveClick = { sheetCloseState = true  }
                 )
             }
         }
     ) { sheetState ->
+        LaunchedEffect(sheetCloseState) {
+            sheetState.hide()
+            sheetCloseState = false
+        }
+
         if (showDialog) {
             DotoriDialog(onDismiss = { showDialog = false }) {
                 StudentInfoDialogContent(
