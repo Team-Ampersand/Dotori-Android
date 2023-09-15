@@ -77,7 +77,7 @@ fun StudentInfoScreen(modifier: Modifier = Modifier) {
                     isBaned = isBaned,
                     name = "김준",
                     onSubmit = { showDialog = false },
-                    onDismiss = { showDialog = false }
+                    onCancel = { showDialog = false }
                 )
             }
         }

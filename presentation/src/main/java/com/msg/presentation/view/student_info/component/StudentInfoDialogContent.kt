@@ -18,7 +18,7 @@ fun StudentInfoDialogContent(
     isBaned: Boolean,
     name: String,
     onSubmit: () -> Unit,
-    onDismiss: () -> Unit
+    onCancel: () -> Unit
 ) {
     Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
         Text(
@@ -40,7 +40,7 @@ fun StudentInfoDialogContent(
                 text = "취소",
                 colors = Transparent,
                 paddingValues = PaddingValues(6.dp),
-                onClick = onDismiss
+                onClick = onCancel
             )
             DotoriButton(
                 modifier = Modifier.weight(1f),
