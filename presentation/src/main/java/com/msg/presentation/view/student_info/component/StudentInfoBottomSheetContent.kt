@@ -192,13 +192,14 @@ fun FilterBottomSheet(
         )
         Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
             repeat(3) {
+                val grade = it + 1
                 DotoriButton(
                     modifier = Modifier.weight(1f),
-                    text = "${it + 1}",
-                    colors = if ((it + 1) == gradeFilterSelectedState) DotoriTheme.colors.primary10 else Transparent,
+                    text = grade.toString(),
+                    colors = if (grade == gradeFilterSelectedState) DotoriTheme.colors.primary10 else Transparent,
                     paddingValues = PaddingValues(vertical = 8.dp),
                     textStyle = DotoriTheme.typography.body2
-                ) { gradeFilterSelectedState = (it + 1) }
+                ) { gradeFilterSelectedState = grade }
             }
             Spacer(modifier = Modifier.weight(1f))
         }
@@ -212,13 +213,14 @@ fun FilterBottomSheet(
         )
         Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
             repeat(4) {
+                val classNum = (it + 1).toString()
                 DotoriButton(
                     modifier = Modifier.weight(1f),
-                    text = "${it + 1}",
-                    colors = if ((it + 1).toString() == classFilterSelectedState) DotoriTheme.colors.primary10 else Transparent,
+                    text = classNum,
+                    colors = if (classNum == classFilterSelectedState) DotoriTheme.colors.primary10 else Transparent,
                     paddingValues = PaddingValues(vertical = 8.dp),
                     textStyle = DotoriTheme.typography.body2
-                ) { classFilterSelectedState = (it + 1).toString() }
+                ) { classFilterSelectedState = classNum }
             }
         }
 
