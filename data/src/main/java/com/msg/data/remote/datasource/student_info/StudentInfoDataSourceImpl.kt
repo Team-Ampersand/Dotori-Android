@@ -1,6 +1,7 @@
 package com.msg.data.remote.datasource.student_info
 
 import com.msg.data.remote.dto.student_info.SearchStudentInfoResponse
+import com.msg.data.remote.dto.student_info.SelfStudyStatus
 import com.msg.data.remote.dto.student_info.StudentInfoRequest
 import com.msg.data.remote.dto.student_info.StudentInfoResponse
 import com.msg.data.remote.network.StudentInfoApi
@@ -20,7 +21,7 @@ class StudentInfoDataSourceImpl @Inject constructor(
         classNum: String,
         grade: Long,
         role: String,
-        selfStudyCheck: Boolean
+        selfStudy: SelfStudyStatus,
     ): List<SearchStudentInfoResponse> = safeApiCall {
         studentInfoApi.getSearchStudentInfo(
             name = name,
@@ -28,7 +29,7 @@ class StudentInfoDataSourceImpl @Inject constructor(
             classNum = classNum,
             grade = grade,
             role = role,
-            selfStudyCheck = selfStudyCheck
+            selfStudy = selfStudy
         )
     }
 

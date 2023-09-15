@@ -1,6 +1,7 @@
 package com.msg.data.remote.network
 
 import com.msg.data.remote.dto.student_info.SearchStudentInfoResponse
+import com.msg.data.remote.dto.student_info.SelfStudyStatus
 import com.msg.data.remote.dto.student_info.StudentInfoRequest
 import com.msg.data.remote.dto.student_info.StudentInfoResponse
 import retrofit2.http.Body
@@ -19,7 +20,7 @@ interface StudentInfoApi {
         @Query("classNum") classNum: String,
         @Query("grade") grade: Long,
         @Query("role") role: String,
-        @Query("selfStudyCheck") selfStudyCheck: Boolean,
+        @Query("selfStudy") selfStudy: SelfStudyStatus,
     ): List<SearchStudentInfoResponse>
 
     @PUT("/student-info/modify")

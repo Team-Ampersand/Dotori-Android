@@ -6,5 +6,5 @@ data class StudentInfoResponse(
     val memberName: String,
     val stuNum: String,
     val role: String,
-    val selfStudyStatus: String
+    val selfStudyStatus: SelfStudyStatus
 )
