@@ -5,3 +5,8 @@ enum class StudentInfoBottomSheetType {
     Filter,
     ModifyStudentInfo
 }
+
+enum class Gender {
+    MAN,
+    WOMAN
+}
