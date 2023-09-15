@@ -23,7 +23,7 @@ import com.dotori.dotori_components.theme.HamburgerIcon
 fun DotoriHamburgerTopBar(
     modifier: Modifier = Modifier,
     onHamburgerClick: () -> Unit,
-    onSwitchClick: (Boolean) -> Unit
+    onSwitchClick: (isThemeSwitchClicked :Boolean) -> Unit
 ) {
     Row(
         modifier = modifier
