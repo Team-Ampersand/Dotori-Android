@@ -184,7 +184,6 @@ fun FilterBottomSheet(
         )
 
         Spacer(modifier = Modifier.weight(1f))
-
         Text(
             modifier = Modifier.padding(bottom = 8.dp),
             text = "학년",
@@ -205,7 +204,6 @@ fun FilterBottomSheet(
         }
 
         Spacer(modifier = Modifier.weight(1f))
-
         Text(
             modifier = Modifier.padding(bottom = 8.dp),
             text = "반",
@@ -225,7 +223,6 @@ fun FilterBottomSheet(
         }
 
         Spacer(modifier = Modifier.weight(1f))
-
         Text(
             modifier = Modifier.padding(bottom = 8.dp),
             text = "성별",
@@ -251,7 +248,6 @@ fun FilterBottomSheet(
         }
 
         Spacer(modifier = Modifier.weight(1f))
-
         Text(
             modifier = Modifier.padding(bottom = 8.dp),
             text = "직책",
@@ -284,7 +280,6 @@ fun FilterBottomSheet(
         }
 
         Spacer(modifier = Modifier.weight(1f))
-
         Text(
             modifier = Modifier.padding(bottom = 8.dp),
             text = "자습",
@@ -310,7 +305,6 @@ fun FilterBottomSheet(
         }
 
         Spacer(modifier = Modifier.weight(1f))
-
         DotoriButton(
             modifier = Modifier
                 .fillMaxWidth()

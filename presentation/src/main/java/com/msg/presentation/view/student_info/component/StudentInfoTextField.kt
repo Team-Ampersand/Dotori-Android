@@ -30,9 +30,7 @@ fun StudentInfoTextField(
             value = text,
             placeholder = "",
             onValueChange = { text = it },
-            trailingIcon = {
-                XMarkIcon()
-            }
+            trailingIcon = { XMarkIcon() }
         )
     }
 }
