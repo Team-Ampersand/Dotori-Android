@@ -9,8 +9,8 @@ class SelfStudyDataSourceImpl @Inject constructor(
 ): SelfStudyDataSource {
     override suspend fun banSelfStudy(role: String, userId: Long) = safeApiCall {
         selfStudyApi.banSelfStudy(
-            role =  role,
-            userId =  userId
+            role = role,
+            userId = userId
         )
     }
 
