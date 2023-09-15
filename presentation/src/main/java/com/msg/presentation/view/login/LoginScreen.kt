@@ -84,7 +84,13 @@ fun LoginScreen(
                     else DotoriTheme.colors.neutral30
                 )
             },
-            trailingIcon = { if (isIdClicked && idText.isNotBlank()) XMarkIcon() }
+            trailingIcon = { if (isIdClicked && idText.isNotBlank()) XMarkIcon(
+                modifier = Modifier.clickable(
+                    interactionSource = remember { MutableInteractionSource() },
+                    indication = null,
+                    onClick = { idText = "" }
+                )
+            ) }
         )
         Spacer(modifier = Modifier.height(8.dp))
         DotoriTextField(
@@ -98,7 +104,13 @@ fun LoginScreen(
                     else DotoriTheme.colors.neutral30
                 )
             },
-            trailingIcon = { if (isPasswordClicked && passwordText.isNotBlank()) XMarkIcon() }
+            trailingIcon = { if (isPasswordClicked && passwordText.isNotBlank()) XMarkIcon(
+                modifier = Modifier.clickable(
+                    interactionSource = remember { MutableInteractionSource() },
+                    indication = null,
+                    onClick = { passwordText = "" }
+                )
+            ) }
         )
         Spacer(modifier = Modifier.height(8.dp))
         Text(
