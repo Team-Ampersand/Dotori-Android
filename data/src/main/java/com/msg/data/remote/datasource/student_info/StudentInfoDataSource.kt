@@ -9,12 +9,12 @@ interface StudentInfoDataSource {
     suspend fun getAllStudentInfo(): List<StudentInfoResponse>
 
     suspend fun getSearchStudentInfo(
-        name: String,
-        gender: String,
-        classNum: String,
-        grade: Long,
-        role: String,
-        selfStudy: SelfStudyStatus,
+        name: String?,
+        gender: String?,
+        classNum: String?,
+        grade: String?,
+        role: String?,
+        selfStudy: SelfStudyStatus?,
     ): List<SearchStudentInfoResponse>
 
     suspend fun modifyStudentInfo(body: StudentInfoRequest)
