@@ -382,7 +382,8 @@ fun ModifyStudentInfoBottomSheet(
             modifier = Modifier
                 .fillMaxWidth()
                 .height(48.dp),
-            text = "저장"
-        ) { onSaveClick() }
+            text = "저장",
+            onClick = onSaveClick
+        )
     }
 }
