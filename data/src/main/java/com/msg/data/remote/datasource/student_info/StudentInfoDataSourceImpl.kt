@@ -25,7 +25,7 @@ class StudentInfoDataSourceImpl @Inject constructor(
         studentInfoApi.getSearchStudentInfo(
             name =  name,
             gender =  gender,
-            classNum =classNum,
+            classNum = classNum,
             grade = grade,
             role = role,
             selfStudyCheck = selfStudyCheck
