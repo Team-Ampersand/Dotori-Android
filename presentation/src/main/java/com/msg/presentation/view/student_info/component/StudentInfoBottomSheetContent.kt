@@ -182,11 +182,10 @@ fun FilterBottomSheet(
             onValueChange = { textValue = it },
         )
 
+        Spacer(modifier = Modifier.weight(1f))
+
         Text(
-            modifier = Modifier.padding(
-                top = 32.dp,
-                bottom = 8.dp
-            ),
+            modifier = Modifier.padding(bottom = 8.dp),
             text = "학년",
             style = DotoriTheme.typography.smallTitle,
             color = DotoriTheme.colors.neutral10
@@ -204,11 +203,10 @@ fun FilterBottomSheet(
             Spacer(modifier = Modifier.weight(1f))
         }
 
+        Spacer(modifier = Modifier.weight(1f))
+
         Text(
-            modifier = Modifier.padding(
-                top = 32.dp,
-                bottom = 8.dp
-            ),
+            modifier = Modifier.padding(bottom = 8.dp),
             text = "반",
             style = DotoriTheme.typography.smallTitle,
             color = DotoriTheme.colors.neutral10
@@ -225,11 +223,10 @@ fun FilterBottomSheet(
             }
         }
 
+        Spacer(modifier = Modifier.weight(1f))
+
         Text(
-            modifier = Modifier.padding(
-                top = 32.dp,
-                bottom = 8.dp
-            ),
+            modifier = Modifier.padding(bottom = 8.dp),
             text = "성별",
             style = DotoriTheme.typography.smallTitle,
             color = DotoriTheme.colors.neutral10
@@ -252,11 +249,10 @@ fun FilterBottomSheet(
             Spacer(modifier = Modifier.weight(2f))
         }
 
+        Spacer(modifier = Modifier.weight(1f))
+
         Text(
-            modifier = Modifier.padding(
-                top = 32.dp,
-                bottom = 8.dp
-            ),
+            modifier = Modifier.padding(bottom = 8.dp),
             text = "직책",
             style = DotoriTheme.typography.smallTitle,
             color = DotoriTheme.colors.neutral10
@@ -286,19 +282,15 @@ fun FilterBottomSheet(
             Spacer(modifier = Modifier.weight(1f))
         }
 
+        Spacer(modifier = Modifier.weight(1f))
+
         Text(
-            modifier = Modifier.padding(
-                top = 32.dp,
-                bottom = 8.dp
-            ),
+            modifier = Modifier.padding(bottom = 8.dp),
             text = "자습",
             style = DotoriTheme.typography.smallTitle,
             color = DotoriTheme.colors.neutral10
         )
-        Row(
-            modifier = Modifier.padding(bottom = 32.dp),
-            horizontalArrangement = Arrangement.spacedBy(8.dp)
-        ) {
+        Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
             DotoriButton(
                 modifier = Modifier.weight(1f),
                 text = "자습금지",
@@ -315,6 +307,8 @@ fun FilterBottomSheet(
             ) { selfStudyCheckFilterSelectedState = true }
             Spacer(modifier = Modifier.weight(2f))
         }
+
+        Spacer(modifier = Modifier.weight(1f))
 
         DotoriButton(
             modifier = Modifier
@@ -393,6 +387,5 @@ fun ModifyStudentInfoBottomSheet(
                 .height(48.dp),
             text = "저장"
         ) { onSaveClick() }
-        Spacer(modifier = Modifier.height(24.dp))
     }
 }
