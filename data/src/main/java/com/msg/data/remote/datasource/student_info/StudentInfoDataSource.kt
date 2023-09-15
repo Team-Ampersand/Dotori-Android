@@ -13,7 +13,7 @@ interface StudentInfoDataSource {
         classNum: String,
         grade: Long,
         role: String,
-        selfStudyCheck: Boolean,
+        selfStudyCheck: Boolean
     ): List<SearchStudentInfoResponse>
 
     suspend fun modifyStudentInfo(body: StudentInfoRequest)
