@@ -9,7 +9,7 @@ import retrofit2.http.PUT
 import retrofit2.http.Query
 
 interface StudentInfoApi {
-    @GET("/student-info/")
+    @GET("/student-info")
     suspend fun getAllStudentInfo(): List<StudentInfoResponse>
 
     @GET("/student-info/search")
