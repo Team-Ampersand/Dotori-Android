@@ -137,7 +137,7 @@ fun FilterBottomSheet(
 
     var gradeFilterSelectedState: Int? by remember { mutableStateOf(null) }
     var classFilterSelectedState: String? by remember { mutableStateOf(null) }
-    var genderFilterSelectedState: String? by remember { mutableStateOf(null) }
+    var genderFilterSelectedState: Gender? by remember { mutableStateOf(null) }
     var roleFilterSelectedState: String? by remember { mutableStateOf(null) }
     var selfStudyCheckFilterSelectedState: Boolean? by remember { mutableStateOf(null) }
 
@@ -235,17 +235,17 @@ fun FilterBottomSheet(
             DotoriButton(
                 modifier = Modifier.weight(1f),
                 text = "남자",
-                colors = if (genderFilterSelectedState == "MAN") DotoriTheme.colors.primary10 else Transparent,
+                colors = if (genderFilterSelectedState == Gender.MAN) DotoriTheme.colors.primary10 else Transparent,
                 paddingValues = PaddingValues(vertical = 8.dp),
                 textStyle = DotoriTheme.typography.body2
-            ) { genderFilterSelectedState = "MAN" }
+            ) { genderFilterSelectedState = Gender.MAN }
             DotoriButton(
                 modifier = Modifier.weight(1f),
                 text = "여자",
-                colors = if (genderFilterSelectedState == "WOMAN") DotoriTheme.colors.primary10 else Transparent,
+                colors = if (genderFilterSelectedState == Gender.WOMAN) DotoriTheme.colors.primary10 else Transparent,
                 paddingValues = PaddingValues(vertical = 8.dp),
                 textStyle = DotoriTheme.typography.body2
-            ) { genderFilterSelectedState = "WOMAN" }
+            ) { genderFilterSelectedState = Gender.WOMAN }
             Spacer(modifier = Modifier.weight(2f))
         }
 
@@ -318,7 +318,7 @@ fun FilterBottomSheet(
                 textValue,
                 gradeFilterSelectedState,
                 classFilterSelectedState,
-                genderFilterSelectedState,
+                genderFilterSelectedState.toString(),
                 roleFilterSelectedState,
                 selfStudyCheckFilterSelectedState
             )
