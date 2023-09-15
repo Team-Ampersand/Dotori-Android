@@ -49,7 +49,6 @@ fun StudentInfoBottomSheetContent(
                 onDismiss = onDismiss
             )
         }
-
         StudentInfoBottomSheetType.StudentInfo -> {
             StudentInfoBottomSheet(
                 isBaned = isBaned,
@@ -57,7 +56,6 @@ fun StudentInfoBottomSheetContent(
                 onSelfStudyClick = onSelfStudyClick
             )
         }
-
         else -> {
             ModifyStudentInfoBottomSheet(
                 name = name,
@@ -134,7 +132,6 @@ fun FilterBottomSheet(
     onDismiss: () -> Unit
 ) {
     var textValue: String? by remember { mutableStateOf(null) }
-
     var gradeFilterSelectedState: Int? by remember { mutableStateOf(null) }
     var classFilterSelectedState: String? by remember { mutableStateOf(null) }
     var genderFilterSelectedState: Gender? by remember { mutableStateOf(null) }
@@ -182,7 +179,6 @@ fun FilterBottomSheet(
             trailingIcon = { SearchIcon(tint = DotoriTheme.colors.neutral30) },
             onValueChange = { textValue = it },
         )
-
         Spacer(modifier = Modifier.weight(1f))
         Text(
             modifier = Modifier.padding(bottom = 8.dp),
@@ -203,7 +199,6 @@ fun FilterBottomSheet(
             }
             Spacer(modifier = Modifier.weight(1f))
         }
-
         Spacer(modifier = Modifier.weight(1f))
         Text(
             modifier = Modifier.padding(bottom = 8.dp),
@@ -223,7 +218,6 @@ fun FilterBottomSheet(
                 ) { classFilterSelectedState = classNum }
             }
         }
-
         Spacer(modifier = Modifier.weight(1f))
         Text(
             modifier = Modifier.padding(bottom = 8.dp),
@@ -248,7 +242,6 @@ fun FilterBottomSheet(
             ) { genderFilterSelectedState = Gender.WOMAN }
             Spacer(modifier = Modifier.weight(2f))
         }
-
         Spacer(modifier = Modifier.weight(1f))
         Text(
             modifier = Modifier.padding(bottom = 8.dp),
@@ -280,7 +273,6 @@ fun FilterBottomSheet(
             ) { roleFilterSelectedState = "ROLE_COUNCILLOR" }
             Spacer(modifier = Modifier.weight(1f))
         }
-
         Spacer(modifier = Modifier.weight(1f))
         Text(
             modifier = Modifier.padding(bottom = 8.dp),
@@ -305,7 +297,6 @@ fun FilterBottomSheet(
             ) { selfStudyCheckFilterSelectedState = true }
             Spacer(modifier = Modifier.weight(2f))
         }
-
         Spacer(modifier = Modifier.weight(1f))
         DotoriButton(
             modifier = Modifier
