@@ -163,6 +163,7 @@ fun FilterBottomSheet(
                     interactionSource = remember { MutableInteractionSource() },
                     indication = null,
                     onClick = {
+                        textValue = null
                         gradeFilterSelectedState = null
                         classFilterSelectedState = null
                         genderFilterSelectedState = null
