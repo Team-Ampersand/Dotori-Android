@@ -23,8 +23,8 @@ class StudentInfoDataSourceImpl @Inject constructor(
         selfStudyCheck: Boolean
     ): List<SearchStudentInfoResponse> = safeApiCall {
         studentInfoApi.getSearchStudentInfo(
-            name =  name,
-            gender =  gender,
+            name = name,
+            gender = gender,
             classNum = classNum,
             grade = grade,
             role = role,
