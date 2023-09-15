@@ -50,7 +50,7 @@ fun DotoriHamburgerTopBar(
 @Composable
 fun DotoriHamburgerTopBarPreview() {
     DotoriHamburgerTopBar(
-        onHamburgerClick = { /*TODO*/ },
-        onSwitchClick = { /*TODO*/ }
+        onHamburgerClick = { },
+        onSwitchClick = { }
     )
 }
