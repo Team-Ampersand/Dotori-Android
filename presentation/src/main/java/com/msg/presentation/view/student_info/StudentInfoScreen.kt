@@ -73,6 +73,7 @@ fun StudentInfoScreen(modifier: Modifier = Modifier) {
 
         if (showDialog) {
             DotoriDialog(onDismiss = { showDialog = false }) {
+                dialogState = false
                 StudentInfoDialogContent(
                     isBaned = isBaned,
                     name = "김준",
