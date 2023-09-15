@@ -37,7 +37,7 @@ import kotlinx.coroutines.launch
 @OptIn(ExperimentalFoundationApi::class, ExperimentalMaterialApi::class)
 @Composable
 fun StudentInfoScreen(modifier: Modifier = Modifier) {
-    var currentBottomSheetType by remember { mutableStateOf<StudentInfoBottomSheetType?>(null) }
+    var currentBottomSheetType by remember { mutableStateOf(StudentInfoBottomSheetType.StudentInfo) }
     var isBaned by remember { mutableStateOf(false) }
     var showDialog by remember { mutableStateOf(false) }
     var name by remember { mutableStateOf("김준") }
