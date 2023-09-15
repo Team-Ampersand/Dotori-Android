@@ -43,6 +43,7 @@ fun StudentInfoScreen(modifier: Modifier = Modifier) {
     var name by remember { mutableStateOf("김준") }
     var studentId by remember { mutableStateOf("2105") }
     var sheetCloseState by remember { mutableStateOf(false) }
+    var dialogState by remember { mutableStateOf(false) }
     val coroutineScope = rememberCoroutineScope()
 
     DotoriBottomSheetDialog(
@@ -54,9 +55,12 @@ fun StudentInfoScreen(modifier: Modifier = Modifier) {
                     name = name,
                     studentId = studentId,
                     onModifyClick = { currentBottomSheetType = StudentInfoBottomSheetType.ModifyStudentInfo },
-                    onSelfStudyClick = { showDialog = true },
+                    onSelfStudyClick = {
+                        dialogState = true
+                        sheetCloseState = true
+                    },
                     onDismiss = { sheetCloseState = true },
-                    onSaveClick = { sheetCloseState = true  }
+                    onSaveClick = { sheetCloseState = true }
                 )
             }
         }
@@ -64,6 +68,7 @@ fun StudentInfoScreen(modifier: Modifier = Modifier) {
         LaunchedEffect(sheetCloseState) {
             sheetState.hide()
             sheetCloseState = false
+            if (dialogState) showDialog = true
         }
 
         if (showDialog) {
