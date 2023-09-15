@@ -191,12 +191,10 @@ fun FilterBottomSheet(
             style = DotoriTheme.typography.smallTitle,
             color = DotoriTheme.colors.neutral10
         )
-        Row {
+        Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
             repeat(3) {
                 DotoriButton(
-                    modifier = Modifier
-                        .padding(end = 8.dp)
-                        .weight(1f),
+                    modifier = Modifier.weight(1f),
                     text = "${it + 1}",
                     colors = if ((it + 1) == gradeFilterSelectedState) DotoriTheme.colors.primary10 else Transparent,
                     paddingValues = PaddingValues(vertical = 8.dp),
@@ -215,12 +213,10 @@ fun FilterBottomSheet(
             style = DotoriTheme.typography.smallTitle,
             color = DotoriTheme.colors.neutral10
         )
-        Row {
+        Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
             repeat(4) {
                 DotoriButton(
-                    modifier = Modifier
-                        .padding(end = 8.dp)
-                        .weight(1f),
+                    modifier = Modifier.weight(1f),
                     text = "${it + 1}",
                     colors = if ((it + 1).toString() == classFilterSelectedState) DotoriTheme.colors.primary10 else Transparent,
                     paddingValues = PaddingValues(vertical = 8.dp),
@@ -238,20 +234,16 @@ fun FilterBottomSheet(
             style = DotoriTheme.typography.smallTitle,
             color = DotoriTheme.colors.neutral10
         )
-        Row {
+        Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
             DotoriButton(
-                modifier = Modifier
-                    .padding(end = 8.dp)
-                    .weight(1f),
+                modifier = Modifier.weight(1f),
                 text = "남자",
                 colors = if (genderFilterSelectedState == "MAN") DotoriTheme.colors.primary10 else Transparent,
                 paddingValues = PaddingValues(vertical = 8.dp),
                 textStyle = DotoriTheme.typography.body2
             ) { genderFilterSelectedState = "MAN" }
             DotoriButton(
-                modifier = Modifier
-                    .padding(end = 8.dp)
-                    .weight(1f),
+                modifier = Modifier.weight(1f),
                 text = "여자",
                 colors = if (genderFilterSelectedState == "WOMAN") DotoriTheme.colors.primary10 else Transparent,
                 paddingValues = PaddingValues(vertical = 8.dp),
@@ -269,29 +261,23 @@ fun FilterBottomSheet(
             style = DotoriTheme.typography.smallTitle,
             color = DotoriTheme.colors.neutral10
         )
-        Row {
+        Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
             DotoriButton(
-                modifier = Modifier
-                    .padding(end = 8.dp)
-                    .weight(1f),
+                modifier = Modifier.weight(1f),
                 text = "학생",
                 colors = if (roleFilterSelectedState == "ROLE_MEMBER") DotoriTheme.colors.primary10 else Transparent,
                 paddingValues = PaddingValues(vertical = 8.dp),
                 textStyle = DotoriTheme.typography.body2
             ) { roleFilterSelectedState = "ROLE_MEMBER" }
             DotoriButton(
-                modifier = Modifier
-                    .padding(end = 8.dp)
-                    .weight(1f),
+                modifier = Modifier.weight(1f),
                 text = "개발자",
                 colors = if (roleFilterSelectedState == "ROLE_DEVELOPER") DotoriTheme.colors.primary10 else Transparent,
                 paddingValues = PaddingValues(vertical = 8.dp),
                 textStyle = DotoriTheme.typography.body2
             ) { roleFilterSelectedState = "ROLE_DEVELOPER" }
             DotoriButton(
-                modifier = Modifier
-                    .padding(end = 8.dp)
-                    .weight(1f),
+                modifier = Modifier.weight(1f),
                 text = "자치위원",
                 colors = if (roleFilterSelectedState == "ROLE_COUNCILLOR") DotoriTheme.colors.primary10 else Transparent,
                 paddingValues = PaddingValues(vertical = 8.dp),
@@ -309,20 +295,19 @@ fun FilterBottomSheet(
             style = DotoriTheme.typography.smallTitle,
             color = DotoriTheme.colors.neutral10
         )
-        Row(modifier = Modifier.padding(bottom = 32.dp)) {
+        Row(
+            modifier = Modifier.padding(bottom = 32.dp),
+            horizontalArrangement = Arrangement.spacedBy(8.dp)
+        ) {
             DotoriButton(
-                modifier = Modifier
-                    .padding(end = 8.dp)
-                    .weight(1f),
+                modifier = Modifier.weight(1f),
                 text = "자습금지",
                 colors = if (selfStudyCheckFilterSelectedState == false) DotoriTheme.colors.primary10 else Transparent,
                 paddingValues = PaddingValues(vertical = 8.dp),
                 textStyle = DotoriTheme.typography.body2
             ) { selfStudyCheckFilterSelectedState = false }
             DotoriButton(
-                modifier = Modifier
-                    .padding(end = 8.dp)
-                    .weight(1f),
+                modifier = Modifier.weight(1f),
                 text = "자습가능",
                 colors = if (selfStudyCheckFilterSelectedState == true) DotoriTheme.colors.primary10 else Transparent,
                 paddingValues = PaddingValues(vertical = 8.dp),
