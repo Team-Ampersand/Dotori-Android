@@ -14,12 +14,12 @@ interface StudentInfoApi {
 
     @GET("/student-info/search")
     suspend fun getSearchStudentInfo(
-        @Query("name") name: String,
-        @Query("gender") gender: String,
-        @Query("classNum") classNum: String,
-        @Query("grade") grade: Long,
-        @Query("role") role: String,
-        @Query("selfStudyCheck") selfStudyCheck: Boolean,
+        @Query("name") name: String? = null,
+        @Query("gender") gender: String? = null,
+        @Query("classNum") classNum: String? = null,
+        @Query("grade") grade: String? = null,
+        @Query("role") role: String? = null,
+        @Query("selfStudy") selfStudy: Boolean? = null,
     ): List<SearchStudentInfoResponse>
 
     @PUT("/student-info/modify")
