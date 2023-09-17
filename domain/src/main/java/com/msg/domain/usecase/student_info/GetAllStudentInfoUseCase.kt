@@ -1,0 +1,10 @@
+package com.msg.domain.usecase.student_info
+
+import com.msg.domain.repository.StudentInfoRepository
+import javax.inject.Inject
+
+class GetAllStudentInfoUseCase @Inject constructor(
+    private val studentInfoRepository: StudentInfoRepository
+) {
+    suspend operator fun invoke() = kotlin.runCatching { studentInfoRepository.getAllStudentInfo() }
+}

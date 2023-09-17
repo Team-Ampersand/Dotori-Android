@@ -2,8 +2,12 @@ package com.msg.dotori.module
 
 import com.msg.data.repository.AuthRepositoryImpl
 import com.msg.data.repository.MusicRepositoryImpl
+import com.msg.data.repository.SelfStudyRepositoryImpl
+import com.msg.data.repository.StudentInfoRepositoryImpl
 import com.msg.domain.repository.AuthRepository
 import com.msg.domain.repository.MusicRepository
+import com.msg.domain.repository.SelfStudyRepository
+import com.msg.domain.repository.StudentInfoRepository
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -17,4 +21,10 @@ interface RepositoryModule {
 
     @Binds
     fun bindsMusicRepository(musicRepositoryImpl: MusicRepositoryImpl): MusicRepository
+
+    @Binds
+    fun bindsSelfStudyRepository(selfStudyRepositoryImpl: SelfStudyRepositoryImpl): SelfStudyRepository
+
+    @Binds
+    fun bindsStudentInfoRepository(studentInfoRepositoryImpl: StudentInfoRepositoryImpl): StudentInfoRepository
 }
