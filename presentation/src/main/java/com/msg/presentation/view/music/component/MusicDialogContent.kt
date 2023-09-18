@@ -1,4 +1,4 @@
-package com.msg.presentation.view.music
+package com.msg.presentation.view.music.component
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column

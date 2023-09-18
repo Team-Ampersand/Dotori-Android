@@ -40,6 +40,11 @@ import com.msg.domain.model.music.response.MusicResponseModel
 import com.msg.presentation.R
 import com.msg.presentation.viewmodel.MusicViewModel
 import com.msg.presentation.viewmodel.util.Event
+import com.msg.presentation.view.music.component.BottomSheetContent
+import com.msg.presentation.view.music.component.BottomSheetType
+import com.msg.presentation.view.music.component.DotoriTopBar
+import com.msg.presentation.view.music.component.MusicDialogContent
+import com.msg.presentation.view.music.component.MusicHeader
 import kotlinx.coroutines.launch
 import java.time.LocalDate
 import java.time.LocalDateTime

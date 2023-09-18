@@ -26,4 +26,5 @@ object Versions {
     const val ACTIVITY_COMPOSE = "1.3.1"
     const val COMPOSE_MATERIAL = "1.2.0"
     const val COMPOSE_COMPILER = "1.3.2"
+    const val NAVIGATION_COMPOSE = "2.6.0"
 }
