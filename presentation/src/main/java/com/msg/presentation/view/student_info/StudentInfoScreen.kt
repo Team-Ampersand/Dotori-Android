@@ -181,10 +181,10 @@ fun StudentInfoScreen(
                                 role = allStudentInfoList[it].role
                                 gender = allStudentInfoList[it].gender
                                 isBaned = when(allStudentInfoList[it].selfStudyStatus) {
-                                    SelfStudyStatusModel.CAN -> { false } // 자습 가능
-                                    SelfStudyStatusModel.APPLIED -> { false } // 자습 신청됨
-                                    SelfStudyStatusModel.CANT -> { true } // 자습 불가(자습신청 후 취소했을 때)
-                                    SelfStudyStatusModel.IMPOSSIBLE -> { true } // 자습 불가(강제로 자습 막았을 때)
+                                    SelfStudyStatusModel.CAN -> false // 자습 가능
+                                    SelfStudyStatusModel.APPLIED -> false // 자습 신청됨
+                                    SelfStudyStatusModel.CANT -> true // 자습 불가(자습신청 후 취소했을 때)
+                                    SelfStudyStatusModel.IMPOSSIBLE -> true // 자습 불가(강제로 자습 막았을 때)
                                 }
                                 coroutineScope.launch { sheetState.show() }
                             }
