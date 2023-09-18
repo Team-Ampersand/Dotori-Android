@@ -58,7 +58,7 @@ fun MusicScreen(
 ) {
     var showDialog by remember { mutableStateOf(false) }
     var currentBottomSheetType by remember { mutableStateOf(BottomSheetType.Option) }
-    var musicUrl by remember { mutableStateOf("") }
+    var requestUrl by remember { mutableStateOf("") }
     var youtubeUrl by remember { mutableStateOf("") }
     var musicId by remember { mutableStateOf<Long>(-1) }
     var selectedDay by remember { mutableStateOf(LocalDate.now()) }
@@ -84,12 +84,12 @@ fun MusicScreen(
         if (showDialog) {
             DotoriDialog(onDismiss = { showDialog = false }) {
                 MusicDialogContent(
-                    url = musicUrl,
-                    onValueChange = { musicUrl = it }
+                    url = requestUrl,
+                    onValueChange = { requestUrl = it }
                 ) {
                     musicViewModel.requestMusic(
                         role = "",
-                        body = MusicRequestModel(url = musicUrl)
+                        body = MusicRequestModel(url = requestUrl)
                     )
                 }
             }
