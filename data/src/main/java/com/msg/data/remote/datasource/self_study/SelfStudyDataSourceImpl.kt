@@ -4,6 +4,7 @@ import com.msg.data.remote.dto.self_study.SelfStudyInfoResponse
 import com.msg.data.remote.dto.self_study.SelfStudyListResponse
 import com.msg.data.remote.network.SelfStudyApi
 import com.msg.data.remote.util.safeApiCall
+import okhttp3.ResponseBody
 import javax.inject.Inject
 
 class SelfStudyDataSourceImpl @Inject constructor(
@@ -47,11 +48,11 @@ class SelfStudyDataSourceImpl @Inject constructor(
         )
     }
 
-    override suspend fun selfStudy(role: String) = safeApiCall {
+    override suspend fun selfStudy(role: String): ResponseBody = safeApiCall {
         selfStudyApi.selfStudy(role = role)
     }
 
-    override suspend fun cancelSelfStudy(role: String) = safeApiCall {
+    override suspend fun cancelSelfStudy(role: String): ResponseBody = safeApiCall {
         selfStudyApi.cancelSelfStudy(role = role)
     }
 

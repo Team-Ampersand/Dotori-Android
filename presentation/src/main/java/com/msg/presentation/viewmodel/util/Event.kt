@@ -3,6 +3,7 @@ package com.msg.presentation.viewmodel.util
 sealed class Event<out T>(val data: T? = null) {
     object Loading : Event<Nothing>()
     class Success<T>(data: T? = null) : Event<T>(data = data)
+    object Accepted : Event<Nothing>()
     object BadRequest : Event<Nothing>()
     object Unauthorized : Event<Nothing>()
     object ForBidden : Event<Nothing>()

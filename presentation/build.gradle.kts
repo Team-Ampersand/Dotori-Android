@@ -40,6 +40,9 @@ android {
 dependencies {
     implementation(project(":domain"))
 
+    // okhttp
+    implementation(Dependency.Libraries.OKHTTP)
+
     implementation(Dependency.Androidx.CORE_KTX)
     implementation(Dependency.Androidx.APP_COMPAT)
     implementation(Dependency.Androidx.VIEWMODEl)

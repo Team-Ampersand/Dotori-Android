@@ -2,6 +2,7 @@ package com.msg.data.remote.datasource.self_study
 
 import com.msg.data.remote.dto.self_study.SelfStudyInfoResponse
 import com.msg.data.remote.dto.self_study.SelfStudyListResponse
+import okhttp3.ResponseBody
 
 interface SelfStudyDataSource {
     suspend fun getSelfStudyInfo(
@@ -30,9 +31,9 @@ interface SelfStudyDataSource {
         userId: Long
     )
 
-    suspend fun selfStudy(role: String)
+    suspend fun selfStudy(role: String): ResponseBody
 
-    suspend fun cancelSelfStudy(role: String)
+    suspend fun cancelSelfStudy(role: String): ResponseBody
 
     suspend fun changeSelfStudyLimit(
         role: String,

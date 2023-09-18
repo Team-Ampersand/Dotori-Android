@@ -6,6 +6,7 @@ import com.msg.data.remote.dto.self_study.asSelfStudyListResponseModel
 import com.msg.domain.model.self_study.SelfStudyInfoResponseModel
 import com.msg.domain.model.self_study.SelfStudyListResponseModel
 import com.msg.domain.repository.SelfStudyRepository
+import okhttp3.ResponseBody
 import javax.inject.Inject
 
 class SelfStudyRepositoryImpl @Inject constructor(
@@ -43,10 +44,10 @@ class SelfStudyRepositoryImpl @Inject constructor(
             userId = userId
         )
 
-    override suspend fun selfStudy(role: String) =
+    override suspend fun selfStudy(role: String): ResponseBody =
         selfStudyDataSource.selfStudy(role)
 
-    override suspend fun cancelSelfStudy(role: String) =
+    override suspend fun cancelSelfStudy(role: String): ResponseBody =
         selfStudyDataSource.cancelSelfStudy(role)
 
     override suspend fun changeSelfStudyLimit(role: String, limit: Int) =
