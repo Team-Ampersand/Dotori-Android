@@ -12,7 +12,7 @@ class GetSearchStudentInfoUseCase @Inject constructor(
         classNum: String?,
         grade: String?,
         role: String?,
-        selfStudy: Boolean?,
+        selfStudy: Boolean?
     ) = kotlin.runCatching { studentInfoRepository.getSearchStudentInfo(
             name = name,
             gender = gender,
