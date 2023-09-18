@@ -1,7 +1,7 @@
 package com.msg.data.remote.datasource.music
 
-import com.msg.data.remote.dto.music.MusicRequest
-import com.msg.data.remote.dto.music.MusicResponse
+import com.msg.data.remote.dto.music.request.MusicRequest
+import com.msg.data.remote.dto.music.response.MusicResponse
 
 interface MusicDataSource {
     suspend fun getMusics(role: String, date: String): List<MusicResponse>
