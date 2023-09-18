@@ -19,6 +19,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.dotori.dotori_components.components.button.DotoriButton
 import com.dotori.dotori_components.components.text_field.DotoriTextField
 import com.dotori.dotori_components.theme.DotoriTheme
@@ -28,6 +29,8 @@ import com.dotori.dotori_components.theme.SelfStudyAllowIcon
 import com.dotori.dotori_components.theme.SelfStudyDisallowIcon
 import com.dotori.dotori_components.theme.Transparent
 import com.dotori.dotori_components.theme.XMarkIcon2
+import com.msg.domain.model.student_info.StudentInfoRequestModel
+import com.msg.presentation.viewmodel.StudentInfoViewModel
 
 @Composable
 fun StudentInfoBottomSheetContent(
@@ -39,13 +42,19 @@ fun StudentInfoBottomSheetContent(
     onSelfStudyClick: () -> Unit,
     onSaveClick: () -> Unit,
     onDismiss: () -> Unit,
+    onSearchLogic: (
+        searchText: String?,
+        grade: String?,
+        `class`: String?,
+        gender: String?,
+        role: String?,
+        selfStudyCheck: Boolean?
+    ) -> Unit
 ) {
     when (bottomSheetType) {
         StudentInfoBottomSheetType.Filter -> {
             FilterBottomSheet(
-                onSearchLogic = { searchText, grade, `class`, gender, role, selfStudyCheck ->
-
-                },
+                onSearchLogic = onSearchLogic,
                 onDismiss = onDismiss
             )
         }
@@ -123,7 +132,7 @@ fun StudentInfoBottomSheet(
 fun FilterBottomSheet(
     onSearchLogic: (
         searchText: String?,
-        grade: Int?,
+        grade: String?,
         `class`: String?,
         gender: String?,
         role: String?,
@@ -132,7 +141,7 @@ fun FilterBottomSheet(
     onDismiss: () -> Unit
 ) {
     var textValue: String? by remember { mutableStateOf(null) }
-    var gradeFilterSelectedState: Int? by remember { mutableStateOf(null) }
+    var gradeFilterSelectedState: String? by remember { mutableStateOf(null) }
     var classFilterSelectedState: String? by remember { mutableStateOf(null) }
     var genderFilterSelectedState: Gender? by remember { mutableStateOf(null) }
     var roleFilterSelectedState: String? by remember { mutableStateOf(null) }
@@ -188,10 +197,10 @@ fun FilterBottomSheet(
         )
         Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
             repeat(3) {
-                val grade = it + 1
+                val grade = (it + 1).toString()
                 DotoriButton(
                     modifier = Modifier.weight(1f),
-                    text = grade.toString(),
+                    text = grade,
                     colors = if (grade == gradeFilterSelectedState) DotoriTheme.colors.primary10 else Transparent,
                     paddingValues = PaddingValues(vertical = 8.dp),
                     textStyle = DotoriTheme.typography.body2

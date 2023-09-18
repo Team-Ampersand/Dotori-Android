@@ -20,6 +20,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.dotori.dotori_components.components.bottomsheet.DotoriBottomSheetDialog
 import com.dotori.dotori_components.components.dialog.DotoriDialog
 import com.dotori.dotori_components.components.drawer.DotoriDrawerView
@@ -27,21 +28,30 @@ import com.dotori.dotori_components.components.drawer.DrawerItemData
 import com.dotori.dotori_components.components.drawer.Icons
 import com.dotori.dotori_components.components.student_info.DotoriStudentInfoListItem
 import com.dotori.dotori_components.theme.DotoriTheme
+import com.msg.domain.model.student_info.SelfStudyStatusModel
+import com.msg.domain.model.student_info.StudentInfoRequestModel
 import com.msg.presentation.view.student_info.component.DotoriHamburgerTopBar
 import com.msg.presentation.view.student_info.component.StudentInfoBottomSheetContent
 import com.msg.presentation.view.student_info.component.StudentInfoBottomSheetType
 import com.msg.presentation.view.student_info.component.StudentInfoDialogContent
 import com.msg.presentation.view.student_info.component.StudentInfoHeader
+import com.msg.presentation.viewmodel.StudentInfoViewModel
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalFoundationApi::class, ExperimentalMaterialApi::class)
 @Composable
-fun StudentInfoScreen(modifier: Modifier = Modifier) {
+fun StudentInfoScreen(
+    modifier: Modifier = Modifier,
+    studentInfoViewModel: StudentInfoViewModel = hiltViewModel()
+) {
     var currentBottomSheetType by remember { mutableStateOf(StudentInfoBottomSheetType.StudentInfo) }
     var isBaned by remember { mutableStateOf(false) }
     var showDialog by remember { mutableStateOf(false) }
     var name by remember { mutableStateOf("김준") }
     var studentId by remember { mutableStateOf("2105") }
+    var userId by remember { mutableStateOf(0L) }
+    var role by remember { mutableStateOf("") }
+    var gender by remember { mutableStateOf("") }
     var sheetCloseState by remember { mutableStateOf(false) }
     var dialogState by remember { mutableStateOf(false) }
     val coroutineScope = rememberCoroutineScope()
@@ -60,7 +70,28 @@ fun StudentInfoScreen(modifier: Modifier = Modifier) {
                         sheetCloseState = true
                     },
                     onDismiss = { sheetCloseState = true },
-                    onSaveClick = { sheetCloseState = true }
+                    onSaveClick = {
+                        studentInfoViewModel.modifyStudentInfo(
+                            StudentInfoRequestModel(
+                                userId = userId,
+                                memberName = name,
+                                stuNum = studentId,
+                                gender = gender,
+                                role = role
+                            )
+                        )
+                        sheetCloseState = true
+                    },
+                    onSearchLogic = { searchText, grade, `class`, gender, role, selfStudyCheck ->
+                        studentInfoViewModel.getSearchStudentInfo(
+                            name = searchText,
+                            grade = grade,
+                            classNum = `class`,
+                            gender = gender,
+                            role = role,
+                            selfStudy = selfStudyCheck
+                        )
+                    },
                 )
             }
         }
@@ -77,7 +108,17 @@ fun StudentInfoScreen(modifier: Modifier = Modifier) {
                 StudentInfoDialogContent(
                     isBaned = isBaned,
                     name = "김준",
-                    onSubmit = { showDialog = false },
+                    onSubmit = {
+                        if (isBaned) studentInfoViewModel.banCancelSelfStudy(
+                            role = role,
+                            userId = userId
+                        )
+                        else studentInfoViewModel.banSelfStudy(
+                            role = role,
+                            userId = userId
+                        )
+                        showDialog = false
+                    },
                     onCancel = { showDialog = false }
                 )
             }
@@ -122,21 +163,29 @@ fun StudentInfoScreen(modifier: Modifier = Modifier) {
                             coroutineScope.launch { sheetState.show() }
                         }
                     }
-                    items(15) {
+                    studentInfoViewModel.getAllStudentInfo()
+                    val allStudentInfoList = studentInfoViewModel.getAllStudentInfoUiState.value.data!!
+                    items(allStudentInfoList.size) {
                         Row(modifier = Modifier.padding(horizontal = 20.dp)) {
                             DotoriStudentInfoListItem(
-                                imageUrl = "",
-                                name = "김준",
-                                studentId = "1101",
-                                gender = "MAN",
-                                role = when (it) { // 테스트용으로 디자인이랑 똑같이 할려고 when문을 사용했습니다
-                                    3 -> "ROLE_COUNCILLOR"
-                                    4 -> "ROLE_DEVELOPER"
-                                    else -> "ROLE_MEMBER"
-                                }
+                                imageUrl = "", // 아직 서버에서 imageUrl를 넘겨주지 않습니다
+                                name = allStudentInfoList[it].memberName,
+                                studentId = allStudentInfoList[it].stuNum,
+                                gender = allStudentInfoList[it].gender,
+                                role = allStudentInfoList[it].role
                             ) {
                                 currentBottomSheetType = StudentInfoBottomSheetType.StudentInfo
-                                isBaned = it == 3 // 테스트 용으로 넣었습니다.
+                                userId = it.toLong()
+                                name = allStudentInfoList[it].memberName
+                                studentId = allStudentInfoList[it].stuNum
+                                role = allStudentInfoList[it].role
+                                gender = allStudentInfoList[it].gender
+                                isBaned = when(allStudentInfoList[it].selfStudyStatus) {
+                                    SelfStudyStatusModel.CAN -> { false } // 자습 가능
+                                    SelfStudyStatusModel.APPLIED -> { false } // 자습 신청됨
+                                    SelfStudyStatusModel.CANT -> { true } // 자습 불가(자습신청 후 취소했을 때)
+                                    SelfStudyStatusModel.IMPOSSIBLE -> { true } // 자습 불가(강제로 자습 막았을 때)
+                                }
                                 coroutineScope.launch { sheetState.show() }
                             }
                         }
