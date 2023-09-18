@@ -45,6 +45,7 @@ import com.msg.presentation.view.music.component.BottomSheetType
 import com.msg.presentation.view.music.component.DotoriTopBar
 import com.msg.presentation.view.music.component.MusicDialogContent
 import com.msg.presentation.view.music.component.MusicHeader
+import com.msg.presentation.view.util.updateDotoriTheme
 import kotlinx.coroutines.launch
 import java.time.LocalDate
 import java.time.LocalDateTime
@@ -102,14 +103,14 @@ fun MusicScreen(
                 val musicList = musicState.data!!
                 if (musicList.isEmpty()) {
                     EmptyMusicContent(
-                        onSwitchClick = { /*TODO*/ },
+                        onSwitchClick = { DotoriTheme.updateDotoriTheme() },
                         onMusicClick = { showDialog = true },
                         onCalendarClick = { showBottomSheet(BottomSheetType.Calendar) }
                     )
                 } else {
                     MusicListContent(
                         musicList = musicList,
-                        onSwitchClick = { /*TODO*/ },
+                        onSwitchClick = { DotoriTheme.updateDotoriTheme() },
                         onMusicClick = { showDialog = true },
                         onCalendarClick = { showBottomSheet(BottomSheetType.Calendar) },
                         onOptionClicked = {
