@@ -20,7 +20,7 @@ class LocalDataSourceImpl @Inject constructor(
         private val ACCESS_TOKEN = stringPreferencesKey("access_token")
         private val REFRESH_TOKEN = stringPreferencesKey("refresh_token")
         private val EXPIRES_AT = stringPreferencesKey("expires_at")
-        private val ROLE = stringPreferencesKey("role")
+        private val ROLE = stringPreferencesKey("roles")
     }
 
     override suspend fun saveToken(accessToken: String, refreshToken: String, expiresAt: String) {
@@ -31,9 +31,9 @@ class LocalDataSourceImpl @Inject constructor(
         }
     }
 
-    override suspend fun saveRole(role: String) {
+    override suspend fun saveRole(roles: String) {
         context.dataStore.edit {
-            it[ROLE] = role
+            it[ROLE] = roles
         }
     }
 

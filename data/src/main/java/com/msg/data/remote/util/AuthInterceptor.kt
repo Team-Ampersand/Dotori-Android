@@ -56,11 +56,11 @@ class AuthInterceptor @Inject constructor(
                 val token = JsonParser.parseString(response.body!!.string()) as JsonObject
                 runBlocking {
                     localDataSource.saveToken(
-                        accessToken = token["access_token"].asString,
-                        refreshToken = token["refresh_token"].asString,
-                        expiresAt = token["expires_at"].asString
+                        accessToken = token["accessToken"].asString,
+                        refreshToken = token["refreshToken"].asString,
+                        expiresAt = token["expiresAt"].asString
                     )
-                    localDataSource.saveRole(token["role"].asString)
+                    localDataSource.saveRole(token["roles"].asString)
                 }
             } else throw TokenExpiredException()
         }

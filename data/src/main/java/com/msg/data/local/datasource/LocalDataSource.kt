@@ -9,7 +9,7 @@ interface LocalDataSource {
         expiresAt: String
     )
 
-    suspend fun saveRole(role: String)
+    suspend fun saveRole(roles: String)
 
     fun getAccessToken(): Flow<String>
 
