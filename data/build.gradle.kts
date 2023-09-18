@@ -29,6 +29,12 @@ android {
             "DEVELOP_URL",
             getApiKey("DEVELOP_URL")
         )
+
+        buildConfigField(
+            "String",
+            "OEMBED_URL",
+            getApiKey("OEMBED_URL")
+        )
     }
 
     buildTypes {
