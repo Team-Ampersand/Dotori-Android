@@ -27,6 +27,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -58,11 +59,13 @@ fun MusicScreen(
     var showDialog by remember { mutableStateOf(false) }
     var currentBottomSheetType by remember { mutableStateOf(BottomSheetType.Option) }
     var musicUrl by remember { mutableStateOf("") }
+    var youtubeUrl by remember { mutableStateOf("") }
     var musicId by remember { mutableStateOf<Long>(-1) }
     var selectedDay by remember { mutableStateOf(LocalDate.now()) }
 
     val coroutineScope = rememberCoroutineScope()
     val musicState by musicViewModel.musicUiState.collectAsState()
+    val uriHandler = LocalUriHandler.current
 
     LaunchedEffect(Unit) {
         musicViewModel.getMusics(role = "", date = selectedDay.toString())
@@ -72,7 +75,7 @@ fun MusicScreen(
         sheetContent = {
             BottomSheetContent(
                 bottomSheetType = currentBottomSheetType,
-                onLinkClick = { /*TODO*/ },
+                onLinkClick = { uriHandler.openUri(youtubeUrl) },
                 onDeleteClick = { musicViewModel.deleteMusic(role = "", musicId = musicId) },
                 onDaySelected = { selectedDay = it }
             )
@@ -112,11 +115,12 @@ fun MusicScreen(
                         onSwitchClick = { /*TODO*/ },
                         onMusicClick = { showDialog = true },
                         onCalendarClick = { showBottomSheet(BottomSheetType.Calendar) },
-                        onOptionClicked = {
-                            musicId = it
+                        onOptionClicked = { id, url ->
+                            musicId = id
+                            youtubeUrl = url
                             showBottomSheet(BottomSheetType.Option)
                         },
-                        onItemClicked = { /*TODO*/ }
+                        onItemClicked = { uriHandler.openUri(it) }
                     )
                 }
             }
@@ -132,8 +136,8 @@ fun MusicListContent(
     onSwitchClick: (Boolean) -> Unit,
     onMusicClick: () -> Unit,
     onCalendarClick: () -> Unit,
-    onItemClicked: () -> Unit,
-    onOptionClicked: (Long) -> Unit
+    onItemClicked: (id: String) -> Unit,
+    onOptionClicked: (id: Long, url: String) -> Unit
 ) {
     CompositionLocalProvider(
         LocalOverscrollConfiguration provides null
@@ -188,8 +192,12 @@ fun MusicListContent(
                         title = "10cm- 서랍(그 해 우리는 OST Part.1)/가사 Audio Lyrics 21.12.07 New Release",
                         name = "${musicList[it].stuNum} ${musicList[it].username}",
                         date = "${createdLocalDateTime.hour}시 ${createdLocalDateTime.minute}분",
-                        onItemClicked = onItemClicked,
-                        onOptionClicked = { onOptionClicked(musicList[it].id) }
+                        onItemClicked = {
+                            onItemClicked(musicList[it].url)
+                        },
+                        onOptionClicked = { 
+                            onOptionClicked(musicList[it].id, musicList[it].url) 
+                        }
                     )
                 }
             }
