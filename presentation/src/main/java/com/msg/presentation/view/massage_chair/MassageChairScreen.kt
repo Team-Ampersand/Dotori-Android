@@ -17,6 +17,7 @@ import com.dotori.dotori_components.theme.DotoriTheme
 import com.msg.presentation.view.component.DotoriTopBar
 import com.msg.presentation.view.massage_chair.component.EmptyMassageChairScreen
 import com.msg.presentation.view.massage_chair.component.MassageChairTopBar
+import com.msg.presentation.view.util.updateDotoriTheme
 
 @Composable
 fun MassageChairScreen() {
@@ -30,7 +31,7 @@ fun MassageChairScreen() {
 @OptIn(ExperimentalFoundationApi::class)
 fun MassageChairStudentListContent(list: List<Int>) {
     LazyColumn(modifier = Modifier.fillMaxSize()) {
-        item { DotoriTopBar(onSwitchClick = {}) }
+        item { DotoriTopBar(onSwitchClick = { DotoriTheme.updateDotoriTheme() }) }
 
         item {
             Divider(
@@ -60,7 +61,7 @@ fun MassageChairStudentListContent(list: List<Int>) {
 @Composable
 fun MassageChairIsEmptyContent() {
     Column(modifier = Modifier.fillMaxSize()) {
-        DotoriTopBar(onSwitchClick = {})
+        DotoriTopBar(onSwitchClick = { DotoriTheme.updateDotoriTheme() })
         Divider(
             modifier = Modifier.fillMaxWidth(),
             thickness = 1.dp,
