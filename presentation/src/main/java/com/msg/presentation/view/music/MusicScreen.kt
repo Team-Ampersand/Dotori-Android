@@ -142,7 +142,10 @@ fun MusicListContent(
         LazyColumn(modifier = Modifier.fillMaxSize()) {
             item {
                 Column(verticalArrangement = Arrangement.Center) {
-                    DotoriTopBar(onSwitchClick = onSwitchClick)
+                    DotoriTopBar(
+                        isDark = DotoriTheme.isSystemIsDarkTheme(),
+                        onSwitchClick = onSwitchClick
+                    )
                     Divider(
                         thickness = 1.dp,
                         color = DotoriTheme.colors.neutral40
@@ -216,7 +219,10 @@ fun EmptyMusicContent(
             .background(DotoriTheme.colors.background)
     ) {
         Column {
-            DotoriTopBar(onSwitchClick = onSwitchClick)
+            DotoriTopBar(
+                isDark = DotoriTheme.isSystemIsDarkTheme(),
+                onSwitchClick = onSwitchClick
+            )
             MusicHeader(
                 onMusicClick = onMusicClick,
                 onCalendarClick = onCalendarClick

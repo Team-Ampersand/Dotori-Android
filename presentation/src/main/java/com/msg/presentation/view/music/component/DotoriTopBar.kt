@@ -14,7 +14,10 @@ import com.dotori.dotori_components.theme.DotoriText
 import com.dotori.dotori_components.theme.White
 
 @Composable
-fun DotoriTopBar(onSwitchClick: (Boolean) -> Unit) {
+fun DotoriTopBar(
+    isDark: Boolean,
+    onSwitchClick: (Boolean) -> Unit
+) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -24,6 +27,9 @@ fun DotoriTopBar(onSwitchClick: (Boolean) -> Unit) {
         verticalAlignment = Alignment.CenterVertically
     ) {
         DotoriText()
-        DotoriThemeSwitchButton(onSwitchClick = onSwitchClick)
+        DotoriThemeSwitchButton(
+            isDark = isDark,
+            onSwitchClick = onSwitchClick
+        )
     }
 }
