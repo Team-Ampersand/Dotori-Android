@@ -33,6 +33,11 @@ import com.dotori.dotori_components.components.dialog.DotoriDialog
 import com.dotori.dotori_components.components.music.DotoriMusicListItem
 import com.dotori.dotori_components.theme.DotoriTheme
 import com.msg.presentation.R
+import com.msg.presentation.view.music.component.BottomSheetContent
+import com.msg.presentation.view.music.component.BottomSheetType
+import com.msg.presentation.view.music.component.DotoriTopBar
+import com.msg.presentation.view.music.component.MusicDialogContent
+import com.msg.presentation.view.music.component.MusicHeader
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterialApi::class)
