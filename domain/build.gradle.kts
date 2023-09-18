@@ -32,6 +32,9 @@ android {
 }
 
 dependencies {
+    // okhttp
+    implementation(Dependency.Libraries.OKHTTP)
+
     implementation(Dependency.Androidx.CORE_KTX)
     implementation(Dependency.Androidx.APP_COMPAT)
 
