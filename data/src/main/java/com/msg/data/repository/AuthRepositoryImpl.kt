@@ -25,4 +25,6 @@ class AuthRepositoryImpl @Inject constructor(
         refreshToken,
         expiresAt
     )
+
+    override suspend fun saveRole(roles: String) = localDataSource.saveRole(roles)
 }
