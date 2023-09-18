@@ -170,21 +170,21 @@ fun EmptyMusicContent(
         R.drawable.ic_empty_music_icon_light
     }
 
-    Column(
+    Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(DotoriTheme.colors.background),
-        horizontalAlignment = Alignment.CenterHorizontally
+            .background(DotoriTheme.colors.background)
     ) {
-        DotoriTopBar(onSwitchClick = onSwitchClick)
-        MusicHeader(
-            onMusicClick = onMusicClick,
-            onCalendarClick = onCalendarClick
-        )
+        Column {
+            DotoriTopBar(onSwitchClick = onSwitchClick)
+            MusicHeader(
+                onMusicClick = onMusicClick,
+                onCalendarClick = onCalendarClick
+            )
+        }
         Column(
-            modifier = Modifier.fillMaxSize(),
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Center
+            modifier = Modifier.align(Alignment.Center),
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Image(
                 painter = painterResource(id = imageRes),
