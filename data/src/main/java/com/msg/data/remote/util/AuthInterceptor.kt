@@ -60,6 +60,7 @@ class AuthInterceptor @Inject constructor(
                         refreshToken = token["refresh_token"].asString,
                         expiresAt = token["expires_at"].asString
                     )
+                    localDataSource.saveRole(token["role"].asString)
                 }
             } else throw TokenExpiredException()
         }
