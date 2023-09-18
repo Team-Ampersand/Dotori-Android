@@ -52,6 +52,7 @@ android {
 dependencies {
     implementation(project(":data"))
     implementation(project(":domain"))
+    implementation(project(":presentation"))
 
     implementation(Dependency.Androidx.CORE_KTX)
     implementation(Dependency.Androidx.APP_COMPAT)
@@ -64,6 +65,9 @@ dependencies {
     implementation(Dependency.Libraries.RETROFIT_CONVERTER_GSON)
     implementation(Dependency.Libraries.OKHTTP)
     implementation(Dependency.Libraries.OKHTTP_LOGGING_INTERCEPTOR)
+    implementation(Dependency.Libraries.DUS)
+
+    implementation(Dependency.Compose.NAVIGATION_COMPOSE)
 
     testImplementation(Dependency.UnitTest.JUNIT)
     androidTestImplementation(Dependency.AndroidTest.ANDROID_JUNIT)

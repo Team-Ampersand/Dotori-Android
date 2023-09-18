@@ -18,6 +18,8 @@ import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -28,30 +30,51 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.dotori.dotori_components.components.bottomsheet.DotoriBottomSheetDialog
 import com.dotori.dotori_components.components.dialog.DotoriDialog
 import com.dotori.dotori_components.components.music.DotoriMusicListItem
 import com.dotori.dotori_components.theme.DotoriTheme
+import com.msg.domain.model.music.request.MusicRequestModel
+import com.msg.domain.model.music.response.MusicResponseModel
 import com.msg.presentation.R
+import com.msg.presentation.viewmodel.MusicViewModel
+import com.msg.presentation.viewmodel.util.Event
+import com.msg.presentation.view.music.component.BottomSheetContent
+import com.msg.presentation.view.music.component.BottomSheetType
+import com.msg.presentation.view.music.component.DotoriTopBar
+import com.msg.presentation.view.music.component.MusicDialogContent
+import com.msg.presentation.view.music.component.MusicHeader
 import kotlinx.coroutines.launch
+import java.time.LocalDate
+import java.time.LocalDateTime
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
-fun MusicScreen(modifier: Modifier = Modifier) {
+fun MusicScreen(
+    modifier: Modifier = Modifier,
+    musicViewModel: MusicViewModel = hiltViewModel()
+) {
     var showDialog by remember { mutableStateOf(false) }
     var currentBottomSheetType by remember { mutableStateOf(BottomSheetType.Option) }
     var musicUrl by remember { mutableStateOf("") }
+    var musicId by remember { mutableStateOf<Long>(-1) }
+    var selectedDay by remember { mutableStateOf(LocalDate.now()) }
 
     val coroutineScope = rememberCoroutineScope()
-    val musicList = listOf(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
+    val musicState by musicViewModel.musicUiState.collectAsState()
+
+    LaunchedEffect(Unit) {
+        musicViewModel.getMusics(role = "", date = selectedDay.toString())
+    }
 
     DotoriBottomSheetDialog(
         sheetContent = {
             BottomSheetContent(
                 bottomSheetType = currentBottomSheetType,
                 onLinkClick = { /*TODO*/ },
-                onDeleteClick = { /*TODO*/ },
-                onDaySelected = { /*TODO*/ }
+                onDeleteClick = { musicViewModel.deleteMusic(role = "", musicId = musicId) },
+                onDaySelected = { selectedDay = it }
             )
         }
     ) { sheetState ->
@@ -60,7 +83,12 @@ fun MusicScreen(modifier: Modifier = Modifier) {
                 MusicDialogContent(
                     url = musicUrl,
                     onValueChange = { musicUrl = it }
-                ) { /*TODO*/ }
+                ) {
+                    musicViewModel.requestMusic(
+                        role = "",
+                        body = MusicRequestModel(url = musicUrl)
+                    )
+                }
             }
         }
 
@@ -69,21 +97,30 @@ fun MusicScreen(modifier: Modifier = Modifier) {
             coroutineScope.launch { sheetState.show() }
         }
 
-        if (musicList.isEmpty()) {
-            EmptyMusicContent(
-                onSwitchClick = { /*TODO*/ },
-                onMusicClick = { showDialog = true },
-                onCalendarClick = { showBottomSheet(BottomSheetType.Calendar) }
-            )
-        } else {
-            MusicListContent(
-                musicList = musicList,
-                onSwitchClick = { /*TODO*/ },
-                onMusicClick = { showDialog = true },
-                onCalendarClick = { showBottomSheet(BottomSheetType.Calendar) },
-                onOptionClicked = { showBottomSheet(BottomSheetType.Option) },
-                onItemClicked = { /*TODO*/ }
-            )
+        when (musicState) {
+            is Event.Success -> {
+                val musicList = musicState.data!!
+                if (musicList.isEmpty()) {
+                    EmptyMusicContent(
+                        onSwitchClick = { /*TODO*/ },
+                        onMusicClick = { showDialog = true },
+                        onCalendarClick = { showBottomSheet(BottomSheetType.Calendar) }
+                    )
+                } else {
+                    MusicListContent(
+                        musicList = musicList,
+                        onSwitchClick = { /*TODO*/ },
+                        onMusicClick = { showDialog = true },
+                        onCalendarClick = { showBottomSheet(BottomSheetType.Calendar) },
+                        onOptionClicked = {
+                            musicId = it
+                            showBottomSheet(BottomSheetType.Option)
+                        },
+                        onItemClicked = { /*TODO*/ }
+                    )
+                }
+            }
+            else -> { /*TODO*/ }
         }
     }
 }
@@ -91,12 +128,12 @@ fun MusicScreen(modifier: Modifier = Modifier) {
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun MusicListContent(
-    musicList: List<Int>,
+    musicList: List<MusicResponseModel>,
     onSwitchClick: (Boolean) -> Unit,
     onMusicClick: () -> Unit,
     onCalendarClick: () -> Unit,
     onItemClicked: () -> Unit,
-    onOptionClicked: () -> Unit
+    onOptionClicked: (Long) -> Unit
 ) {
     CompositionLocalProvider(
         LocalOverscrollConfiguration provides null
@@ -129,6 +166,8 @@ fun MusicListContent(
                         .background(color = DotoriTheme.colors.background)
                         .padding(horizontal = 20.dp)
                 ) {
+                    val createdLocalDateTime = LocalDateTime.parse(musicList[it].createdTime)
+
                     DotoriMusicListItem(
                         modifier = Modifier
                             .background(
@@ -145,12 +184,12 @@ fun MusicListContent(
                                 top = if (it == 0) 16.dp else 8.dp,
                                 bottom = if (musicList.lastIndex == it) 16.dp else 8.dp
                             ),
-                        imageUrl = "",
+                        imageUrl = musicList[it].url,
                         title = "10cm- 서랍(그 해 우리는 OST Part.1)/가사 Audio Lyrics 21.12.07 New Release",
-                        name = "2105 김준",
-                        date = "16시 23분",
+                        name = "${musicList[it].stuNum} ${musicList[it].username}",
+                        date = "${createdLocalDateTime.hour}시 ${createdLocalDateTime.minute}분",
                         onItemClicked = onItemClicked,
-                        onOptionClicked = onOptionClicked
+                        onOptionClicked = { onOptionClicked(musicList[it].id) }
                     )
                 }
             }
