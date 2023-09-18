@@ -20,6 +20,7 @@ class LocalDataSourceImpl @Inject constructor(
         private val ACCESS_TOKEN = stringPreferencesKey("access_token")
         private val REFRESH_TOKEN = stringPreferencesKey("refresh_token")
         private val EXPIRES_AT = stringPreferencesKey("expires_at")
+        private val ROLE = stringPreferencesKey("role")
     }
 
     override suspend fun saveToken(accessToken: String, refreshToken: String, expiresAt: String) {
@@ -30,9 +31,17 @@ class LocalDataSourceImpl @Inject constructor(
         }
     }
 
+    override suspend fun saveRole(role: String) {
+        context.dataStore.edit {
+            it[ROLE] = role
+        }
+    }
+
     override fun getAccessToken(): Flow<String> = context.dataStore.data.map { it[ACCESS_TOKEN] ?: "" }
 
     override fun getRefreshToken(): Flow<String> = context.dataStore.data.map { it[REFRESH_TOKEN] ?: "" }
 
     override fun getExpiresAt(): Flow<String> = context.dataStore.data.map { it[EXPIRES_AT] ?: "" }
+
+    override fun getRole(): Flow<String> = context.dataStore.data.map { it[ROLE] ?: "" }
 }
