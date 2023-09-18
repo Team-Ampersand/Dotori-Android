@@ -39,7 +39,7 @@ import kotlinx.coroutines.launch
 @Composable
 fun MusicScreen(modifier: Modifier = Modifier) {
     var showDialog by remember { mutableStateOf(false) }
-    var currentBottomSheetType by remember { mutableStateOf<BottomSheetType?>(null) }
+    var currentBottomSheetType by remember { mutableStateOf(BottomSheetType.Option) }
     var musicUrl by remember { mutableStateOf("") }
 
     val coroutineScope = rememberCoroutineScope()
@@ -47,14 +47,12 @@ fun MusicScreen(modifier: Modifier = Modifier) {
 
     DotoriBottomSheetDialog(
         sheetContent = {
-            currentBottomSheetType?.let { sheetType ->
-                BottomSheetContent(
-                    bottomSheetType = sheetType,
-                    onLinkClick = { /*TODO*/ },
-                    onDeleteClick = { /*TODO*/ },
-                    onDaySelected = { /*TODO*/ }
-                )
-            }
+            BottomSheetContent(
+                bottomSheetType = currentBottomSheetType,
+                onLinkClick = { /*TODO*/ },
+                onDeleteClick = { /*TODO*/ },
+                onDaySelected = { /*TODO*/ }
+            )
         }
     ) { sheetState ->
         if (showDialog) {
