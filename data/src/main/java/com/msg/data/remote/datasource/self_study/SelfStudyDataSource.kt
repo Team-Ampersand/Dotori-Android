@@ -41,7 +41,7 @@ interface SelfStudyDataSource {
 
     suspend fun checkSelfStudy(
         role: String,
-        memberId: String,
+        memberId: Long,
         selfStudyCheck: Boolean
     )
 }

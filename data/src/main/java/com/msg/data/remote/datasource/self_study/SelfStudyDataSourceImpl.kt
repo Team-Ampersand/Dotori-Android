@@ -62,7 +62,7 @@ class SelfStudyDataSourceImpl @Inject constructor(
         )
     }
 
-    override suspend fun checkSelfStudy(role: String, memberId: String, selfStudyCheck: Boolean) = safeApiCall {
+    override suspend fun checkSelfStudy(role: String, memberId: Long, selfStudyCheck: Boolean) = safeApiCall {
         selfStudyApi.checkSelfStudy(
             role = role,
             memberId = memberId,

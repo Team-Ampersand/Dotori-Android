@@ -62,7 +62,7 @@ interface SelfStudyApi {
     @PATCH("/{role}/self-study/check/{memberId}")
     suspend fun checkSelfStudy(
         @Path("role") role: String,
-        @Path("memberId") memberId: String,
+        @Path("memberId") memberId: Long,
         @Body selfStudyCheck: Boolean
     )
 }
