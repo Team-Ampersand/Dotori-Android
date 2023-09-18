@@ -66,28 +66,24 @@ fun MusicScreen(modifier: Modifier = Modifier) {
             }
         }
 
+        val showBottomSheet: (BottomSheetType) -> Unit = { sheetType ->
+            currentBottomSheetType = sheetType
+            coroutineScope.launch { sheetState.show() }
+        }
+
         if (musicList.isEmpty()) {
             EmptyMusicContent(
                 onSwitchClick = { /*TODO*/ },
                 onMusicClick = { showDialog = true },
-                onCalendarClick = {
-                    currentBottomSheetType = BottomSheetType.Calendar
-                    coroutineScope.launch { sheetState.show() }
-                }
+                onCalendarClick = { showBottomSheet(BottomSheetType.Calendar) }
             )
         } else {
             MusicListContent(
                 musicList = musicList,
                 onSwitchClick = { /*TODO*/ },
                 onMusicClick = { showDialog = true },
-                onCalendarClick = {
-                    currentBottomSheetType = BottomSheetType.Calendar
-                    coroutineScope.launch { sheetState.show() }
-                },
-                onOptionClicked = {
-                    currentBottomSheetType = BottomSheetType.Option
-                    coroutineScope.launch { sheetState.show() }
-                },
+                onCalendarClick = { showBottomSheet(BottomSheetType.Calendar) },
+                onOptionClicked = { showBottomSheet(BottomSheetType.Option) },
                 onItemClicked = { /*TODO*/ }
             )
         }
