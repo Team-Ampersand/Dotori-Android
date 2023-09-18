@@ -4,11 +4,11 @@ import com.msg.data.remote.dto.self_study.SelfStudyInfoResponse
 import com.msg.data.remote.dto.self_study.SelfStudyListResponse
 
 interface SelfStudyDataSource {
-    suspend fun selfStudyInfo(
+    suspend fun getSelfStudyInfo(
         role: String
     ): SelfStudyInfoResponse
 
-    suspend fun selfStudyList(
+    suspend fun getSelfStudyList(
         role: String
     ): List<SelfStudyListResponse>
 

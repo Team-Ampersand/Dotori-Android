@@ -13,12 +13,12 @@ import retrofit2.http.Query
 
 interface SelfStudyApi {
     @GET("/{role}/self-study/info")
-    suspend fun selfStudyInfo(
+    suspend fun getSelfStudyInfo(
         @Path("role") role: String
     ): SelfStudyInfoResponse
 
     @GET("/{role}/self-study/rank")
-    suspend fun selfStudyList(
+    suspend fun getSelfStudyList(
         @Path("role") role: String
     ): List<SelfStudyListResponse>
 

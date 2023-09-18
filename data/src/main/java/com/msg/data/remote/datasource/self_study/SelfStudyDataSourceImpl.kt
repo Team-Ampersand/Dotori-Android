@@ -9,12 +9,12 @@ import javax.inject.Inject
 class SelfStudyDataSourceImpl @Inject constructor(
     private val selfStudyApi: SelfStudyApi
 ): SelfStudyDataSource {
-    override suspend fun selfStudyInfo(role: String): SelfStudyInfoResponse = safeApiCall {
-        selfStudyApi.selfStudyInfo(role = role)
+    override suspend fun getSelfStudyInfo(role: String): SelfStudyInfoResponse = safeApiCall {
+        selfStudyApi.getSelfStudyInfo(role = role)
     }
 
-    override suspend fun selfStudyList(role: String): List<SelfStudyListResponse> = safeApiCall {
-        selfStudyApi.selfStudyList(role = role)
+    override suspend fun getSelfStudyList(role: String): List<SelfStudyListResponse> = safeApiCall {
+        selfStudyApi.getSelfStudyList(role = role)
     }
 
     override suspend fun searchSelfStudyStudent(
