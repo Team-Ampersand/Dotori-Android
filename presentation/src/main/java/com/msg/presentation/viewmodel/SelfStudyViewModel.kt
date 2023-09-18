@@ -139,11 +139,13 @@ class SelfStudyViewModel @Inject constructor(
         selfStudyUseCase(role)
             .onSuccess {
                 val response = it.string()
-                val jsonObject = JSONObject(response)
-                val code = jsonObject.getInt("code")
 
-                if (code == 202) _selfStudyState.value = Event.Accepted
-                else _selfStudyState.value = Event.Success()
+                if (response.isNotEmpty()) {
+                    val jsonObject = JSONObject(response)
+                    val code = jsonObject.getInt("code")
+
+                    if (code == 202) _selfStudyState.value = Event.Accepted
+                } else _selfStudyState.value = Event.Success()
             }.onFailure {
                 it.exceptionHandling(
                     conflictAction = { _selfStudyState.value = Event.Conflict }
@@ -155,11 +157,13 @@ class SelfStudyViewModel @Inject constructor(
         cancelSelfStudyUseCase(role)
             .onSuccess {
                 val response = it.string()
-                val jsonObject = JSONObject(response)
-                val code = jsonObject.getInt("code")
 
-                if (code == 202) _cancelSelfStudyState.value = Event.Accepted
-                else _cancelSelfStudyState.value = Event.Success()
+                if (response.isNotEmpty()) {
+                    val jsonObject = JSONObject(response)
+                    val code = jsonObject.getInt("code")
+
+                    if (code == 202) _cancelSelfStudyState.value = Event.Accepted
+                } else _cancelSelfStudyState.value = Event.Success()
             }.onFailure {
                 it.exceptionHandling(
                     conflictAction = { _cancelSelfStudyState.value = Event.Conflict }
