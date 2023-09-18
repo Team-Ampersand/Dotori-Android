@@ -25,6 +25,12 @@ fun NotFoundScreen(
     modifier: Modifier = Modifier,
     navigateToMain: () -> Unit
 ) {
+    val imageRes = if (DotoriTheme.isSystemIsDarkTheme()) {
+        R.drawable.ic_404_dark
+    } else {
+        R.drawable.ic_404_light
+    }
+
     Column(
         modifier = modifier
             .fillMaxSize()
@@ -34,7 +40,10 @@ fun NotFoundScreen(
         verticalArrangement = Arrangement.Center
     ) {
 
-        Image(painter = painterResource(id = R.drawable.ic_404), contentDescription = "")
+        Image(
+            painter = painterResource(id = imageRes),
+            contentDescription = "404 image"
+        )
         Spacer(modifier = Modifier.height(24.dp))
         Text(
             text = "요청하신 페이지를 찾을수 없습니다.",
@@ -59,5 +68,5 @@ fun NotFoundScreen(
 @Preview
 @Composable
 fun NotFoundScreenPreview() {
-    NotFoundScreen{}
+    NotFoundScreen {}
 }
