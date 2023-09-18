@@ -19,7 +19,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
 import com.dotori.dotori_components.components.button.DotoriButton
 import com.dotori.dotori_components.components.text_field.DotoriTextField
 import com.dotori.dotori_components.theme.DotoriTheme
@@ -29,8 +28,6 @@ import com.dotori.dotori_components.theme.SelfStudyAllowIcon
 import com.dotori.dotori_components.theme.SelfStudyDisallowIcon
 import com.dotori.dotori_components.theme.Transparent
 import com.dotori.dotori_components.theme.XMarkIcon2
-import com.msg.domain.model.student_info.StudentInfoRequestModel
-import com.msg.presentation.viewmodel.StudentInfoViewModel
 
 @Composable
 fun StudentInfoBottomSheetContent(
