@@ -2,6 +2,7 @@ package com.msg.data.remote.network
 
 import com.msg.data.remote.dto.self_study.SelfStudyInfoResponse
 import com.msg.data.remote.dto.self_study.SelfStudyListResponse
+import okhttp3.ResponseBody
 import retrofit2.http.Body
 import retrofit2.http.DELETE
 import retrofit2.http.GET
@@ -46,12 +47,12 @@ interface SelfStudyApi {
     @POST("/{role}/self-study")
     suspend fun selfStudy(
         @Path("role") role: String
-    )
+    ): ResponseBody
 
     @DELETE("/{role}/self-study")
     suspend fun cancelSelfStudy(
         @Path("role") role: String
-    )
+    ): ResponseBody
 
     @PATCH("/{role}/self-study/limit")
     suspend fun changeSelfStudyLimit(
