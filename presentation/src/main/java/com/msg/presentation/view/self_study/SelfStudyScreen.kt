@@ -26,6 +26,7 @@ import com.msg.presentation.view.component.DotoriTopBar
 import com.msg.presentation.view.self_study.component.BottomSheetContent
 import com.msg.presentation.view.self_study.component.EmptySelfStudyScreen
 import com.msg.presentation.view.self_study.component.SelfStudyTopBar
+import com.msg.presentation.view.util.updateDotoriTheme
 import kotlinx.coroutines.launch
 
 @Composable
@@ -65,7 +66,7 @@ fun SelfStudyScreen() {
 @Composable
 fun SelfStudyIsEmptyContent(onFilterIconClick: () -> Unit, ) {
     Column(modifier = Modifier.fillMaxSize()) {
-        DotoriTopBar(onSwitchClick = { /*TODO*/ })
+        DotoriTopBar(onSwitchClick = { DotoriTheme.updateDotoriTheme() })
 
         Divider(
             modifier = Modifier.fillMaxWidth(),
@@ -90,7 +91,7 @@ fun SelfStudyStudentListContent(
     LazyColumn(
         modifier = Modifier.fillMaxSize(),
     ) {
-        item { DotoriTopBar(onSwitchClick = { /*TODO*/ }) }
+        item { DotoriTopBar(onSwitchClick = { DotoriTheme.updateDotoriTheme() }) }
 
         item {
             Divider(

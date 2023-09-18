@@ -35,6 +35,7 @@ import com.msg.presentation.view.student_info.component.StudentInfoBottomSheetCo
 import com.msg.presentation.view.student_info.component.StudentInfoBottomSheetType
 import com.msg.presentation.view.student_info.component.StudentInfoDialogContent
 import com.msg.presentation.view.student_info.component.StudentInfoHeader
+import com.msg.presentation.view.util.updateDotoriTheme
 import com.msg.presentation.viewmodel.StudentInfoViewModel
 import kotlinx.coroutines.launch
 
@@ -148,7 +149,7 @@ fun StudentInfoScreen(
                     item {
                         DotoriHamburgerTopBar(
                             onHamburgerClick = { openDrawer() },
-                            onSwitchClick = {}
+                            onSwitchClick = { DotoriTheme.updateDotoriTheme() }
                         )
                         Divider(
                             thickness = 1.dp,
