@@ -2,6 +2,7 @@ package com.msg.domain.repository
 
 import com.msg.domain.model.self_study.SelfStudyInfoResponseModel
 import com.msg.domain.model.self_study.SelfStudyListResponseModel
+import okhttp3.ResponseBody
 
 interface SelfStudyRepository {
     suspend fun getSelfStudyInfo(
@@ -32,11 +33,11 @@ interface SelfStudyRepository {
 
     suspend fun selfStudy(
         role: String
-    )
+    ): ResponseBody
 
     suspend fun cancelSelfStudy(
         role: String
-    )
+    ): ResponseBody
 
     suspend fun changeSelfStudyLimit(
         role: String,
