@@ -5,31 +5,50 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material.Divider
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.dotori.dotori_components.components.card.DotoriStudentCard
+import com.dotori.dotori_components.components.utils.RoleType
 import com.dotori.dotori_components.components.utils.Types
 import com.dotori.dotori_components.theme.DotoriTheme
+import com.msg.domain.model.massage.MassageListResponseModel
 import com.msg.presentation.view.component.DotoriTopBar
 import com.msg.presentation.view.massage_chair.component.EmptyMassageChairScreen
 import com.msg.presentation.view.massage_chair.component.MassageChairTopBar
 import com.msg.presentation.view.util.updateDotoriTheme
+import com.msg.presentation.viewmodel.MassageViewModel
 
 @Composable
-fun MassageChairScreen() {
-    val list = listOf(1,2,3,4,5)
+fun MassageChairScreen(massageViewModel: MassageViewModel = hiltViewModel()) {
+    val massageList by massageViewModel.getMassageRank.collectAsState()
+    val role by massageViewModel.roleState.collectAsState()
+    
+    LaunchedEffect(Unit) {
+        massageViewModel.getRole()
+        massageViewModel.getMassageRank(role.data!!)
+    }
 
-    if (list.isEmpty()) MassageChairIsEmptyContent()
-    else MassageChairStudentListContent(list)
+    if (massageList.data.isNullOrEmpty()) MassageChairIsEmptyContent()
+    else MassageChairStudentListContent(
+        role = role.data!!,
+        list = massageList.data!!
+    )
 }
 
 @Composable
 @OptIn(ExperimentalFoundationApi::class)
-fun MassageChairStudentListContent(list: List<Int>) {
+fun MassageChairStudentListContent(
+    role: String,
+    list: List<MassageListResponseModel>
+) {
     LazyColumn(modifier = Modifier.fillMaxSize()) {
         item { DotoriTopBar(onSwitchClick = { DotoriTheme.updateDotoriTheme() }) }
 
@@ -43,12 +62,12 @@ fun MassageChairStudentListContent(list: List<Int>) {
 
         stickyHeader { MassageChairTopBar() }
 
-        items(list) { position ->
+        itemsIndexed(list) { position, item ->
             DotoriStudentCard(
-                name = "임가람",
-                gender = "MAN",
-                role = "ROLE_MEMBER",
-                studentNumber = "3412",
+                name = item.memberName,
+                gender = item.gender,
+                role = role.changeRoleToEnum(),
+                studentNumber = item.stuNum,
                 position = position,
                 mode = Types.CardType.MASSAGE_CHAIR,
                 isLast = list.lastIndex + 1 == position,
@@ -69,6 +88,16 @@ fun MassageChairIsEmptyContent() {
         )
         MassageChairTopBar()
         EmptyMassageChairScreen()
+    }
+}
+
+private fun String.changeRoleToEnum(): String {
+    return when(this) {
+        "member" -> RoleType.ROLE_MEMBER.toString()
+        "developer" -> RoleType.ROLE_DEVELOPER.toString()
+        "councillor" -> RoleType.ROLE_COUNCILLOR.toString()
+        "admin" -> RoleType.ROLE_ADMIN.toString()
+        else -> "null"
     }
 }
 
