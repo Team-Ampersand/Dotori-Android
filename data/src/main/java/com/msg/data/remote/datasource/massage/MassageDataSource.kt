@@ -4,7 +4,7 @@ import com.msg.data.remote.dto.massage.MassageInfoResponse
 import com.msg.data.remote.dto.massage.MassageListResponse
 
 interface MassageDataSource {
-    suspend fun getMessageInfo(role: String): MassageInfoResponse
+    suspend fun getMassageInfo(role: String): MassageInfoResponse
 
     suspend fun getMassageRank(role: String): List<MassageListResponse>
 

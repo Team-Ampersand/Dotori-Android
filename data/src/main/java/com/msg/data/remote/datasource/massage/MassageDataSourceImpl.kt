@@ -9,7 +9,7 @@ import javax.inject.Inject
 class MassageDataSourceImpl @Inject constructor(
     private val massageApi: MassageApi
 ): MassageDataSource {
-    override suspend fun getMessageInfo(role: String): MassageInfoResponse = safeApiCall {
+    override suspend fun getMassageInfo(role: String): MassageInfoResponse = safeApiCall {
         massageApi.getMassageInfo(role = role)
     }
 
