@@ -6,6 +6,7 @@ import com.msg.data.remote.dto.massage.asMassageListResponseModel
 import com.msg.domain.model.massage.MassageInfoResponseModel
 import com.msg.domain.model.massage.MassageListResponseModel
 import com.msg.domain.repository.MassageRepository
+import okhttp3.ResponseBody
 import javax.inject.Inject
 
 class MassageRepositoryImpl @Inject constructor(
@@ -17,10 +18,10 @@ class MassageRepositoryImpl @Inject constructor(
     override suspend fun getMassageRank(role: String): List<MassageListResponseModel> =
         massageDataSource.getMassageRank(role = role).map { it.asMassageListResponseModel() }
 
-    override suspend fun requestMassage(role: String) =
+    override suspend fun requestMassage(role: String): ResponseBody =
         massageDataSource.requestMassage(role = role)
 
-    override suspend fun cancelMassage(role: String) =
+    override suspend fun cancelMassage(role: String): ResponseBody =
         massageDataSource.cancelMassage(role = role)
 
     override suspend fun changeMassageLimit(role: String, limit: Int) =

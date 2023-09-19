@@ -2,6 +2,7 @@ package com.msg.data.remote.network
 
 import com.msg.data.remote.dto.massage.MassageInfoResponse
 import com.msg.data.remote.dto.massage.MassageListResponse
+import okhttp3.ResponseBody
 import retrofit2.http.Body
 import retrofit2.http.DELETE
 import retrofit2.http.GET
@@ -23,12 +24,12 @@ interface MassageApi {
     @POST("/{role}/massage")
     suspend fun requestMassage(
         @Path("role") role: String
-    )
+    ): ResponseBody
 
     @DELETE("/{role}/massage")
     suspend fun cancelMassage(
         @Path("role") role: String
-    )
+    ): ResponseBody
 
     @PATCH("/{role}/massage/limit")
     suspend fun changeMassageLimit(
