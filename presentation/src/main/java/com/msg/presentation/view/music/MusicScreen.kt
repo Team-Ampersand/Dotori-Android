@@ -37,7 +37,7 @@ import com.dotori.dotori_components.components.dialog.DotoriDialog
 import com.dotori.dotori_components.components.music.DotoriMusicListItem
 import com.dotori.dotori_components.theme.DotoriTheme
 import com.msg.domain.model.music.request.MusicRequestModel
-import com.msg.domain.model.music.response.MusicResponseModel
+import com.msg.domain.model.music.response.MusicModel
 import com.msg.presentation.R
 import com.msg.presentation.viewmodel.MusicViewModel
 import com.msg.presentation.viewmodel.util.Event
@@ -133,7 +133,7 @@ fun MusicScreen(
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun MusicListContent(
-    musicList: List<MusicResponseModel>,
+    musicList: List<MusicModel>,
     onSwitchClick: (Boolean) -> Unit,
     onMusicClick: () -> Unit,
     onCalendarClick: () -> Unit,
