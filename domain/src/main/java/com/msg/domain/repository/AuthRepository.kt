@@ -15,4 +15,6 @@ interface AuthRepository {
     )
 
     suspend fun saveRole(roles: String)
+
+    suspend fun getRole(): String
 }
