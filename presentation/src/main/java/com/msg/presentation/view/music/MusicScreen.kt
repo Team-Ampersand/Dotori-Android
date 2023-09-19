@@ -192,8 +192,8 @@ fun MusicListContent(
                                 top = if (it == 0) 16.dp else 8.dp,
                                 bottom = if (musicList.lastIndex == it) 16.dp else 8.dp
                             ),
-                        imageUrl = musicList[it].url,
-                        title = "10cm- 서랍(그 해 우리는 OST Part.1)/가사 Audio Lyrics 21.12.07 New Release",
+                        imageUrl = musicList[it].thumbnailUrl,
+                        title = musicList[it].title,
                         name = "${musicList[it].stuNum} ${musicList[it].username}",
                         date = "${createdLocalDateTime.hour}시 ${createdLocalDateTime.minute}분",
                         onItemClicked = {
