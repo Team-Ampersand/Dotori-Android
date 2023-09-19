@@ -12,6 +12,7 @@ import com.msg.domain.usecase.music.GetYoutubeMusicUseCase
 import com.msg.domain.usecase.music.RequestMusicUseCase
 import com.msg.presentation.exception.exceptionHandling
 import com.msg.presentation.viewmodel.util.Event
+import com.msg.presentation.viewmodel.util.getRolePath
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -39,17 +40,7 @@ class MusicViewModel @Inject constructor(
     val deleteUiState = _deleteUiState.asStateFlow()
 
     fun getRole() = viewModelScope.launch {
-        val role = getRoleUseCase().getOrDefault("")
-
-        _roleUiState.value = Event.Success(
-            when (role) {
-                "ROLE_ADMIN" -> "admin"
-                "ROLE_COUNCILLOR" -> "councillor"
-                "ROLE_DEVELOPER" -> "developer"
-                "ROLE_MEMBER" -> "member"
-                else -> ""
-            }
-        )
+        _roleUiState.value = Event.Success(getRoleUseCase.getRolePath())
     }
 
     fun getMusics(role: String, date: String) = viewModelScope.launch {
