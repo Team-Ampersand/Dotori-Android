@@ -39,8 +39,8 @@ fun SelfStudyScreen(
     selfStudyViewModel: SelfStudyViewModel = hiltViewModel()
 ) {
     val selfStudyList by selfStudyViewModel.selfStudyListState.collectAsState()
-
     val role = "member"
+
     LaunchedEffect(Unit) {
         selfStudyViewModel.getSelfStudyList(role)
     }
@@ -77,10 +77,10 @@ fun SelfStudyScreen(
                 onFilterIconClick = {
                     scope.launch { state.show() }
                 },
-                checkSelfStudyLogic = { position, checkBoxState ->
+                checkSelfStudyLogic = { item, checkBoxState ->
                     selfStudyViewModel.checkSelfStudy(
                         role = role,
-                        memberId = selfStudyList.data!![position].id.toLong(),
+                        memberId = item.id.toLong(),
                         selfStudyCheck = checkBoxState
                     )
                 }
@@ -111,7 +111,7 @@ fun SelfStudyIsEmptyContent(onFilterIconClick: () -> Unit, ) {
 fun SelfStudyStudentListContent(
     list: List<SelfStudyListResponseModel>,
     onFilterIconClick: () -> Unit,
-    checkSelfStudyLogic: (Int, Boolean) -> Unit
+    checkSelfStudyLogic: (SelfStudyListResponseModel, Boolean) -> Unit
 ) {
     var checkBoxState by remember { mutableStateOf(false) }
 
@@ -141,7 +141,7 @@ fun SelfStudyStudentListContent(
                 isLast = list.lastIndex + 1 == position,
                 onCheckBoxChange = {
                     checkBoxState = it
-                    checkSelfStudyLogic(position, checkBoxState)
+                    checkSelfStudyLogic(item, checkBoxState)
                 }
             )
         }
