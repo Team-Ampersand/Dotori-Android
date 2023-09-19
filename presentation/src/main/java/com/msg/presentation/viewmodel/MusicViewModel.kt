@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.msg.domain.model.music.request.MusicRequestModel
 import com.msg.domain.model.music.response.MusicModel
+import com.msg.domain.model.music.response.YoutubeResponseModel
 import com.msg.domain.usecase.music.DeleteMusicUseCase
 import com.msg.domain.usecase.music.GetMusicsUseCase
 import com.msg.domain.usecase.music.GetYoutubeMusicUseCase
@@ -37,7 +38,9 @@ class MusicViewModel @Inject constructor(
             .onSuccess { result ->
                 _musicUiState.value = Event.Success(
                     result.map {
-                        val youtubeMusic = getYoutubeMusicUseCase(it.url)
+                        val youtubeMusic = getYoutubeMusicUseCase(it.url).getOrDefault(
+                            YoutubeResponseModel(title = "", thumbnailUrl = "")
+                        )
                         MusicModel(
                             id = it.id,
                             url = it.url,
