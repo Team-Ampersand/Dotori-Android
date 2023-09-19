@@ -1,8 +1,8 @@
 package com.msg.data.repository
 
 import com.msg.data.remote.datasource.music.MusicDataSource
-import com.msg.data.remote.dto.music.asMusicRequest
-import com.msg.data.remote.dto.music.asMusicResponseModel
+import com.msg.data.remote.dto.music.request.asMusicRequest
+import com.msg.data.remote.dto.music.response.asMusicResponseModel
 import com.msg.domain.model.music.request.MusicRequestModel
 import com.msg.domain.model.music.response.MusicResponseModel
 import com.msg.domain.repository.MusicRepository

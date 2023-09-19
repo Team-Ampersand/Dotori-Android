@@ -1,4 +1,4 @@
-package com.msg.data.remote.dto.music
+package com.msg.data.remote.dto.music.response
 
 import com.msg.domain.model.music.response.MusicResponseModel
 
