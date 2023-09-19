@@ -13,4 +13,6 @@ interface AuthRepository {
         refreshToken: String,
         expiresAt: String
     )
+
+    suspend fun saveRole(roles: String)
 }

@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.msg.domain.model.auth.LoginRequestModel
 import com.msg.domain.model.auth.LoginResponseModel
 import com.msg.domain.usecase.auth.LoginUseCase
+import com.msg.domain.usecase.auth.SaveRoleUseCase
 import com.msg.domain.usecase.auth.SaveTokenUseCase
 import com.msg.presentation.exception.exceptionHandling
 import com.msg.presentation.viewmodel.util.Event
@@ -15,7 +16,8 @@ import javax.inject.Inject
 
 class LoginViewModel @Inject constructor(
     private val loginUseCase: LoginUseCase,
-    private val saveTokenUseCase: SaveTokenUseCase
+    private val saveTokenUseCase: SaveTokenUseCase,
+    private val saveRoleUseCase: SaveRoleUseCase
 ) : ViewModel() {
 
     private val _loginState = MutableStateFlow<Event<LoginResponseModel>>(Event.Loading)
@@ -30,6 +32,7 @@ class LoginViewModel @Inject constructor(
                         refreshToken = it.refreshToken,
                         expiresAt = it.expiresAt
                     )
+                    saveRoleUseCase(it.roles.toString())
                 }
                 .onFailure {
                     it.exceptionHandling(
