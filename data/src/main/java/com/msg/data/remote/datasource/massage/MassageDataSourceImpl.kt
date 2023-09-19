@@ -4,6 +4,7 @@ import com.msg.data.remote.dto.massage.MassageInfoResponse
 import com.msg.data.remote.dto.massage.MassageListResponse
 import com.msg.data.remote.network.MassageApi
 import com.msg.data.remote.util.safeApiCall
+import okhttp3.ResponseBody
 import javax.inject.Inject
 
 class MassageDataSourceImpl @Inject constructor(
@@ -17,11 +18,11 @@ class MassageDataSourceImpl @Inject constructor(
         massageApi.getMassageRank(role = role)
     }
 
-    override suspend fun requestMassage(role: String) = safeApiCall {
+    override suspend fun requestMassage(role: String): ResponseBody = safeApiCall {
         massageApi.requestMassage(role = role)
     }
 
-    override suspend fun cancelMassage(role: String) = safeApiCall {
+    override suspend fun cancelMassage(role: String): ResponseBody = safeApiCall {
         massageApi.cancelMassage(role = role)
     }
 
