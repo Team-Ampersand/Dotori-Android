@@ -3,9 +3,11 @@ package com.msg.presentation.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.msg.domain.model.music.request.MusicRequestModel
-import com.msg.domain.model.music.response.MusicResponseModel
+import com.msg.domain.model.music.response.MusicModel
+import com.msg.domain.model.music.response.YoutubeResponseModel
 import com.msg.domain.usecase.music.DeleteMusicUseCase
 import com.msg.domain.usecase.music.GetMusicsUseCase
+import com.msg.domain.usecase.music.GetYoutubeMusicUseCase
 import com.msg.domain.usecase.music.RequestMusicUseCase
 import com.msg.presentation.exception.exceptionHandling
 import com.msg.presentation.viewmodel.util.Event
@@ -19,9 +21,10 @@ import javax.inject.Inject
 class MusicViewModel @Inject constructor(
     private val getMusicsUseCase: GetMusicsUseCase,
     private val requestMusicUseCase: RequestMusicUseCase,
-    private val deleteMusicUseCase: DeleteMusicUseCase
+    private val deleteMusicUseCase: DeleteMusicUseCase,
+    private val getYoutubeMusicUseCase: GetYoutubeMusicUseCase
 ) : ViewModel() {
-    private val _musicUiState = MutableStateFlow<Event<List<MusicResponseModel>>>(Event.Loading)
+    private val _musicUiState = MutableStateFlow<Event<List<MusicModel>>>(Event.Loading)
     val musicUiState = _musicUiState.asStateFlow()
 
     private val _requestUiState = MutableStateFlow<Event<Nothing>>(Event.Loading)
@@ -32,8 +35,24 @@ class MusicViewModel @Inject constructor(
 
     fun getMusics(role: String, date: String) = viewModelScope.launch {
         getMusicsUseCase(role, date)
-            .onSuccess {
-                _musicUiState.value = Event.Success(it)
+            .onSuccess { result ->
+                _musicUiState.value = Event.Success(
+                    result.map {
+                        val youtubeMusic = getYoutubeMusicUseCase(it.url).getOrDefault(
+                            YoutubeResponseModel(title = "", thumbnailUrl = "")
+                        )
+                        MusicModel(
+                            id = it.id,
+                            url = it.url,
+                            username = it.username,
+                            email = it.email,
+                            createdTime = it.createdTime,
+                            stuNum = it.stuNum,
+                            title = youtubeMusic.title,
+                            thumbnailUrl = youtubeMusic.thumbnailUrl
+                        )
+                    }
+                )
             }.onFailure {
 
             }
