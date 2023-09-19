@@ -7,6 +7,6 @@ class GetMassageRankUseCase @Inject constructor(
     private val massageRepository: MassageRepository
 ) {
     suspend operator fun invoke(role: String) = kotlin.runCatching {
-        massageRepository.getMassageInfo(role = role)
+        massageRepository.getMassageRank(role = role)
     }
 }
