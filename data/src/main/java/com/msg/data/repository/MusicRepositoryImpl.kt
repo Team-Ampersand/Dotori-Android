@@ -3,8 +3,10 @@ package com.msg.data.repository
 import com.msg.data.remote.datasource.music.MusicDataSource
 import com.msg.data.remote.dto.music.request.asMusicRequest
 import com.msg.data.remote.dto.music.response.asMusicResponseModel
+import com.msg.data.remote.dto.music.response.asYoutubeResponseModel
 import com.msg.domain.model.music.request.MusicRequestModel
 import com.msg.domain.model.music.response.MusicResponseModel
+import com.msg.domain.model.music.response.YoutubeResponseModel
 import com.msg.domain.repository.MusicRepository
 import javax.inject.Inject
 
@@ -19,4 +21,7 @@ class MusicRepositoryImpl @Inject constructor(
 
     override suspend fun deleteMusic(role: String, musicId: Long) =
         musicDataSource.deleteMusic(role, musicId)
+
+    override suspend fun getYoutubeMusic(youtubeUrl: String): YoutubeResponseModel =
+        musicDataSource.getYoutubeMusic(youtubeUrl).asYoutubeResponseModel()
 }
