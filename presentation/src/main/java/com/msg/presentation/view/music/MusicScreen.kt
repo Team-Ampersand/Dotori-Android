@@ -65,11 +65,13 @@ fun MusicScreen(
     var selectedDay by remember { mutableStateOf(LocalDate.now()) }
 
     val coroutineScope = rememberCoroutineScope()
+    val roleState by musicViewModel.roleUiState.collectAsState()
     val musicState by musicViewModel.musicUiState.collectAsState()
     val uriHandler = LocalUriHandler.current
 
     LaunchedEffect(Unit) {
-        musicViewModel.getMusics(role = "", date = selectedDay.toString())
+        musicViewModel.getRole()
+        musicViewModel.getMusics(role = roleState.data!!, date = selectedDay.toString())
     }
 
     DotoriBottomSheetDialog(
@@ -77,7 +79,7 @@ fun MusicScreen(
             BottomSheetContent(
                 bottomSheetType = currentBottomSheetType,
                 onLinkClick = { uriHandler.openUri(youtubeUrl) },
-                onDeleteClick = { musicViewModel.deleteMusic(role = "", musicId = musicId) },
+                onDeleteClick = { musicViewModel.deleteMusic(role = roleState.data!!, musicId = musicId) },
                 onDaySelected = { selectedDay = it }
             )
         }
@@ -89,7 +91,7 @@ fun MusicScreen(
                     onValueChange = { requestUrl = it }
                 ) {
                     musicViewModel.requestMusic(
-                        role = "",
+                        role = roleState.data!!,
                         body = MusicRequestModel(url = requestUrl)
                     )
                 }
