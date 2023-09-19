@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.msg.domain.model.music.request.MusicRequestModel
 import com.msg.domain.model.music.response.MusicModel
 import com.msg.domain.model.music.response.YoutubeResponseModel
+import com.msg.domain.usecase.auth.GetRoleUseCase
 import com.msg.domain.usecase.music.DeleteMusicUseCase
 import com.msg.domain.usecase.music.GetMusicsUseCase
 import com.msg.domain.usecase.music.GetYoutubeMusicUseCase
@@ -22,8 +23,12 @@ class MusicViewModel @Inject constructor(
     private val getMusicsUseCase: GetMusicsUseCase,
     private val requestMusicUseCase: RequestMusicUseCase,
     private val deleteMusicUseCase: DeleteMusicUseCase,
-    private val getYoutubeMusicUseCase: GetYoutubeMusicUseCase
+    private val getYoutubeMusicUseCase: GetYoutubeMusicUseCase,
+    private val getRoleUseCase: GetRoleUseCase
 ) : ViewModel() {
+    private val _roleUiState = MutableStateFlow<Event<String>>(Event.Loading)
+    val roleUiState = _roleUiState.asStateFlow()
+
     private val _musicUiState = MutableStateFlow<Event<List<MusicModel>>>(Event.Loading)
     val musicUiState = _musicUiState.asStateFlow()
 
@@ -32,6 +37,20 @@ class MusicViewModel @Inject constructor(
 
     private val _deleteUiState = MutableStateFlow<Event<Nothing>>(Event.Loading)
     val deleteUiState = _deleteUiState.asStateFlow()
+
+    fun getRole() = viewModelScope.launch {
+        val role = getRoleUseCase().getOrDefault("")
+
+        _roleUiState.value = Event.Success(
+            when (role) {
+                "ROLE_ADMIN" -> "admin"
+                "ROLE_COUNCILLOR" -> "councillor"
+                "ROLE_DEVELOPER" -> "developer"
+                "ROLE_MEMBER" -> "member"
+                else -> ""
+            }
+        )
+    }
 
     fun getMusics(role: String, date: String) = viewModelScope.launch {
         getMusicsUseCase(role, date)
