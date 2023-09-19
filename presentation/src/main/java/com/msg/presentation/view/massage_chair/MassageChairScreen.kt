@@ -16,7 +16,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.dotori.dotori_components.components.card.DotoriStudentCard
-import com.dotori.dotori_components.components.utils.RoleType
 import com.dotori.dotori_components.components.utils.Types
 import com.dotori.dotori_components.theme.DotoriTheme
 import com.msg.domain.model.massage.MassageListResponseModel
@@ -66,7 +65,7 @@ fun MassageChairStudentListContent(
             DotoriStudentCard(
                 name = item.memberName,
                 gender = item.gender,
-                role = role.changeRoleToEnum(),
+                role = role,
                 studentNumber = item.stuNum,
                 position = position,
                 mode = Types.CardType.MASSAGE_CHAIR,
@@ -88,16 +87,6 @@ fun MassageChairIsEmptyContent() {
         )
         MassageChairTopBar()
         EmptyMassageChairScreen()
-    }
-}
-
-private fun String.changeRoleToEnum(): String {
-    return when(this) {
-        "member" -> RoleType.ROLE_MEMBER.toString()
-        "developer" -> RoleType.ROLE_DEVELOPER.toString()
-        "councillor" -> RoleType.ROLE_COUNCILLOR.toString()
-        "admin" -> RoleType.ROLE_ADMIN.toString()
-        else -> "null"
     }
 }
 
