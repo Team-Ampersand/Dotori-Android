@@ -18,8 +18,10 @@ import com.dotori.dotori_components.theme.DotoriTheme
 
 @Composable
 fun NoticeHeader(
+    isEditable: Boolean,
     onEditClick: () -> Unit,
-    onWriteClick: () -> Unit
+    onWriteClick: () -> Unit,
+    onDeleteClick: () -> Unit
 ) {
     Row(
         modifier = Modifier
@@ -35,17 +37,21 @@ fun NoticeHeader(
         Spacer(modifier = Modifier.weight(1f))
         DotoriButton(
             modifier = Modifier.size(width = 52.dp, height = 32.dp),
-            text = "편집",
+            text = if (isEditable) "취소" else "편집",
             colors = Color.Transparent,
             shape = RoundedCornerShape(50.dp),
             onClick = onEditClick
         )
         Spacer(modifier = Modifier.width(8.dp))
         DotoriButton(
-            modifier = Modifier.size(width = 68.dp, height = 32.dp),
-            text = "\u002b 작성",
+            modifier = Modifier.size(
+                width = if (isEditable) 52.dp else 68.dp,
+                height = 32.dp
+            ),
+            text = if (isEditable) "삭제" else "\u002b 작성",
             shape = RoundedCornerShape(50.dp),
-            onClick = onWriteClick
+            colors = if (isEditable) Color.Transparent else DotoriTheme.colors.primary10,
+            onClick = if (isEditable) onDeleteClick else onWriteClick
         )
     }
 }
