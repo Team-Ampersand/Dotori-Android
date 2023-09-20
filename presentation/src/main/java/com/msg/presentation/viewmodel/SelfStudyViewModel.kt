@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.msg.domain.model.self_study.SelfStudyInfoResponseModel
 import com.msg.domain.model.self_study.SelfStudyListResponseModel
+import com.msg.domain.usecase.auth.GetRoleUseCase
 import com.msg.domain.usecase.self_study.BanCancelSelfStudyUseCase
 import com.msg.domain.usecase.self_study.BanSelfStudyUseCase
 import com.msg.domain.usecase.self_study.CancelSelfStudyUseCase
@@ -15,6 +16,7 @@ import com.msg.domain.usecase.self_study.SearchSelfStudyStudentUseCase
 import com.msg.domain.usecase.self_study.SelfStudyUseCase
 import com.msg.presentation.exception.exceptionHandling
 import com.msg.presentation.viewmodel.util.Event
+import com.msg.presentation.viewmodel.util.getRolePath
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -24,6 +26,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class SelfStudyViewModel @Inject constructor(
+    private val getRoleUseCase: GetRoleUseCase,
     private val selfStudyInfoUseCase: GetSelfStudyInfoUseCase,
     private val selfStudyListUseCase: GetSelfStudyListUseCase,
     private val searchSelfStudyStudentUseCase: SearchSelfStudyStudentUseCase,
@@ -34,6 +37,9 @@ class SelfStudyViewModel @Inject constructor(
     private val changeSelfStudyLimitUseCase: ChangeSelfStudyLimitUseCase,
     private val checkSelfStudyUseCase: CheckSelfStudyUseCase
 ): ViewModel() {
+    private val _rolePathState = MutableStateFlow<Event<String>>(Event.Loading)
+    val rolePathState = _rolePathState.asStateFlow()
+
     private val _selfStudyInfoState = MutableStateFlow<Event<SelfStudyInfoResponseModel>>(Event.Loading)
     val selfStudyInfoState = _selfStudyInfoState.asStateFlow()
 
@@ -60,6 +66,10 @@ class SelfStudyViewModel @Inject constructor(
 
     private val _checkSelfStudyState = MutableStateFlow<Event<Nothing>>(Event.Loading)
     val checkSelfStudyState = _checkSelfStudyState.asStateFlow()
+
+    fun getRole() = viewModelScope.launch {
+        _rolePathState.value = Event.Success(getRoleUseCase.getRolePath())
+    }
 
     fun getSelfStudyInfo(role: String) = viewModelScope.launch {
         selfStudyInfoUseCase(role)
