@@ -5,12 +5,14 @@ import androidx.lifecycle.viewModelScope
 import com.msg.presentation.viewmodel.util.Event
 import com.msg.domain.model.massage.MassageInfoResponseModel
 import com.msg.domain.model.massage.MassageListResponseModel
+import com.msg.domain.usecase.auth.GetRoleUseCase
 import com.msg.domain.usecase.massage.CancelMassageUseCase
 import com.msg.domain.usecase.massage.ChangeMassageLimitUseCase
 import com.msg.domain.usecase.massage.GetMassageInfoUseCase
 import com.msg.domain.usecase.massage.GetMassageRankUseCase
 import com.msg.domain.usecase.massage.RequestMassageUseCase
 import com.msg.presentation.exception.exceptionHandling
+import com.msg.presentation.viewmodel.util.getRolePath
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -21,12 +23,16 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MassageViewModel @Inject constructor(
+    private val getRoleUseCase: GetRoleUseCase,
     private val getMassageInfoUseCase: GetMassageInfoUseCase,
     private val getMassageRankUseCase: GetMassageRankUseCase,
     private val requestMassageUseCase: RequestMassageUseCase,
     private val cancelMassageUseCase: CancelMassageUseCase,
     private val changeMassageLimitUseCase: ChangeMassageLimitUseCase
 ): ViewModel() {
+    private val _roleState = MutableStateFlow<Event<String>>(Event.Loading)
+    val roleState = _roleState.asStateFlow()
+
     private val _getMassageInfo = MutableStateFlow<Event<MassageInfoResponseModel>>(Event.Loading)
     val getMassageInfo = _getMassageInfo.asStateFlow()
 
@@ -41,6 +47,14 @@ class MassageViewModel @Inject constructor(
 
     private val _changeMassageLimit = MutableStateFlow<Event<Nothing>>(Event.Loading)
     val changeMassageLimit = _changeMassageLimit.asStateFlow()
+
+    fun getRole() = viewModelScope.launch {
+        getRoleUseCase().onSuccess {
+            _roleState.value = Event.Success(it)
+        }.onFailure {
+
+        }
+    }
 
     fun getMassageInfo(role: String) = viewModelScope.launch {
         getMassageInfoUseCase(role).onSuccess {
