@@ -49,11 +49,7 @@ class MassageViewModel @Inject constructor(
     val changeMassageLimit = _changeMassageLimit.asStateFlow()
 
     fun getRole() = viewModelScope.launch {
-        getRoleUseCase().onSuccess {
-            _roleState.value = Event.Success(it)
-        }.onFailure {
-
-        }
+        _roleState.value = Event.Success(getRoleUseCase.getRolePath())
     }
 
     fun getMassageInfo(role: String) = viewModelScope.launch {
