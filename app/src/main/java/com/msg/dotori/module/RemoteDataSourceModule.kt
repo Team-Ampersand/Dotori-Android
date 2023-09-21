@@ -2,6 +2,8 @@ package com.msg.dotori.module
 
 import com.msg.data.remote.datasource.auth.AuthDataSourceImpl
 import com.msg.data.remote.datasource.auth.AuthDataSource
+import com.msg.data.remote.datasource.massage.MassageDataSource
+import com.msg.data.remote.datasource.massage.MassageDataSourceImpl
 import com.msg.data.remote.datasource.music.MusicDataSource
 import com.msg.data.remote.datasource.music.MusicDataSourceImpl
 import com.msg.data.remote.datasource.self_study.SelfStudyDataSource
@@ -27,4 +29,7 @@ interface RemoteDataSourceModule {
 
     @Binds
     fun bindsSelfStudyDataSource(selfStudyDataSourceImpl: SelfStudyDataSourceImpl): SelfStudyDataSource
+
+    @Binds
+    fun bindsMassageDataSource(massageDataSourceImpl: MassageDataSourceImpl): MassageDataSource
 }

@@ -2,6 +2,7 @@ package com.msg.dotori.module
 
 import android.util.Log
 import com.msg.data.remote.network.AuthApi
+import com.msg.data.remote.network.MassageApi
 import com.msg.data.remote.network.MusicApi
 import com.msg.data.remote.network.SelfStudyApi
 import com.msg.data.remote.network.StudentInfoApi
@@ -77,4 +78,8 @@ object NetworkModule {
     @Provides
     @Singleton
     fun provideSelfStudyApi(retrofit: Retrofit): SelfStudyApi = retrofit.create(SelfStudyApi::class.java)
+
+    @Provides
+    @Singleton
+    fun provideMassageApi(retrofit: Retrofit): MassageApi = retrofit.create(MassageApi::class.java)
 }
