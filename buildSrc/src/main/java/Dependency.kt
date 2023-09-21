@@ -32,7 +32,6 @@ object Dependency {
         const val COMPOSE_TOOL = "androidx.compose.ui:ui-tooling:${Versions.COMPOSE}"
         const val NAVIGATION_COMPOSE = "androidx.navigation:navigation-compose:${Versions.NAVIGATION_COMPOSE}"
         const val LANDSCAPIST_COMPOSE = "com.github.skydoves:landscapist-glide:${Versions.LANDSCAPIST_COMPOSE}"
-//        const val LANDSCAPIST_PLACEHOLDER_COMPOSE = "com.github.skydoves:landscapist-placeholder:${Versions.LANDSCAPIST_COMPOSE}"
     }
 
     object UnitTest {
