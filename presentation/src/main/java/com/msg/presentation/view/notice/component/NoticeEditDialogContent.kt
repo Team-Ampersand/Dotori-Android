@@ -25,7 +25,8 @@ fun NoticeEditDialogContent(
             color = DotoriTheme.colors.neutral10
         )
         Text(
-            text = "나가면 작성하신 공지사항이 삭제됩니다.\n",
+            text = "나가면 작성하신 공지사항이 삭제됩니다.",
+            minLines = 2,
             style = DotoriTheme.typography.body2,
             color = DotoriTheme.colors.neutral20
         )

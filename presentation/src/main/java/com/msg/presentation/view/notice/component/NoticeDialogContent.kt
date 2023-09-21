@@ -26,8 +26,8 @@ fun NoticeDialogContent(
             color = DotoriTheme.colors.neutral10
         )
         Text(
-            text = "정말로 ${count}개의 항목을 삭제 하시겠습니까?\n",
-            maxLines = 2,
+            text = "정말로 ${count}개의 항목을 삭제 하시겠습니까?",
+            minLines = 2,
             style = DotoriTheme.typography.body2,
             color = DotoriTheme.colors.neutral20
         )
