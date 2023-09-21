@@ -5,6 +5,7 @@ import androidx.compose.foundation.LocalOverscrollConfiguration
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.interaction.collectIsPressedAsState
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -268,15 +269,18 @@ fun RuleViolationCheckDialogContent(onDismiss: () -> Unit) {
                 verticalArrangement = Arrangement.spacedBy(16.dp)
             ) {
                 detailRuleViolationList[isDetailClicked].forEach {
+                    val interactionSource = remember { MutableInteractionSource() }
+                    val isClicked by interactionSource.collectIsPressedAsState()
+
                     Text(
                         modifier = Modifier.clickable(
-                            interactionSource = remember { MutableInteractionSource() },
+                            interactionSource = interactionSource,
                             indication = null,
                             onClick = { ruleViolationToggleList.add(it.replace("• ", "")) }
                         ),
                         text = it,
                         style = DotoriTheme.typography.smallTitle,
-                        color = DotoriTheme.colors.neutral10
+                        color = if (isClicked) DotoriTheme.colors.neutral10 else DotoriTheme.colors.neutral20
                     )
                 }
             }
@@ -324,7 +328,6 @@ fun RuleViolationCheckDialogContent(onDismiss: () -> Unit) {
                 }
             }
         }
-        if (!ruleViolationToggleList.isEmpty()) Spacer(modifier = Modifier.height(32.dp))
     }
 }
 
