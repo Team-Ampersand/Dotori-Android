@@ -1,6 +1,5 @@
 package com.msg.presentation.view.rule_violation.component
 
-import android.util.Log
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.LocalOverscrollConfiguration
 import androidx.compose.foundation.background
@@ -186,7 +185,7 @@ fun RuleViolationCheckDialogContent(onDismiss: () -> Unit) {
             "• 외부인 출입 허가"
         )
     )
-    var ruleViolationToggleList = mutableStateListOf<String>("반입 - 화기류")
+    var ruleViolationToggleList = remember { mutableStateListOf("반입 - 화기류") }
     val roleTypeMap = mapOf(
         "반입 - 화기류" to RoleViolateType.FIREARMS,
         "반입 - 흉기" to RoleViolateType.WEAPON,
@@ -273,12 +272,7 @@ fun RuleViolationCheckDialogContent(onDismiss: () -> Unit) {
                         modifier = Modifier.clickable(
                             interactionSource = remember { MutableInteractionSource() },
                             indication = null,
-                            onClick = {
-                                ruleViolationToggleList.add(it.replace("• ", ""))
-                                Log.d("test1", it)
-                                Log.d("test2", it.replace("• ", ""))
-                                Log.d("test3", ruleViolationToggleList.toString())
-                            }
+                            onClick = { ruleViolationToggleList.add(it.replace("• ", "")) }
                         ),
                         text = it,
                         style = DotoriTheme.typography.smallTitle,
@@ -301,14 +295,10 @@ fun RuleViolationCheckDialogContent(onDismiss: () -> Unit) {
                     modifier = Modifier.clickable(
                         interactionSource = remember { MutableInteractionSource() },
                         indication = null,
-                        onClick = {
-                            ruleViolationToggleList.remove(it)
-                            Log.d("test4", ruleViolationToggleList.toString())
-                        }
+                        onClick = { ruleViolationToggleList.remove(it) }
                     ),
                     violateText = roleTypeMap[it].toString()
                 )
-                Log.d("test5", roleTypeMap[it].toString())
             }
         }
         Spacer(modifier = Modifier.height(32.dp))
