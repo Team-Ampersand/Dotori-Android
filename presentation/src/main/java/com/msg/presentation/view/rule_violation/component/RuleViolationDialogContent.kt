@@ -286,22 +286,26 @@ fun RuleViolationCheckDialogContent(onDismiss: () -> Unit) {
             thickness = 1.dp,
             color = DotoriTheme.colors.neutral40
         )
-        LazyRow(
-            modifier = Modifier.padding(vertical = 9.dp),
-            horizontalArrangement = Arrangement.spacedBy(8.dp)
-        ) {
-            items(ruleViolationToggleList) {
-                RuleViolationToggle(
-                    modifier = Modifier.clickable(
-                        interactionSource = remember { MutableInteractionSource() },
-                        indication = null,
-                        onClick = { ruleViolationToggleList.remove(it) }
-                    ),
-                    violateText = roleTypeMap[it].toString()
-                )
+        if (ruleViolationToggleList.isEmpty()) {
+            Spacer(modifier = Modifier.height(80.dp))
+        } else {
+            LazyRow(
+                modifier = Modifier.padding(vertical = 9.dp),
+                horizontalArrangement = Arrangement.spacedBy(8.dp)
+            ) {
+                items(ruleViolationToggleList) {
+                    RuleViolationToggle(
+                        modifier = Modifier.clickable(
+                            interactionSource = remember { MutableInteractionSource() },
+                            indication = null,
+                            onClick = { ruleViolationToggleList.remove(it) }
+                        ),
+                        violateText = roleTypeMap[it].toString()
+                    )
+                }
             }
+            Spacer(modifier = Modifier.height(32.dp))
         }
-        Spacer(modifier = Modifier.height(32.dp))
         Row(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.spacedBy(8.dp)
@@ -320,6 +324,7 @@ fun RuleViolationCheckDialogContent(onDismiss: () -> Unit) {
                 }
             }
         }
+        if (!ruleViolationToggleList.isEmpty()) Spacer(modifier = Modifier.height(32.dp))
     }
 }
 
