@@ -26,7 +26,12 @@ fun NoticeDetailHeader(
     Row(
         modifier = Modifier
             .background(color = White)
-            .padding(start = 16.dp, end = 20.dp, top = 12.dp, bottom = 12.dp)
+            .padding(
+                start = 16.dp,
+                end = 20.dp,
+                top = 12.dp,
+                bottom = 12.dp
+            )
     ) {
         ArrowLeftIcon(
             modifier = Modifier.clickable(

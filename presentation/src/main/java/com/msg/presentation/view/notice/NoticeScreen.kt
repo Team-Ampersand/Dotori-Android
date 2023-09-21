@@ -79,7 +79,10 @@ fun NoticeScreen() {
                     /* TODO: Notice model이 작성된 후 날짜 로직으로 교체 */
                     if (month != grouped.keys.first()) {
                         MonthDivider(
-                            modifier = Modifier.padding(horizontal = 20.dp, vertical = 16.dp),
+                            modifier = Modifier.padding(
+                                horizontal = 20.dp,
+                                vertical = 16.dp
+                            ),
                             month = month
                         )
                     }

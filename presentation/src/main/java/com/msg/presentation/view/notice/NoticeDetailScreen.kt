@@ -70,8 +70,14 @@ fun NoticeDetailScreen() {
                     modifier = Modifier
                         .fillMaxSize()
                         .padding(horizontal = 20.dp)
-                        .background(color = DotoriTheme.colors.background, shape = RoundedCornerShape(8.dp))
-                        .padding(horizontal = 12.dp, vertical = 16.dp)
+                        .background(
+                            color = DotoriTheme.colors.background,
+                            shape = RoundedCornerShape(8.dp)
+                        )
+                        .padding(
+                            horizontal = 12.dp,
+                            vertical = 16.dp
+                        )
                 ) {
                     Text(
                         text = "기숙사 자습실 관련하여 공지드립니다.\n" +
