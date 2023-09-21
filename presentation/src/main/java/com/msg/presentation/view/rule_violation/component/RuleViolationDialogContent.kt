@@ -185,7 +185,7 @@ fun RuleViolationCheckDialogContent(onDismiss: () -> Unit) {
             "• 외부인 출입 허가"
         )
     )
-    var ruleViolationToggleList = remember { mutableStateListOf("반입 - 화기류") }
+    var ruleViolationToggleList = remember { mutableStateListOf<String>() }
     val roleTypeMap = mapOf(
         "반입 - 화기류" to RoleViolateType.FIREARMS,
         "반입 - 흉기" to RoleViolateType.WEAPON,
