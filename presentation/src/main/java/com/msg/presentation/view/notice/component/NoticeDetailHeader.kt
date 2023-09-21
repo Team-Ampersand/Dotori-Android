@@ -1,5 +1,6 @@
 package com.msg.presentation.view.notice.component
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Row
@@ -14,6 +15,7 @@ import com.dotori.dotori_components.theme.ArrowLeftIcon
 import com.dotori.dotori_components.theme.DotoriTheme
 import com.dotori.dotori_components.theme.PenIcon
 import com.dotori.dotori_components.theme.TrashCanIcon
+import com.dotori.dotori_components.theme.White
 
 @Composable
 fun NoticeDetailHeader(
@@ -21,7 +23,11 @@ fun NoticeDetailHeader(
     onEditClick: () -> Unit,
     onDeleteClick: () -> Unit
 ) {
-    Row(modifier = Modifier.padding(start = 16.dp, end = 20.dp, top = 12.dp, bottom = 12.dp)) {
+    Row(
+        modifier = Modifier
+            .background(color = White)
+            .padding(start = 16.dp, end = 20.dp, top = 12.dp, bottom = 12.dp)
+    ) {
         ArrowLeftIcon(
             modifier = Modifier.clickable(
                 interactionSource = remember { MutableInteractionSource() },
