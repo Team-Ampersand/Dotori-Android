@@ -1,5 +1,6 @@
 package com.msg.presentation.view.notice.component
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -15,6 +16,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.dotori.dotori_components.components.button.DotoriButton
 import com.dotori.dotori_components.theme.DotoriTheme
+import com.dotori.dotori_components.theme.White
 
 @Composable
 fun NoticeHeader(
@@ -49,7 +51,12 @@ fun NoticeHeader(
                 height = 32.dp
             ),
             text = if (isEditable) "삭제" else "\u002b 작성",
+            textColor = if (isEditable) DotoriTheme.colors.error else White,
             shape = RoundedCornerShape(50.dp),
+            border = BorderStroke(
+                width = 1.dp,
+                color = if (isEditable) DotoriTheme.colors.error else DotoriTheme.colors.neutral30
+            ),
             colors = if (isEditable) Color.Transparent else DotoriTheme.colors.primary10,
             onClick = if (isEditable) onDeleteClick else onWriteClick
         )
