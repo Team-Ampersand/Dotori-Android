@@ -1,5 +1,6 @@
 package com.msg.presentation.view.rule_violation.component
 
+import android.util.Log
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.LocalOverscrollConfiguration
 import androidx.compose.foundation.background
@@ -17,12 +18,14 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Divider
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -32,6 +35,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.dotori.dotori_components.components.button.DotoriButton
 import com.dotori.dotori_components.components.rule.DotoriRoleViolateItem
+import com.dotori.dotori_components.components.utils.RoleViolateType
 import com.dotori.dotori_components.theme.CalendarIcon
 import com.dotori.dotori_components.theme.DotoriTheme
 import com.dotori.dotori_components.theme.PlusIcon
@@ -182,6 +186,43 @@ fun RuleViolationCheckDialogContent(onDismiss: () -> Unit) {
             "• 외부인 출입 허가"
         )
     )
+    var ruleViolationToggleList = mutableStateListOf<String>("반입 - 화기류")
+    val roleTypeMap = mapOf(
+        "반입 - 화기류" to RoleViolateType.FIREARMS,
+        "반입 - 흉기" to RoleViolateType.WEAPON,
+        "반입 - 주류" to RoleViolateType.ALCOHOL,
+        "반입 - 담배" to RoleViolateType.TOBACCO,
+        "반입 - 사행성기구" to RoleViolateType.MEANDERING_APPARATUS,
+        "반입 - 음식" to RoleViolateType.FOOD,
+        "사용 - 화기류" to RoleViolateType.USE_FIREARMS,
+        "사용 - 흉기" to RoleViolateType.USE_WEAPON,
+        "사용 - 주류" to RoleViolateType.DRINKING_ALCOHOL,
+        "사용 - 담배" to RoleViolateType.USE_TOBACCO,
+        "사용 - 사행성기구" to RoleViolateType.USE_MEANDERING_APPARATUS,
+        "사용 - 음식" to RoleViolateType.EAT_FOOD,
+        "사감의 학습 및 생활지도 불이행" to RoleViolateType.MANAGER_GUIDANCE,
+        "지각" to RoleViolateType.TIME,
+        "외출" to RoleViolateType.OUTING,
+        "외박" to RoleViolateType.OVERNIGHT_STAY,
+        "물품 훼손" to RoleViolateType.DAMAGE_OF_GOODS,
+        "절도" to RoleViolateType.THEFT,
+        "갈취" to RoleViolateType.CHANTAGE,
+        "타호실 출입" to RoleViolateType.DISTURBING_SLEEP,
+        "전자기기 소지" to RoleViolateType.ELECTRONIC_DEVICE,
+        "고성방가" to RoleViolateType.LOUD,
+        "지정시간 외 기숙사 출입" to RoleViolateType.INCORRECT_ENTRY,
+        "세탁기,건조기에 세탁물 방치" to RoleViolateType.LAUNDRY,
+        "공공시설물 사용규정 위반" to RoleViolateType.VIOLATION_OF_THE_USE_OF_FACILITIES,
+        "부착된 게시물 훼손 및 낙서" to RoleViolateType.DAMAGE_OF_POST,
+        "전자기기 소지 혹은 사용" to RoleViolateType.POSSESSION_OF_ELECTRONICS_DEVICES,
+        "호실 정리정돈 상태 불량" to RoleViolateType.CLEAN_COUNDITION_BAD,
+        "기숙사 환경 오염" to RoleViolateType.ENVIRONMENT_POLLUTION,
+        "애정 행위" to RoleViolateType.AFFECTIONATE_ACT,
+        "성적 행위" to RoleViolateType.SEXUAL_ACT,
+        "출입금지 구역 출입" to RoleViolateType.ENTRY_TO_PROHIBITED_AREAS,
+        "학습실 면학분위기 저해" to RoleViolateType.VIOLATION_OF_STUDY_ROOM_RULES,
+        "외부인 출입 허가" to RoleViolateType.OUTSIDER_ENTRY,
+    )
 
     Column {
         Row(
@@ -229,6 +270,16 @@ fun RuleViolationCheckDialogContent(onDismiss: () -> Unit) {
             ) {
                 detailRuleViolationList[isDetailClicked].forEach {
                     Text(
+                        modifier = Modifier.clickable(
+                            interactionSource = remember { MutableInteractionSource() },
+                            indication = null,
+                            onClick = {
+                                ruleViolationToggleList.add(it.replace("• ", ""))
+                                Log.d("test1", it)
+                                Log.d("test2", it.replace("• ", ""))
+                                Log.d("test3", ruleViolationToggleList.toString())
+                            }
+                        ),
                         text = it,
                         style = DotoriTheme.typography.smallTitle,
                         color = DotoriTheme.colors.neutral10
@@ -245,8 +296,19 @@ fun RuleViolationCheckDialogContent(onDismiss: () -> Unit) {
             modifier = Modifier.padding(vertical = 9.dp),
             horizontalArrangement = Arrangement.spacedBy(8.dp)
         ) {
-            items(4) {
-                RuleViolationToggle(if (it == 1) "WEAPON" else "FIREARMS") // 디자인과 비슷하게 하기 위해서 테스트용으로 조건문으로 했습니다
+            items(ruleViolationToggleList) {
+                RuleViolationToggle(
+                    modifier = Modifier.clickable(
+                        interactionSource = remember { MutableInteractionSource() },
+                        indication = null,
+                        onClick = {
+                            ruleViolationToggleList.remove(it)
+                            Log.d("test4", ruleViolationToggleList.toString())
+                        }
+                    ),
+                    violateText = roleTypeMap[it].toString()
+                )
+                Log.d("test5", roleTypeMap[it].toString())
             }
         }
         Spacer(modifier = Modifier.height(32.dp))

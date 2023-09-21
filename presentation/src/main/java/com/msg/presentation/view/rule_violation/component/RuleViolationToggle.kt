@@ -19,11 +19,14 @@ import com.dotori.dotori_components.theme.DotoriTheme
 import com.dotori.dotori_components.theme.XMarkIcon2
 
 @Composable
-fun RuleViolationToggle(violateText: String) {
+fun RuleViolationToggle(
+    modifier: Modifier = Modifier,
+    violateText: String
+) {
     val violateType = enumValueOf<RoleViolateType>(violateText)
 
     Row(
-        modifier = Modifier
+        modifier = modifier
             .height(30.dp)
             .background(
                 color = DotoriTheme.colors.background,
@@ -49,5 +52,5 @@ fun RuleViolationToggle(violateText: String) {
 @Preview
 @Composable
 fun RuleViolationTogglePreview() {
-    RuleViolationToggle("FIREARMS")
+    RuleViolationToggle(violateText = "FIREARMS")
 }
