@@ -13,6 +13,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -24,6 +25,7 @@ import com.dotori.dotori_components.theme.XMarkIcon
 fun RuleViolationTextItem(
     title: String = "",
     content: String,
+    textColor: Color = DotoriTheme.colors.neutral10,
     icon: @Composable () -> Unit
 ) {
     Column(
@@ -54,7 +56,7 @@ fun RuleViolationTextItem(
                 modifier = Modifier.weight(1f),
                 text = content,
                 style = DotoriTheme.typography.body,
-                color = DotoriTheme.colors.neutral10,
+                color = textColor,
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis
             )
