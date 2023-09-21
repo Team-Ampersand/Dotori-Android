@@ -57,7 +57,7 @@ fun NoticeDetailScreen() {
                     onDeleteClick = { /* TODO: 디자인 생긴 후 처리 */ }
                 )
             }
-            val images = listOf("")
+            val images = listOf("", "", "")
             item {
                 NoticeDetailTitle(
                     modifier = Modifier.padding(horizontal = 20.dp),
