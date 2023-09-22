@@ -34,6 +34,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.dotori.dotori_components.components.button.DotoriButton
+import com.dotori.dotori_components.components.calendar.DotoriCalendar
 import com.dotori.dotori_components.components.rule.DotoriRoleViolateItem
 import com.dotori.dotori_components.components.utils.RoleViolateType
 import com.dotori.dotori_components.theme.CalendarIcon
@@ -42,6 +43,8 @@ import com.dotori.dotori_components.theme.PlusIcon
 import com.dotori.dotori_components.theme.Transparent
 import com.dotori.dotori_components.theme.XMarkIcon
 import com.dotori.dotori_components.theme.XMarkIcon2
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 
 @Composable
 fun RuleViolationDialogContent(
@@ -334,6 +337,12 @@ fun RuleViolationCheckDialogContent(onDismiss: () -> Unit) {
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun RuleViolationCreateDialogContent(onDismiss: () -> Unit) {
+    var showCalendar by remember { mutableStateOf(false) }
+    var createdDate = LocalDate.now()
+    val formattedDate = DateTimeFormatter.ofPattern("yyyy년 MM월 dd일").format(createdDate)
+
+    if (showCalendar) { DotoriCalendar(onDaySelected = { createdDate = it }) }
+
     Box(modifier = Modifier.height(520.dp)) {
         Column {
             Row(
@@ -381,8 +390,19 @@ fun RuleViolationCreateDialogContent(onDismiss: () -> Unit) {
                     item {
                         RuleViolationTextItem(
                             title = "날짜",
-                            content = "2023년 8월 12일 (오늘)",
-                            icon = { CalendarIcon() }
+                            content = formattedDate,
+                            icon = {
+                                CalendarIcon(
+                                    modifier = Modifier.clickable(
+                                        interactionSource = remember { MutableInteractionSource() },
+                                        indication = null,
+                                        onClick = {
+                                            onDismiss
+                                            showCalendar = true
+                                        }
+                                    )
+                                )
+                            }
                         )
                     }
                     item {
@@ -476,5 +496,5 @@ fun RuleViolationDeleteDialogContent(
 @Preview
 @Composable
 fun RuleViolationListDialogPreview() {
-    RuleViolationDialogContent(RuleViolationDialogType.CHECK) {}
+    RuleViolationDialogContent(RuleViolationDialogType.CREATE) {}
 }
