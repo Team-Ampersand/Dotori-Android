@@ -16,23 +16,37 @@ class NoticeRepositoryImpl @Inject constructor(
         role: String,
         files: List<MultipartBody.Part>,
         noticeRequest: NoticeRequestModel
-    ) = noticeDataSource.writeNotice(role, files, noticeRequest.asNoticeRequest())
+    ) = noticeDataSource.writeNotice(
+        role,
+        files,
+        noticeRequest.asNoticeRequest()
+    )
 
     override suspend fun modifyNotice(
         role: String,
         noticeId: Long,
         body: NoticeRequestModel
-    ) = noticeDataSource.modifyNotice(role, noticeId, body.asNoticeRequest())
+    ) = noticeDataSource.modifyNotice(
+        role,
+        noticeId,
+        body.asNoticeRequest()
+    )
 
     override suspend fun deleteNoticeById(
         role: String,
         noticeId: Long
-    ) = noticeDataSource.deleteNoticeById(role, noticeId)
+    ) = noticeDataSource.deleteNoticeById(
+        role,
+        noticeId
+    )
 
     override suspend fun deleteNoticeByIdList(
         role: String,
         body: List<Long>
-    ) = noticeDataSource.deleteNoticeByIdList(role, body)
+    ) = noticeDataSource.deleteNoticeByIdList(
+        role,
+        body
+    )
 
     override suspend fun getAllNotice(role: String): List<NoticeResponseModel> =
         noticeDataSource.getAllNotice(role).map { it.asNoticeResponseModel() }
@@ -40,5 +54,8 @@ class NoticeRepositoryImpl @Inject constructor(
     override suspend fun getNoticeDetail(
         role: String,
         noticeId: Long
-    ) = noticeDataSource.getNoticeDetail(role, noticeId)
+    ) = noticeDataSource.getNoticeDetail(
+        role,
+        noticeId
+    )
 }
