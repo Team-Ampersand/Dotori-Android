@@ -39,9 +39,10 @@ fun NoticeScreen() {
     if (showDialog) {
         DotoriDialog(onDismiss = { showDialog = false }) {
             NoticeDialogContent(
-                count = selectedList.size,
+                title = "${selectedList.size}개 항목 삭제",
+                content = "정말로 ${selectedList.size}개의 항목을 삭제 하시겠습니까?",
                 onDismiss = { showDialog = false },
-                onDelete = { /* TODO */ }
+                onConfirm = { /* TODO */ }
             )
         }
     }

@@ -34,7 +34,7 @@ import com.dotori.dotori_components.theme.DotoriTheme
 import com.dotori.dotori_components.theme.White
 import com.dotori.dotori_components.theme.XMarkIcon
 import com.msg.presentation.view.music.component.DotoriTopBar
-import com.msg.presentation.view.notice.component.NoticeEditDialogContent
+import com.msg.presentation.view.notice.component.NoticeDialogContent
 import com.msg.presentation.view.notice.component.NoticeEditHeader
 import com.msg.presentation.view.notice.component.NoticeEditImage
 import com.msg.presentation.view.util.updateDotoriTheme
@@ -50,7 +50,9 @@ fun NoticeEditScreen() {
 
     if (showDialog) {
         DotoriDialog(onDismiss = { showDialog = false }) {
-            NoticeEditDialogContent(
+            NoticeDialogContent(
+                title = "작성된 공지사항 삭제",
+                content = "나가면 작성하신 공지사항이 삭제됩니다.",
                 onDismiss = { showDialog = false },
                 onConfirm = { /* TODO: 뒤로가기 이벤트 처리 */ }
             )
