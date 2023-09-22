@@ -3,11 +3,13 @@ package com.msg.dotori.module
 import com.msg.data.repository.AuthRepositoryImpl
 import com.msg.data.repository.MassageRepositoryImpl
 import com.msg.data.repository.MusicRepositoryImpl
+import com.msg.data.repository.NoticeRepositoryImpl
 import com.msg.data.repository.SelfStudyRepositoryImpl
 import com.msg.data.repository.StudentInfoRepositoryImpl
 import com.msg.domain.repository.AuthRepository
 import com.msg.domain.repository.MassageRepository
 import com.msg.domain.repository.MusicRepository
+import com.msg.domain.repository.NoticeRepository
 import com.msg.domain.repository.SelfStudyRepository
 import com.msg.domain.repository.StudentInfoRepository
 import dagger.Binds
@@ -32,4 +34,7 @@ interface RepositoryModule {
 
     @Binds
     fun bindsMassageRepository(massageRepositoryImpl: MassageRepositoryImpl): MassageRepository
+
+    @Binds
+    fun bindsNoticeRepository(noticeRepositoryImpl: NoticeRepositoryImpl): NoticeRepository
 }
