@@ -16,38 +16,38 @@ import retrofit2.http.Path
 interface NoticeApi {
     @Multipart
     @POST("/{role}/board")
-    fun writeNotice(
+    suspend fun writeNotice(
         @Path("role") role: String,
         @Part files: List<MultipartBody.Part>,
         @Part("boardDto") noticeRequest: NoticeRequest
     )
 
     @PUT("/{role}/board/{board_id}")
-    fun modifyNotice(
+    suspend fun modifyNotice(
         @Path("role") role: String,
         @Path("board_id") noticeId: Long,
         @Body body: NoticeRequest
     )
 
     @DELETE("/{role}/board/{board_id}")
-    fun deleteNoticeById(
+    suspend fun deleteNoticeById(
         @Path("role") role: String,
         @Path("board_id") noticeId: Long,
     )
 
     @HTTP(method = "DELETE", path = "/{role}/board", hasBody = true)
-    fun deleteNoticeByIdList(
+    suspend fun deleteNoticeByIdList(
         @Path("role") role: String,
         @Body body: List<Long>
     )
 
     @GET("/{role}/board")
-    fun getAllNotice(
+    suspend fun getAllNotice(
         @Path("role") role: String,
     ): List<NoticeResponse>
 
     @GET("/{role}/board/{board_id}")
-    fun getNoticeDetail(
+    suspend fun getNoticeDetail(
         @Path("role") role: String,
         @Path("board_id") noticeId: Long
     )
