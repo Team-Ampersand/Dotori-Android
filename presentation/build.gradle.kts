@@ -59,6 +59,7 @@ dependencies {
     implementation(Dependency.Compose.COMPOSE_MATERIAL)
     implementation(Dependency.Compose.COMPOSE_PREVIEW)
     implementation(Dependency.Compose.NAVIGATION_COMPOSE)
+    implementation(Dependency.Compose.LANDSCAPIST_COMPOSE)
 
     testImplementation(Dependency.UnitTest.JUNIT)
     androidTestImplementation(Dependency.AndroidTest.ANDROID_JUNIT)
