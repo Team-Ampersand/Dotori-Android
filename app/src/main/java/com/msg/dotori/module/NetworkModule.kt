@@ -4,6 +4,7 @@ import android.util.Log
 import com.msg.data.remote.network.AuthApi
 import com.msg.data.remote.network.MassageApi
 import com.msg.data.remote.network.MusicApi
+import com.msg.data.remote.network.NoticeApi
 import com.msg.data.remote.network.SelfStudyApi
 import com.msg.data.remote.network.StudentInfoApi
 import com.msg.data.remote.util.AuthInterceptor
@@ -82,4 +83,8 @@ object NetworkModule {
     @Provides
     @Singleton
     fun provideMassageApi(retrofit: Retrofit): MassageApi = retrofit.create(MassageApi::class.java)
+
+    @Provides
+    @Singleton
+    fun provideNoticeApi(retrofit: Retrofit): NoticeApi = retrofit.create(NoticeApi::class.java)
 }
