@@ -15,18 +15,19 @@ import com.dotori.dotori_components.theme.White
 
 @Composable
 fun NoticeDialogContent(
-    count: Int,
+    title: String,
+    content: String,
     onDismiss: () -> Unit,
-    onDelete: () -> Unit,
+    onConfirm: () -> Unit
 ) {
     Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
         Text(
-            text = "${count}개 항목 삭제",
+            text = title,
             style = DotoriTheme.typography.subTitle1,
             color = DotoriTheme.colors.neutral10
         )
         Text(
-            text = "정말로 ${count}개의 항목을 삭제 하시겠습니까?",
+            text = content,
             minLines = 2,
             style = DotoriTheme.typography.body2,
             color = DotoriTheme.colors.neutral20
@@ -46,7 +47,7 @@ fun NoticeDialogContent(
                 text = "확인",
                 colors = Color.Transparent,
                 paddingValues = PaddingValues(vertical = 12.dp),
-                onClick = onDelete
+                onClick = onConfirm
             )
         }
     }
