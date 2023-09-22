@@ -1,6 +1,7 @@
 package com.msg.domain.repository
 
 import com.msg.domain.model.notice.request.NoticeRequestModel
+import com.msg.domain.model.notice.response.NoticeDetailResponseModel
 import com.msg.domain.model.notice.response.NoticeResponseModel
 import okhttp3.MultipartBody
 
@@ -32,5 +33,5 @@ interface NoticeRepository {
     suspend fun getNoticeDetail(
         role: String,
         noticeId: Long
-    )
+    ): NoticeDetailResponseModel
 }
