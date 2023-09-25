@@ -19,7 +19,7 @@ class NoticeDetailViewModel @Inject constructor(
     private val getRoleUseCase: GetRoleUseCase,
     private val deleteNoticeByIdUseCase: DeleteNoticeByIdUseCase,
     private val getNoticeDetailUseCase: GetNoticeDetailUseCase
-): ViewModel() {
+) : ViewModel() {
     private val _roleUiState = MutableStateFlow<Event<String>>(Event.Loading)
     val roleUiState = _roleUiState.asStateFlow()
 
@@ -36,36 +36,32 @@ class NoticeDetailViewModel @Inject constructor(
     fun deleteNoticeById(
         role: String,
         noticeId: Long
-    ) {
-        viewModelScope.launch {
-            deleteNoticeByIdUseCase(
-                role = role,
-                noticeId = noticeId
-            ).onSuccess {
-                _deleteUiState.value = Event.Success()
-            }.onFailure {
-                it.exceptionHandling(
-                    notFoundAction = { _deleteUiState.value = Event.NotFound }
-                )
-            }
+    ) = viewModelScope.launch {
+        deleteNoticeByIdUseCase(
+            role = role,
+            noticeId = noticeId
+        ).onSuccess {
+            _deleteUiState.value = Event.Success()
+        }.onFailure {
+            it.exceptionHandling(
+                notFoundAction = { _deleteUiState.value = Event.NotFound }
+            )
         }
     }
 
     fun getNoticeDetail(
         role: String,
         noticeId: Long
-    ) {
-        viewModelScope.launch {
-            getNoticeDetailUseCase(
-                role = role,
-                noticeId = noticeId
-            ).onSuccess {
-                _noticeUiState.value = Event.Success(it)
-            }.onFailure {
-                it.exceptionHandling(
-                    notFoundAction = { _noticeUiState.value = Event.NotFound }
-                )
-            }
+    ) = viewModelScope.launch {
+        getNoticeDetailUseCase(
+            role = role,
+            noticeId = noticeId
+        ).onSuccess {
+            _noticeUiState.value = Event.Success(it)
+        }.onFailure {
+            it.exceptionHandling(
+                notFoundAction = { _noticeUiState.value = Event.NotFound }
+            )
         }
     }
 }
