@@ -293,7 +293,10 @@ fun RuleViolationCheckDialogContent(
                         modifier = Modifier.clickable(
                             interactionSource = interactionSource,
                             indication = null,
-                            onClick = { ruleViolationToggleList.add(it.replace("• ", "")) }
+                            onClick = {
+                                val cleanText = it.replace("• ", "")
+                                if (!ruleViolationToggleList.contains(cleanText)) ruleViolationToggleList.add(cleanText)
+                            }
                         ),
                         text = it,
                         style = DotoriTheme.typography.smallTitle,
