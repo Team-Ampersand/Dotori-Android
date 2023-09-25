@@ -79,12 +79,14 @@ fun NoticeScreen(noticeViewModel: NoticeViewModel = hiltViewModel()) {
                 )
             }
             stickyHeader {
-                NoticeHeader(
-                    isEditable = isEditable,
-                    onEditClick = { isEditable = !isEditable },
-                    onWriteClick = { /* TODO: NoticeWriteScreen 이동 */ },
-                    onDeleteClick = { showDialog = true }
-                )
+                if (roleUiState.data!! in listOf("ROLE_DEVELOPER", "ROLE_COUNCILLOR", "ROLE_ADMIN")) {
+                    NoticeHeader(
+                        isEditable = isEditable,
+                        onEditClick = { isEditable = !isEditable },
+                        onWriteClick = { /* TODO: NoticeWriteScreen 이동 */ },
+                        onDeleteClick = { showDialog = true }
+                    )
+                }
             }
             item {
                 Divider(
