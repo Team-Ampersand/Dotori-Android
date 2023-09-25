@@ -79,7 +79,12 @@ fun NoticeScreen(noticeViewModel: NoticeViewModel = hiltViewModel()) {
                 )
             }
             stickyHeader {
-                if (roleUiState.data!! in listOf("ROLE_DEVELOPER", "ROLE_COUNCILLOR", "ROLE_ADMIN")) {
+                if (roleUiState.data!! in listOf(
+                        "ROLE_DEVELOPER",
+                        "ROLE_COUNCILLOR",
+                        "ROLE_ADMIN"
+                    )
+                ) {
                     NoticeHeader(
                         isEditable = isEditable,
                         onEditClick = { isEditable = !isEditable },
