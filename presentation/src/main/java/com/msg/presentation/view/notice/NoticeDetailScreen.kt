@@ -19,16 +19,21 @@ import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.dotori.dotori_components.components.dialog.DotoriDialog
 import com.dotori.dotori_components.theme.DotoriTheme
 import com.dotori.dotori_components.theme.White
 import com.msg.presentation.R
 import com.msg.presentation.view.music.component.DotoriTopBar
 import com.msg.presentation.view.notice.component.NoticeDetailHeader
 import com.msg.presentation.view.notice.component.NoticeDetailTitle
+import com.msg.presentation.view.notice.component.NoticeDialogContent
 import com.msg.presentation.view.util.updateDotoriTheme
 import com.msg.presentation.viewmodel.notice.NoticeDetailViewModel
 import com.skydoves.landscapist.glide.GlideImage
@@ -36,15 +41,34 @@ import com.skydoves.landscapist.glide.GlideImage
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun NoticeDetailScreen(noticeDetailViewModel: NoticeDetailViewModel = hiltViewModel()) {
+    var showDialog by remember { mutableStateOf(false) }
+
     val roleUiState by noticeDetailViewModel.roleUiState.collectAsState()
     val noticeUiState by noticeDetailViewModel.noticeUiState.collectAsState()
+    val noticeId = 1L /* TODO: NavArg로 받아오기 */
 
     LaunchedEffect(Unit) {
         noticeDetailViewModel.getRole()
         noticeDetailViewModel.getNoticeDetail(
             role = roleUiState.data!!,
-            noticeId = 1 /* TODO: NavArg로 받아오기 */
+            noticeId = noticeId
         )
+    }
+
+    if (showDialog) {
+        DotoriDialog(onDismiss = { showDialog = false }) {
+            NoticeDialogContent(
+                title = "공지사항 삭제",
+                content = "정말로 해당 공지사항을 삭제하겠습니까?",
+                onDismiss = { showDialog = false },
+                onConfirm = {
+                    noticeDetailViewModel.deleteNoticeById(
+                        role = roleUiState.data!!,
+                        noticeId = noticeId
+                    )
+                }
+            )
+        }
     }
 
     CompositionLocalProvider(
@@ -69,7 +93,7 @@ fun NoticeDetailScreen(noticeDetailViewModel: NoticeDetailViewModel = hiltViewMo
                 NoticeDetailHeader(
                     onBackClick = { /* TODO: 뒤로가기 이벤트 처리 */ },
                     onEditClick = { /* TODO: EditScreen 이동 처리 */ },
-                    onDeleteClick = { /* TODO: 디자인 생긴 후 처리 */ }
+                    onDeleteClick = { showDialog = true }
                 )
             }
             val notice = noticeUiState.data!!
