@@ -64,8 +64,9 @@ fun NoticeEditScreen(noticeEditViewModel: NoticeEditViewModel = hiltViewModel())
         }
     }
 
-    var title by remember { mutableStateOf(noticeUiState.data?.title ?: "") }
-    var content by remember { mutableStateOf(noticeUiState.data?.content ?: "") }
+    val notice = noticeUiState.data
+    var title by remember { mutableStateOf(notice?.title ?: "") }
+    var content by remember { mutableStateOf(notice?.content ?: "") }
     var showDialog by remember { mutableStateOf(false) }
 
     if (showDialog) {
