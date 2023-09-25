@@ -49,6 +49,9 @@ import java.time.format.DateTimeFormatter
 @Composable
 fun RuleViolationDialogContent(
     ruleViolationDialogType: RuleViolationDialogType,
+    createdDate: LocalDate,
+    onCalendar: () -> Unit,
+    onPlus: () -> Unit,
     onDismiss: () -> Unit
 ) {
     when (ruleViolationDialogType) {
@@ -57,11 +60,19 @@ fun RuleViolationDialogContent(
         }
 
         RuleViolationDialogType.CHECK -> {
-            RuleViolationCheckDialogContent(onDismiss)
+            RuleViolationCheckDialogContent(
+                onPlus = onPlus,
+                onDismiss = onDismiss
+            )
         }
 
         RuleViolationDialogType.CREATE -> {
-            RuleViolationCreateDialogContent(onDismiss)
+            RuleViolationCreateDialogContent(
+                createdDate = createdDate,
+                onCalendar = onCalendar,
+                onPlus = onPlus,
+                onDismiss = onDismiss
+            )
         }
 
         RuleViolationDialogType.DELETE -> {
@@ -116,7 +127,10 @@ fun RuleViolationListDialogContent(onDismiss: () -> Unit) {
 }
 
 @Composable
-fun RuleViolationCheckDialogContent(onDismiss: () -> Unit) {
+fun RuleViolationCheckDialogContent(
+    onPlus: () -> Unit,
+    onDismiss: () -> Unit
+) {
     var isDetailClicked by remember { mutableStateOf(-1) }
     val ruleViolationList = listOf(
         "금지 물품 반입",
@@ -327,7 +341,10 @@ fun RuleViolationCheckDialogContent(onDismiss: () -> Unit) {
                     textStyle = DotoriTheme.typography.subTitle2
                 ) {
                     if (it == 0) isDetailClicked = -1
-                    else onDismiss()
+                    else {
+                        onDismiss()
+                        onPlus()
+                    }
                 }
             }
         }
@@ -336,12 +353,13 @@ fun RuleViolationCheckDialogContent(onDismiss: () -> Unit) {
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun RuleViolationCreateDialogContent(onDismiss: () -> Unit) {
-    var showCalendar by remember { mutableStateOf(false) }
-    var createdDate = LocalDate.now()
+fun RuleViolationCreateDialogContent(
+    createdDate: LocalDate,
+    onCalendar: () -> Unit,
+    onPlus: () -> Unit,
+    onDismiss: () -> Unit
+) {
     val formattedDate = DateTimeFormatter.ofPattern("yyyy년 MM월 dd일").format(createdDate)
-
-    if (showCalendar) { DotoriCalendar(onDaySelected = { createdDate = it }) }
 
     Box(modifier = Modifier.height(520.dp)) {
         Column {
@@ -397,8 +415,7 @@ fun RuleViolationCreateDialogContent(onDismiss: () -> Unit) {
                                         interactionSource = remember { MutableInteractionSource() },
                                         indication = null,
                                         onClick = {
-                                            onDismiss
-                                            showCalendar = true
+//                                            onCalendar() 일단은 기능 추가 X (나중에 업데이트를 통해 추가?)
                                         }
                                     )
                                 )
@@ -425,7 +442,10 @@ fun RuleViolationCreateDialogContent(onDismiss: () -> Unit) {
                                         modifier = Modifier.clickable(
                                             interactionSource = remember { MutableInteractionSource() },
                                             indication = null,
-                                            onClick = onDismiss
+                                            onClick = {
+                                                onDismiss()
+                                                onPlus()
+                                            }
                                         )
                                     )
                                 }
@@ -496,5 +516,11 @@ fun RuleViolationDeleteDialogContent(
 @Preview
 @Composable
 fun RuleViolationListDialogPreview() {
-    RuleViolationDialogContent(RuleViolationDialogType.CREATE) {}
+    RuleViolationDialogContent(
+        createdDate = LocalDate.now(),
+        ruleViolationDialogType = RuleViolationDialogType.CREATE,
+        onCalendar = { /*TODO*/ },
+        onPlus = { /*TODO*/ },
+        onDismiss = { /*TODO*/ }
+    )
 }
