@@ -70,9 +70,12 @@ fun RuleViolationScreen(modifier: Modifier = Modifier) {
                             showDialog = false
                             if (currentDialogType == RuleViolationDialogType.CREATE) {
                                 currentDialogType = RuleViolationDialogType.CHECK
-                            } else {
-                                currentDialogType = RuleViolationDialogType.CREATE
-                            }
+                            } else currentDialogType = RuleViolationDialogType.CREATE
+                            showDialog = true
+                        },
+                        onDelete = {
+                            showDialog = false
+                            currentDialogType = RuleViolationDialogType.DELETE
                             showDialog = true
                         },
                         onDismiss = { showDialog = false }

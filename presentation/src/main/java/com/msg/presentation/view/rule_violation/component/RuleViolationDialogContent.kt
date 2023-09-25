@@ -52,11 +52,15 @@ fun RuleViolationDialogContent(
     createdDate: LocalDate,
     onCalendar: () -> Unit,
     onPlus: () -> Unit,
-    onDismiss: () -> Unit
+    onDismiss: () -> Unit,
+    onDelete: () -> Unit
 ) {
     when (ruleViolationDialogType) {
         RuleViolationDialogType.LIST -> {
-            RuleViolationListDialogContent(onDismiss)
+            RuleViolationListDialogContent(
+                onDelete = onDelete,
+                onDismiss = onDismiss
+            )
         }
 
         RuleViolationDialogType.CHECK -> {
@@ -86,7 +90,10 @@ fun RuleViolationDialogContent(
 }
 
 @Composable
-fun RuleViolationListDialogContent(onDismiss: () -> Unit) {
+fun RuleViolationListDialogContent(
+    onDelete: () -> Unit,
+    onDismiss: () -> Unit
+) {
     Column {
         Row(
             modifier = Modifier
@@ -113,7 +120,7 @@ fun RuleViolationListDialogContent(onDismiss: () -> Unit) {
             verticalArrangement = Arrangement.spacedBy(8.dp)
         ) {
             items(3) {
-                DotoriRoleViolateItem(violateText = "FIREARMS", violateDate = "2023-08-29") {}
+                DotoriRoleViolateItem(violateText = "FIREARMS", violateDate = "2023-08-29") { onDelete() }
             }
         }
         DotoriButton(
@@ -524,6 +531,7 @@ fun RuleViolationListDialogPreview() {
         ruleViolationDialogType = RuleViolationDialogType.CREATE,
         onCalendar = { /*TODO*/ },
         onPlus = { /*TODO*/ },
-        onDismiss = { /*TODO*/ }
+        onDismiss = { /*TODO*/ },
+        onDelete = { /*TODO*/ }
     )
 }
