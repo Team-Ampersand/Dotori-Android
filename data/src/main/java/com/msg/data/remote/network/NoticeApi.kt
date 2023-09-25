@@ -1,6 +1,7 @@
 package com.msg.data.remote.network
 
 import com.msg.data.remote.dto.notice.request.NoticeRequest
+import com.msg.data.remote.dto.notice.response.NoticeDetailResponse
 import com.msg.data.remote.dto.notice.response.NoticeResponse
 import okhttp3.MultipartBody
 import retrofit2.http.Body
@@ -50,5 +51,5 @@ interface NoticeApi {
     suspend fun getNoticeDetail(
         @Path("role") role: String,
         @Path("board_id") noticeId: Long
-    )
+    ): NoticeDetailResponse
 }

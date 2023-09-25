@@ -1,6 +1,7 @@
 package com.msg.data.remote.datasource.notice
 
 import com.msg.data.remote.dto.notice.request.NoticeRequest
+import com.msg.data.remote.dto.notice.response.NoticeDetailResponse
 import com.msg.data.remote.dto.notice.response.NoticeResponse
 import okhttp3.MultipartBody
 
@@ -34,5 +35,5 @@ interface NoticeDataSource {
     suspend fun getNoticeDetail(
         role: String,
         noticeId: Long
-    )
+    ): NoticeDetailResponse
 }

@@ -2,6 +2,7 @@ package com.msg.data.repository
 
 import com.msg.data.remote.datasource.notice.NoticeDataSource
 import com.msg.data.remote.dto.notice.request.asNoticeRequest
+import com.msg.data.remote.dto.notice.response.asNoticeDetailResponseModel
 import com.msg.data.remote.dto.notice.response.asNoticeResponseModel
 import com.msg.domain.model.notice.request.NoticeRequestModel
 import com.msg.domain.model.notice.response.NoticeResponseModel
@@ -57,5 +58,5 @@ class NoticeRepositoryImpl @Inject constructor(
     ) = noticeDataSource.getNoticeDetail(
         role,
         noticeId
-    )
+    ).asNoticeDetailResponseModel()
 }
