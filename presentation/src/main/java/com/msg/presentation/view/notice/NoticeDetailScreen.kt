@@ -16,9 +16,13 @@ import androidx.compose.material.Divider
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.dotori.dotori_components.theme.DotoriTheme
 import com.dotori.dotori_components.theme.White
 import com.msg.presentation.R
@@ -26,12 +30,23 @@ import com.msg.presentation.view.music.component.DotoriTopBar
 import com.msg.presentation.view.notice.component.NoticeDetailHeader
 import com.msg.presentation.view.notice.component.NoticeDetailTitle
 import com.msg.presentation.view.util.updateDotoriTheme
+import com.msg.presentation.viewmodel.notice.NoticeDetailViewModel
 import com.skydoves.landscapist.glide.GlideImage
-import java.time.LocalDateTime
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun NoticeDetailScreen() {
+fun NoticeDetailScreen(noticeDetailViewModel: NoticeDetailViewModel = hiltViewModel()) {
+    val roleUiState by noticeDetailViewModel.roleUiState.collectAsState()
+    val noticeUiState by noticeDetailViewModel.noticeUiState.collectAsState()
+
+    LaunchedEffect(Unit) {
+        noticeDetailViewModel.getRole()
+        noticeDetailViewModel.getNoticeDetail(
+            role = roleUiState.data!!,
+            noticeId = 1 /* TODO: NavArg로 받아오기 */
+        )
+    }
+
     CompositionLocalProvider(
         LocalOverscrollConfiguration provides null
     ) {
@@ -57,13 +72,13 @@ fun NoticeDetailScreen() {
                     onDeleteClick = { /* TODO: 디자인 생긴 후 처리 */ }
                 )
             }
-            val images = listOf("", "", "")
+            val notice = noticeUiState.data!!
             item {
                 NoticeDetailTitle(
                     modifier = Modifier.padding(horizontal = 20.dp),
-                    title = "[기숙사 자습실 관련 공지]",
-                    createdDate = LocalDateTime.now(),
-                    role = "ROLE_DEVELOPER"
+                    title = notice.title,
+                    createdDate = notice.createdDate,
+                    role = notice.role
                 )
                 Spacer(modifier = Modifier.height(24.dp))
                 Column(
@@ -80,15 +95,11 @@ fun NoticeDetailScreen() {
                         )
                 ) {
                     Text(
-                        text = "기숙사 자습실 관련하여 공지드립니다.\n" +
-                                "[ 기숙사 자습실 관련 공지 ]\n" +
-                                "\n" +
-                                "현재 기숙사에서 화요일까지 정보처리산업기사시험으로인해 금일 자습실 운영에 제한이 생겨 자습인원을 신청한 순서대로 40번째까지만 자습실을 이용하실수있는점 양해바랍니다.\n" +
-                                "궁금한 점 있으시면 이시완#7244으로 문의주시기바랍니다.",
+                        text = notice.content,
                         style = DotoriTheme.typography.body,
                         color = DotoriTheme.colors.neutral10
                     )
-                    images.forEach {
+                    notice.noticeImages.forEach {
                         Spacer(modifier = Modifier.height(16.dp))
                         GlideImage(
                             modifier = Modifier.fillMaxWidth(),
