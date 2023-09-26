@@ -27,9 +27,11 @@ import com.dotori.dotori_components.components.drawer.DrawerItemData
 import com.dotori.dotori_components.components.drawer.Icons
 import com.dotori.dotori_components.components.rule.DotoriRoleViolateListItem
 import com.dotori.dotori_components.theme.DotoriTheme
-import com.msg.presentation.view.rule_violation.component.RuleViolationDialogContent
-import com.msg.presentation.view.rule_violation.component.RuleViolationDialogType
+import com.msg.presentation.view.rule_violation.component.RuleViolationCheckDialogContent
+import com.msg.presentation.view.rule_violation.component.RuleViolationCreateDialogContent
+import com.msg.presentation.view.rule_violation.component.RuleViolationDeleteDialogContent
 import com.msg.presentation.view.rule_violation.component.RuleViolationHeader
+import com.msg.presentation.view.rule_violation.component.RuleViolationListDialogContent
 import com.msg.presentation.view.student_info.component.DotoriHamburgerTopBar
 import com.msg.presentation.view.util.updateDotoriTheme
 import kotlinx.coroutines.launch
@@ -38,8 +40,10 @@ import java.time.LocalDate
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun RuleViolationScreen(modifier: Modifier = Modifier) {
-    var showDialog by remember { mutableStateOf(false) }
-    var currentDialogType by remember { mutableStateOf(RuleViolationDialogType.LIST) }
+    var showListDialog by remember { mutableStateOf(false) }
+    var showCheckDialog by remember { mutableStateOf(false) }
+    var showCreateDialog by remember { mutableStateOf(false) }
+    var showDeleteDialog by remember { mutableStateOf(false) }
     val coroutineScope = rememberCoroutineScope()
     var createdDate = LocalDate.now()
 
@@ -60,25 +64,50 @@ fun RuleViolationScreen(modifier: Modifier = Modifier) {
                 )
             )
         ) { openDrawer ->
-            if (showDialog) {
-                DotoriDialog(onDismiss = { showDialog = false }) {
-                    RuleViolationDialogContent(
+            if (showListDialog) {
+                DotoriDialog(onDismiss = { showListDialog = false }) {
+                    RuleViolationListDialogContent(
+                        onDelete = {
+                            showListDialog = false
+                            showDeleteDialog = true
+                        },
+                        onDismiss = { showListDialog = false }
+                    )
+                }
+            }
+
+            if (showCheckDialog) {
+                DotoriDialog(onDismiss = { showCheckDialog = false }) {
+                    RuleViolationCheckDialogContent(
+                        onPlus = {
+                            showCheckDialog = false
+                            showCreateDialog = true
+                        },
+                        onDismiss = { showCheckDialog = false }
+                    )
+                }
+            }
+
+            if (showCreateDialog) {
+                DotoriDialog(onDismiss = { showCreateDialog = false }) {
+                    RuleViolationCreateDialogContent(
                         createdDate = createdDate,
-                        ruleViolationDialogType = currentDialogType,
                         onCalendar = { coroutineScope.launch { sheetState.show() } },
                         onPlus = {
-                            showDialog = false
-                            if (currentDialogType == RuleViolationDialogType.CREATE) {
-                                currentDialogType = RuleViolationDialogType.CHECK
-                            } else currentDialogType = RuleViolationDialogType.CREATE
-                            showDialog = true
+                            showCreateDialog = false
+                            showCheckDialog = true
                         },
-                        onDelete = {
-                            showDialog = false
-                            currentDialogType = RuleViolationDialogType.DELETE
-                            showDialog = true
-                        },
-                        onDismiss = { showDialog = false }
+                        onDismiss = { showCreateDialog = false }
+                    )
+                }
+            }
+
+            if (showDeleteDialog) {
+                DotoriDialog(onDismiss = { showDeleteDialog = false }) {
+                    RuleViolationDeleteDialogContent(
+                        ruleViolation = "타호실 출입", // 일단 임시로 하나 지정
+                        onSubmit = { showDeleteDialog = false },
+                        onDismiss = { showDeleteDialog = false }
                     )
                 }
             }
@@ -97,10 +126,7 @@ fun RuleViolationScreen(modifier: Modifier = Modifier) {
                     color = DotoriTheme.colors.neutral40
                 )
                 RuleViolationHeader(
-                    onWriteRuleViolationClick = {
-                        currentDialogType = RuleViolationDialogType.CHECK
-                        showDialog = true
-                    },
+                    onWriteRuleViolationClick = { showCheckDialog = true },
                     onDownloadClick = { /*TODO*/ },
                     onFilterClick = { /*TODO*/ }
                 )
@@ -119,11 +145,9 @@ fun RuleViolationScreen(modifier: Modifier = Modifier) {
                                 topEnd = if (it == 0) 16.dp else 0.dp,
                                 bottomStart = if (it == 14) 16.dp else 0.dp,
                                 bottomEnd = if (it == 14) 16.dp else 0.dp // 나중에 list로 받아와서 조건문을 수정할 거같습니다.
-                            )
-                        ) {
-                            currentDialogType = RuleViolationDialogType.LIST
-                            showDialog = true
-                        }
+                            ),
+                            onOptionClicked = { showListDialog = true }
+                        )
                     }
                 }
             }
