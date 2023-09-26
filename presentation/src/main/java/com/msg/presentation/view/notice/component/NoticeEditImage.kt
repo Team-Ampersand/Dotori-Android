@@ -17,13 +17,14 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.dotori.dotori_components.theme.DotoriTheme
 import com.dotori.dotori_components.theme.ExclamationMarkIcon
+import com.msg.domain.model.notice.response.NoticeImageModel
 import com.msg.presentation.R
 import com.skydoves.landscapist.glide.GlideImage
 
 @Composable
 fun NoticeEditImage(
     modifier: Modifier = Modifier,
-    images: List<String>
+    images: List<NoticeImageModel>
 ) {
     Column(
         modifier = modifier,
@@ -52,7 +53,7 @@ fun NoticeEditImage(
             items(images) {
                 GlideImage(
                     modifier = Modifier.size(192.dp),
-                    imageModel = { it },
+                    imageModel = { it.url },
                     previewPlaceholder = R.drawable.ic_empty_music_icon_light
                 )
             }
