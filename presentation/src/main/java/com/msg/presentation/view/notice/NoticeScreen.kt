@@ -33,7 +33,11 @@ import java.time.format.DateTimeFormatter
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun NoticeScreen(noticeViewModel: NoticeViewModel = hiltViewModel()) {
+fun NoticeScreen(
+    noticeViewModel: NoticeViewModel = hiltViewModel(),
+    navigateToNoticeDetail: (noticeId: Long) -> Unit,
+    navigateToNoticeEdit: () -> Unit
+) {
     var isEditable by remember { mutableStateOf(false) }
     var showDialog by remember { mutableStateOf(false) }
 
@@ -88,7 +92,7 @@ fun NoticeScreen(noticeViewModel: NoticeViewModel = hiltViewModel()) {
                     NoticeHeader(
                         isEditable = isEditable,
                         onEditClick = { isEditable = !isEditable },
-                        onWriteClick = { /* TODO: NoticeWriteScreen 이동 */ },
+                        onWriteClick = { navigateToNoticeEdit() },
                         onDeleteClick = { showDialog = true }
                     )
                 }
@@ -133,7 +137,7 @@ fun NoticeScreen(noticeViewModel: NoticeViewModel = hiltViewModel()) {
                         if (isEditable) {
                             selectedList.changeNoticeSelected(notice[it].id)
                         } else {
-                            /* TODO: NoticeDetailScreen 이동 */
+                            navigateToNoticeDetail(notice[it].id)
                         }
                     }
                 }
@@ -149,7 +153,7 @@ private fun MutableList<Long>.changeNoticeSelected(noticeId: Long) {
 @Preview
 @Composable
 fun NoticeScreenPreview() {
-    NoticeScreen()
+//    NoticeScreen()
 }
 
 
