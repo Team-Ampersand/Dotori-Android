@@ -350,7 +350,10 @@ fun RuleViolationCheckDialogContent(
                     colors = if (it == 0) Transparent else DotoriTheme.colors.primary10,
                     textStyle = DotoriTheme.typography.subTitle2
                 ) {
-                    if (it == 0) isDetailClicked = -1
+                    if (it == 0){
+                        if (isDetailClicked == -1) onDismiss()
+                        isDetailClicked = -1
+                    }
                     else {
                         onDismiss()
                         onPlus()
@@ -434,7 +437,7 @@ fun RuleViolationCreateDialogContent(
                     }
                     item {
                         Column(
-                            modifier = Modifier.padding(bottom = 80.dp), // 일단 임시로 정해서 padding을 했습니다
+                            modifier = Modifier.padding(bottom = 80.dp),
                             verticalArrangement = Arrangement.spacedBy(8.dp)
                         ) {
                             repeat(3) {
@@ -528,7 +531,7 @@ fun RuleViolationDeleteDialogContent(
 fun RuleViolationListDialogPreview() {
     RuleViolationDialogContent(
         createdDate = LocalDate.now(),
-        ruleViolationDialogType = RuleViolationDialogType.CREATE,
+        ruleViolationDialogType = RuleViolationDialogType.CHECK,
         onCalendar = { /*TODO*/ },
         onPlus = { /*TODO*/ },
         onDismiss = { /*TODO*/ },
