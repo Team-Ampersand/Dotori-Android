@@ -65,11 +65,13 @@ fun MusicScreen(
     var selectedDay by remember { mutableStateOf(LocalDate.now()) }
 
     val coroutineScope = rememberCoroutineScope()
+    val roleState by musicViewModel.roleUiState.collectAsState()
     val musicState by musicViewModel.musicUiState.collectAsState()
     val uriHandler = LocalUriHandler.current
 
     LaunchedEffect(Unit) {
-        musicViewModel.getMusics(role = "", date = selectedDay.toString())
+        musicViewModel.getRole()
+        musicViewModel.getMusics(role = roleState.data!!, date = selectedDay.toString())
     }
 
     DotoriBottomSheetDialog(
@@ -77,7 +79,7 @@ fun MusicScreen(
             BottomSheetContent(
                 bottomSheetType = currentBottomSheetType,
                 onLinkClick = { uriHandler.openUri(youtubeUrl) },
-                onDeleteClick = { musicViewModel.deleteMusic(role = "", musicId = musicId) },
+                onDeleteClick = { musicViewModel.deleteMusic(role = roleState.data!!, musicId = musicId) },
                 onDaySelected = { selectedDay = it }
             )
         }
@@ -89,7 +91,7 @@ fun MusicScreen(
                     onValueChange = { requestUrl = it }
                 ) {
                     musicViewModel.requestMusic(
-                        role = "",
+                        role = roleState.data!!,
                         body = MusicRequestModel(url = requestUrl)
                     )
                 }
@@ -192,8 +194,8 @@ fun MusicListContent(
                                 top = if (it == 0) 16.dp else 8.dp,
                                 bottom = if (musicList.lastIndex == it) 16.dp else 8.dp
                             ),
-                        imageUrl = musicList[it].url,
-                        title = "10cm- 서랍(그 해 우리는 OST Part.1)/가사 Audio Lyrics 21.12.07 New Release",
+                        imageUrl = musicList[it].thumbnailUrl,
+                        title = musicList[it].title,
                         name = "${musicList[it].stuNum} ${musicList[it].username}",
                         date = "${createdLocalDateTime.hour}시 ${createdLocalDateTime.minute}분",
                         onItemClicked = {

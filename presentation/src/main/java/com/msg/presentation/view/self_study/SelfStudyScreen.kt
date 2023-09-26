@@ -39,10 +39,11 @@ fun SelfStudyScreen(
     selfStudyViewModel: SelfStudyViewModel = hiltViewModel()
 ) {
     val selfStudyList by selfStudyViewModel.selfStudyListState.collectAsState()
-    val role = "member"
+    val role by selfStudyViewModel.rolePathState.collectAsState()
 
     LaunchedEffect(Unit) {
-        selfStudyViewModel.getSelfStudyList(role)
+        selfStudyViewModel.getRole()
+        selfStudyViewModel.getSelfStudyList(role.data!!)
     }
 
     val scope = rememberCoroutineScope()
@@ -52,7 +53,7 @@ fun SelfStudyScreen(
         sheetContent = {
             BottomSheetContent { searchText, grade, `class`, gender ->
                 selfStudyViewModel.searchSelfStudyStudent(
-                    role = role,
+                    role = role.data!!,
                     name = searchText,
                     gender = gender,
                     classNum = `class`,
@@ -74,12 +75,13 @@ fun SelfStudyScreen(
         } else {
             SelfStudyStudentListContent(
                 list = selfStudyList.data!!,
+                role = role.data!!,
                 onFilterIconClick = {
                     scope.launch { state.show() }
                 },
                 checkSelfStudyLogic = { item, checkBoxState ->
                     selfStudyViewModel.checkSelfStudy(
-                        role = role,
+                        role = role.data!!,
                         memberId = item.id.toLong(),
                         selfStudyCheck = checkBoxState
                     )
@@ -110,6 +112,7 @@ fun SelfStudyIsEmptyContent(onFilterIconClick: () -> Unit, ) {
 @OptIn(ExperimentalFoundationApi::class)
 fun SelfStudyStudentListContent(
     list: List<SelfStudyListResponseModel>,
+    role: String,
     onFilterIconClick: () -> Unit,
     checkSelfStudyLogic: (SelfStudyListResponseModel, Boolean) -> Unit
 ) {
@@ -134,7 +137,7 @@ fun SelfStudyStudentListContent(
             DotoriStudentCard(
                 name = item.memberName,
                 gender = item.gender,
-                role = "ROLE_MEMBER",   // 임시 권한
+                role = role,
                 studentNumber = item.stuNum,
                 position = position,
                 mode = Types.CardType.SELF_STUDY,

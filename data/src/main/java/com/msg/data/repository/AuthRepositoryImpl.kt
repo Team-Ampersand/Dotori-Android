@@ -7,6 +7,7 @@ import com.msg.data.remote.dto.auth.asLoginResponseModel
 import com.msg.domain.model.auth.LoginRequestModel
 import com.msg.domain.model.auth.LoginResponseModel
 import com.msg.domain.repository.AuthRepository
+import kotlinx.coroutines.flow.first
 import javax.inject.Inject
 
 class AuthRepositoryImpl @Inject constructor(
@@ -27,4 +28,6 @@ class AuthRepositoryImpl @Inject constructor(
     )
 
     override suspend fun saveRole(roles: String) = localDataSource.saveRole(roles)
+
+    override suspend fun getRole(): String = localDataSource.getRole().first()
 }
