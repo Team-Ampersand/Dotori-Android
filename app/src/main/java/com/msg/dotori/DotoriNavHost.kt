@@ -7,6 +7,12 @@ import com.msg.presentation.view.find_password.navigation.findPasswordScreen
 import com.msg.presentation.view.login.navigation.loginScreen
 import com.msg.presentation.view.massage_chair.navigation.massageChairScreen
 import com.msg.presentation.view.music.navigation.musicScreen
+import com.msg.presentation.view.notice.navigation.navigateToNotice
+import com.msg.presentation.view.notice.navigation.navigateToNoticeDetail
+import com.msg.presentation.view.notice.navigation.navigateToNoticeEdit
+import com.msg.presentation.view.notice.navigation.noticeDetailScreen
+import com.msg.presentation.view.notice.navigation.noticeEditScreen
+import com.msg.presentation.view.notice.navigation.noticeScreen
 import com.msg.presentation.view.self_study.navigation.selfStudyScreen
 import com.msg.presentation.view.signup.navigation.signUpScreen
 import com.msg.presentation.view.student_info.navigation.studentInfoScreen
@@ -27,5 +33,11 @@ fun DotoriNavHost(
         selfStudyScreen()
         musicScreen()
         studentInfoScreen()
+        noticeScreen(
+            navigateToNoticeEdit = { navController.navigateToNoticeEdit() },
+            navigateToNoticeDetail = { navController.navigateToNoticeDetail(it) }
+        )
+        noticeDetailScreen(navigateToNoticeEdit = { navController.navigateToNoticeEdit(it) })
+        noticeEditScreen(navigateToNotice = { navController.navigateToNotice() })
     }
 }
