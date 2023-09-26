@@ -18,10 +18,13 @@ interface RuleViolationApi {
     ): List<RuleViolationResponse>
 
     @GET("/{role}/rule")
-    suspend fun getSelfRuleViolation(): List<RuleViolationResponse>
+    suspend fun getSelfRuleViolation(
+        @Path("role") role: String
+    ): List<RuleViolationResponse>
 
     @GET("/{role}/rule")
     suspend fun searchRuleViolation(
+        @Path("role") role: String,
         @Query("memberName") memberName: String,
         @Query("stuNum") stuNum: String,
         @Query("gender") gender: String
@@ -29,9 +32,13 @@ interface RuleViolationApi {
 
     @POST("/{role}/rule")
     suspend fun postRuleViolation(
+        @Path("role") role: String,
         @Body ruleViolationRequest: RuleViolationRequest
     )
 
-    @DELETE("/{role}/rule")
-    suspend fun deleteRuleViolation()
+    @DELETE("/{role}/rule/{rule_id}")
+    suspend fun deleteRuleViolation(
+        @Path("role") role: String,
+        @Path("rule_id") ruleId: String
+    )
 }
