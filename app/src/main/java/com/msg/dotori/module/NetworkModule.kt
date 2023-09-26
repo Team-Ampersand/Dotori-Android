@@ -5,6 +5,7 @@ import com.msg.data.remote.network.AuthApi
 import com.msg.data.remote.network.MassageApi
 import com.msg.data.remote.network.MusicApi
 import com.msg.data.remote.network.NoticeApi
+import com.msg.data.remote.network.RuleViolationApi
 import com.msg.data.remote.network.SelfStudyApi
 import com.msg.data.remote.network.StudentInfoApi
 import com.msg.data.remote.util.AuthInterceptor
@@ -17,6 +18,7 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.create
 import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
@@ -87,4 +89,8 @@ object NetworkModule {
     @Provides
     @Singleton
     fun provideNoticeApi(retrofit: Retrofit): NoticeApi = retrofit.create(NoticeApi::class.java)
+
+    @Provides
+    @Singleton
+    fun provideRuleViolationApi(retrofit: Retrofit): RuleViolationApi = retrofit.create(RuleViolationApi::class.java)
 }
