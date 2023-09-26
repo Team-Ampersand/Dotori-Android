@@ -36,8 +36,8 @@ class LoginViewModel @Inject constructor(
                 }
                 .onFailure {
                     it.exceptionHandling(
-                        badRequestAction = {},
-                        notFoundAction = {}
+                        badRequestAction = { _loginState.value = Event.BadRequest },
+                        notFoundAction = { _loginState.value = Event.NotFound }
                     )
                 }
         }
