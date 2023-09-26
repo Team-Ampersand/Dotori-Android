@@ -10,7 +10,7 @@ import com.msg.presentation.view.notice.NoticeDetailScreen
 const val noticeDetailRoute = "notice_detail_route"
 
 fun NavController.navigateToNoticeDetail(noticeId: Long) {
-    this.navigate("$noticeDetailRoute/$noticeId}")
+    this.navigate("$noticeDetailRoute/$noticeId")
 }
 
 fun NavGraphBuilder.noticeDetailScreen(navigateToNoticeEdit: (noticeId: Long) -> Unit) {
