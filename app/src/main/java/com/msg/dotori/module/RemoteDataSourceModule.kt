@@ -8,6 +8,8 @@ import com.msg.data.remote.datasource.music.MusicDataSource
 import com.msg.data.remote.datasource.music.MusicDataSourceImpl
 import com.msg.data.remote.datasource.notice.NoticeDataSource
 import com.msg.data.remote.datasource.notice.NoticeDataSourceImpl
+import com.msg.data.remote.datasource.rule_violation.RuleViolationDataSource
+import com.msg.data.remote.datasource.rule_violation.RuleViolationDataSourceImpl
 import com.msg.data.remote.datasource.self_study.SelfStudyDataSource
 import com.msg.data.remote.datasource.self_study.SelfStudyDataSourceImpl
 import com.msg.data.remote.datasource.student_info.StudentInfoDataSource
@@ -37,4 +39,7 @@ interface RemoteDataSourceModule {
 
     @Binds
     fun bindsNoticeDataSource(noticeDataSourceImpl: NoticeDataSourceImpl): NoticeDataSource
+
+    @Binds
+    fun bindsRuleViolationDataSource(ruleViolationDataSourceImpl: RuleViolationDataSourceImpl): RuleViolationDataSource
 }
