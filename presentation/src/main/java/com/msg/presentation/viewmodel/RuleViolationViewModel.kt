@@ -5,11 +5,13 @@ import androidx.lifecycle.viewModelScope
 import com.msg.domain.model.rule_violation.request.RuleViolationRequestModel
 import com.msg.domain.model.rule_violation.response.RuleViolationResponseModel
 import com.msg.domain.model.rule_violation.response.SearchRuleViolationResponseModel
+import com.msg.domain.model.student_info.StudentInfoResponseModel
 import com.msg.domain.usecase.rule_violation.DeleteRuleViolationUseCase
 import com.msg.domain.usecase.rule_violation.GetDetailRuleViolationUseCase
 import com.msg.domain.usecase.rule_violation.GetSelfRuleViolationUseCase
 import com.msg.domain.usecase.rule_violation.PostRuleViolationUseCase
 import com.msg.domain.usecase.rule_violation.SearchRuleViolationUseCase
+import com.msg.domain.usecase.student_info.GetAllStudentInfoUseCase
 import com.msg.presentation.exception.exceptionHandling
 import com.msg.presentation.viewmodel.util.Event
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -20,6 +22,7 @@ import javax.inject.Inject
 class RuleViolationViewModel @Inject constructor(
     private val getDetailRuleViolationUseCase: GetDetailRuleViolationUseCase,
     private val getSelfRuleViolationUseCase: GetSelfRuleViolationUseCase,
+    private val getAllStudentInfoUseCase: GetAllStudentInfoUseCase,
     private val searchRuleViolationUseCase: SearchRuleViolationUseCase,
     private val postRuleViolationUseCase: PostRuleViolationUseCase,
     private val deleteRuleViolationUseCase: DeleteRuleViolationUseCase
@@ -29,6 +32,9 @@ class RuleViolationViewModel @Inject constructor(
 
     private val _selfRuleViolationUiState = MutableStateFlow<Event<List<RuleViolationResponseModel>>>(Event.Loading)
     val selfRuleViolationUiState = _selfRuleViolationUiState
+
+    private val _studentInfoUiState = MutableStateFlow<Event<List<StudentInfoResponseModel>>>(Event.Loading)
+    val studentInfoUiState = _studentInfoUiState
 
     private val _searchRuleViolationUiState = MutableStateFlow<Event<List<SearchRuleViolationResponseModel>>>(Event.Loading)
     val searchRuleViolationUiState = _searchRuleViolationUiState
@@ -55,6 +61,14 @@ class RuleViolationViewModel @Inject constructor(
         getSelfRuleViolationUseCase(role)
             .onSuccess {
                 _selfRuleViolationUiState.value = Event.Success(it)
+            }
+            .onFailure {}
+    }
+
+    fun getAllStudentInfo() = viewModelScope.launch {
+        getAllStudentInfoUseCase()
+            .onSuccess {
+                _studentInfoUiState.value = Event.Success()
             }
             .onFailure {}
     }
