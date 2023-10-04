@@ -40,7 +40,7 @@ class RuleViolationViewModel @Inject constructor(
     val searchRuleViolationUiState = _searchRuleViolationUiState
 
     private val _postRuleViolationUiState = MutableStateFlow<Event<Nothing>>(Event.Loading)
-    val postRuleViolationUiState = _postRuleViolationUiState
+    val postRuleViolationUiState = _postRuleViolationUiState.asStateFlow()
 
     private val _deleteRuleViolationUiState = MutableStateFlow<Event<Nothing>>(Event.Loading)
     val deleteRuleViolationUiState = _deleteRuleViolationUiState.asStateFlow()
