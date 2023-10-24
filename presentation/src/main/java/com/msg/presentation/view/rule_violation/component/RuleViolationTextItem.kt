@@ -24,7 +24,8 @@ import com.dotori.dotori_components.theme.XMarkIcon
 @Composable
 fun RuleViolationTextItem(
     title: String = "",
-    content: String,
+    content: String = "",
+    contentList: List<String> = emptyList(),
     textColor: Color = DotoriTheme.colors.neutral10,
     icon: @Composable () -> Unit
 ) {
@@ -49,18 +50,33 @@ fun RuleViolationTextItem(
                     horizontal = 12.dp,
                     vertical = 14.dp
                 ),
-            horizontalArrangement = Arrangement.spacedBy(12.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            Text(
-                modifier = Modifier.weight(1f),
-                text = content,
-                style = DotoriTheme.typography.body,
-                color = textColor,
-                maxLines = 1,
-                overflow = TextOverflow.Ellipsis
-            )
-            icon()
+            if (content.isNotBlank()) {
+                Text(
+                    modifier = Modifier.weight(1f),
+                    text = content,
+                    style = DotoriTheme.typography.body,
+                    color = textColor,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis
+                )
+                icon()
+            } else {
+                contentList.forEachIndexed { index, string ->
+                    Row {
+                        Text(
+                            text = if (index != contentList.lastIndex) "$string, " else string,
+                            style = DotoriTheme.typography.body,
+                            color = textColor,
+                            maxLines = 1,
+                            overflow = TextOverflow.Ellipsis
+                        )
+                    }
+                }
+                Spacer(modifier = Modifier.weight(1f))
+                icon()
+            }
         }
     }
 }
@@ -78,6 +94,11 @@ fun RuleViolationTextItemPreview() {
         RuleViolationTextItem(
             content = "2023년 8월 12일 (오늘)",
             icon = { CalendarIcon() }
+        )
+        Spacer(modifier = Modifier.height(15.dp))
+        RuleViolationTextItem(
+            contentList = listOf("선민재", "박영재", "강경민", "조재영"),
+            icon = { XMarkIcon() }
         )
     }
 }
