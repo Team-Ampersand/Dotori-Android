@@ -50,8 +50,10 @@ import java.time.format.DateTimeFormatter
 fun RuleViolationDialogContent(
     ruleViolationDialogType: RuleViolationDialogType,
     createdDate: LocalDate,
+    studentList: List<String>,
     onCalendar: () -> Unit,
     onPlus: () -> Unit,
+    onCreate: () -> Unit,
     onDismiss: () -> Unit,
     onDelete: () -> Unit
 ) {
@@ -73,8 +75,10 @@ fun RuleViolationDialogContent(
         RuleViolationDialogType.CREATE -> {
             RuleViolationCreateDialogContent(
                 createdDate = createdDate,
+                studentList = studentList,
                 onCalendar = onCalendar,
                 onPlus = onPlus,
+                onCreate = onCreate,
                 onDismiss = onDismiss
             )
         }
@@ -135,6 +139,7 @@ fun RuleViolationListDialogContent(
 
 @Composable
 fun RuleViolationCheckDialogContent(
+//    ruleViolationToggleList: List<String>,
     onPlus: () -> Unit,
     onDismiss: () -> Unit
 ) {
@@ -368,8 +373,10 @@ fun RuleViolationCheckDialogContent(
 @Composable
 fun RuleViolationCreateDialogContent(
     createdDate: LocalDate,
+    studentList: List<String>,
     onCalendar: () -> Unit,
     onPlus: () -> Unit,
+    onCreate: () -> Unit,
     onDismiss: () -> Unit
 ) {
     val formattedDate = DateTimeFormatter.ofPattern("yyyy년 MM월 dd일").format(createdDate)
@@ -406,14 +413,15 @@ fun RuleViolationCreateDialogContent(
                     item {
                         RuleViolationTextItem(
                             title = "학생",
-                            content = "선민재, 박영재, 강경민, 조재영",
+                            contentList = studentList,
                             icon = {
                                 PlusIcon(
                                     modifier = Modifier.clickable(
                                         interactionSource = remember { MutableInteractionSource() },
                                         indication = null,
-                                        onClick = onDismiss
-                                    )
+                                    ) {
+//                                        studentList = listOf("")
+                                    }
                                 )
                             }
                         )
@@ -483,7 +491,10 @@ fun RuleViolationCreateDialogContent(
                     text = if (it == 0) "취소" else "부여",
                     colors = if (it == 0) Transparent else DotoriTheme.colors.primary10,
                     textStyle = DotoriTheme.typography.subTitle2
-                ) { onDismiss() }
+                ) {
+                    if (it == 0) onDismiss()
+                    else onCreate()
+                }
             }
         }
     }
@@ -531,10 +542,12 @@ fun RuleViolationDeleteDialogContent(
 fun RuleViolationListDialogPreview() {
     RuleViolationDialogContent(
         createdDate = LocalDate.now(),
+        studentList = emptyList(),
         ruleViolationDialogType = RuleViolationDialogType.CHECK,
         onCalendar = { /*TODO*/ },
         onPlus = { /*TODO*/ },
         onDismiss = { /*TODO*/ },
-        onDelete = { /*TODO*/ }
+        onDelete = { /*TODO*/ },
+        onCreate = { /*TODO*/ }
     )
 }
