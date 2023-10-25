@@ -40,18 +40,21 @@ import com.skydoves.landscapist.glide.GlideImage
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun NoticeDetailScreen(noticeDetailViewModel: NoticeDetailViewModel = hiltViewModel()) {
+fun NoticeDetailScreen(
+    noticeId: Long?,
+    noticeDetailViewModel: NoticeDetailViewModel = hiltViewModel(),
+    navigateToNoticeEdit: (noticeId: Long) -> Unit
+) {
     var showDialog by remember { mutableStateOf(false) }
 
     val roleUiState by noticeDetailViewModel.roleUiState.collectAsState()
     val noticeUiState by noticeDetailViewModel.noticeUiState.collectAsState()
-    val noticeId = 1L /* TODO: NavArg로 받아오기 */
 
     LaunchedEffect(Unit) {
         noticeDetailViewModel.getRole()
         noticeDetailViewModel.getNoticeDetail(
             role = roleUiState.data!!,
-            noticeId = noticeId
+            noticeId = checkNotNull(noticeId)
         )
     }
 
@@ -64,7 +67,7 @@ fun NoticeDetailScreen(noticeDetailViewModel: NoticeDetailViewModel = hiltViewMo
                 onConfirm = {
                     noticeDetailViewModel.deleteNoticeById(
                         role = roleUiState.data!!,
-                        noticeId = noticeId
+                        noticeId = checkNotNull(noticeId)
                     )
                 }
             )
@@ -92,7 +95,7 @@ fun NoticeDetailScreen(noticeDetailViewModel: NoticeDetailViewModel = hiltViewMo
             stickyHeader {
                 NoticeDetailHeader(
                     onBackClick = { /* TODO: 뒤로가기 이벤트 처리 */ },
-                    onEditClick = { /* TODO: EditScreen 이동 처리 */ },
+                    onEditClick = { navigateToNoticeEdit(checkNotNull(noticeId)) },
                     onDeleteClick = { showDialog = true }
                 )
             }
@@ -140,6 +143,6 @@ fun NoticeDetailScreen(noticeDetailViewModel: NoticeDetailViewModel = hiltViewMo
 @Preview
 @Composable
 fun NoticeDetailScreenPreview() {
-    NoticeDetailScreen()
+//    NoticeDetailScreen()
 }
 

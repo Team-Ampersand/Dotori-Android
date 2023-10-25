@@ -48,8 +48,11 @@ import java.time.format.DateTimeFormatter
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun NoticeEditScreen(noticeEditViewModel: NoticeEditViewModel = hiltViewModel()) {
-    val noticeId: Long? = 1 /* TODO: NavArg에 선택적으로 받도록 설정 */
+fun NoticeEditScreen(
+    noticeId: Long?,
+    noticeEditViewModel: NoticeEditViewModel = hiltViewModel(),
+    navigateToNotice: () -> Unit
+) {
     val roleUiState by noticeEditViewModel.roleUiState.collectAsState()
     val noticeUiState by noticeEditViewModel.noticeUiState.collectAsState()
 
@@ -121,6 +124,7 @@ fun NoticeEditScreen(noticeEditViewModel: NoticeEditViewModel = hiltViewModel())
                                 noticeRequestModel = noticeRequestModel
                             )
                         }
+                        navigateToNotice()
                     }
                 )
             }
@@ -196,5 +200,5 @@ fun NoticeEditScreen(noticeEditViewModel: NoticeEditViewModel = hiltViewModel())
 @Preview
 @Composable
 fun NoticeEditScreenPreview() {
-    NoticeEditScreen()
+//    NoticeEditScreen()
 }
