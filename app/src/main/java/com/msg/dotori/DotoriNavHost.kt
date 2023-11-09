@@ -5,8 +5,6 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import com.msg.presentation.view.find_password.navigation.findPasswordScreen
 import com.msg.presentation.view.home.navigation.mainScreen
-import com.msg.presentation.view.home.navigation.navigateToMain
-import com.msg.presentation.view.login.navigation.loginScreen
 import com.msg.presentation.view.massage_chair.navigation.massageChairScreen
 import com.msg.presentation.view.music.navigation.musicScreen
 import com.msg.presentation.view.notice.navigation.navigateToNotice
@@ -28,7 +26,6 @@ fun DotoriNavHost(
         navController = navController,
         startDestination = startDestination
     ) {
-        loginScreen(navigateToMain = navController::navigateToMain)
         findPasswordScreen()
         signUpScreen()
         massageChairScreen()
