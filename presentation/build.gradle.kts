@@ -50,6 +50,7 @@ dependencies {
 
     implementation(Dependency.Google.MATERIAL)
     implementation(Dependency.Google.HILT)
+    implementation("androidx.wear.compose:compose-material:1.2.1")
     kapt(Dependency.Google.HILT_COMPILER)
 
     implementation(Dependency.Libraries.DUS)
@@ -60,6 +61,8 @@ dependencies {
     implementation(Dependency.Compose.COMPOSE_PREVIEW)
     implementation(Dependency.Compose.NAVIGATION_COMPOSE)
     implementation(Dependency.Compose.LANDSCAPIST_COMPOSE)
+
+    implementation(Dependency.Msg.GAUTH)
 
     testImplementation(Dependency.UnitTest.JUNIT)
     androidTestImplementation(Dependency.AndroidTest.ANDROID_JUNIT)
