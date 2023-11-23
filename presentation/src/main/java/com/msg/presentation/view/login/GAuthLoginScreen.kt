@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.Text
@@ -30,6 +29,7 @@ fun GAuthLoginScreen(
         modifier = modifier
             .fillMaxSize()
             .background(DotoriTheme.colors.background)
+            .padding(bottom = 60.dp)
     ) {
         Box(modifier = Modifier.padding(top = 16.dp)) {
             ArrowLeft2Icon(
@@ -59,7 +59,7 @@ fun GAuthLoginScreen(
             style = DotoriTheme.typography.body2,
             color = DotoriTheme.colors.neutral20
         )
-        Spacer(modifier = modifier.height(504.dp))
+        Spacer(modifier = modifier.weight(1f))
         GAuthButton(
             style = Types.Style.DEFAULT,
             actionType = Types.ActionType.SIGNIN,
