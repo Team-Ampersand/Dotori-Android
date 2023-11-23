@@ -50,7 +50,6 @@ dependencies {
 
     implementation(Dependency.Google.MATERIAL)
     implementation(Dependency.Google.HILT)
-    implementation("androidx.wear.compose:compose-material:1.2.1")
     kapt(Dependency.Google.HILT_COMPILER)
 
     implementation(Dependency.Libraries.DUS)
