@@ -28,4 +28,6 @@ object Versions {
     const val COMPOSE_COMPILER = "1.3.2"
     const val NAVIGATION_COMPOSE = "2.6.0"
     const val LANDSCAPIST_COMPOSE = "2.1.2"
+
+    const val GAUTH = "1.1.2"
 }

@@ -61,6 +61,8 @@ dependencies {
     implementation(Dependency.Compose.NAVIGATION_COMPOSE)
     implementation(Dependency.Compose.LANDSCAPIST_COMPOSE)
 
+    implementation(Dependency.Msg.GAUTH)
+
     testImplementation(Dependency.UnitTest.JUNIT)
     androidTestImplementation(Dependency.AndroidTest.ANDROID_JUNIT)
     androidTestImplementation(Dependency.AndroidTest.ESPRESSO_CORE)
