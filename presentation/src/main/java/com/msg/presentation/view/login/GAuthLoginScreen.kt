@@ -20,13 +20,13 @@ import com.dotori.dotori_components.theme.ArrowLeft2Icon
 import com.dotori.dotori_components.theme.DotoriTheme
 import com.msg.gauthsignin.component.GAuthButton
 import com.msg.gauthsignin.component.utils.Types
+import com.msg.presentation.R
+import androidx.compose.ui.res.stringResource
 
 @Composable
-fun GAuthLoginScreen(
-    modifier: Modifier = Modifier,
-) {
+fun GAuthLoginScreen() {
     Column(
-        modifier = modifier
+        modifier = Modifier
             .fillMaxSize()
             .background(DotoriTheme.colors.background)
             .padding(bottom = 60.dp)
@@ -34,32 +34,32 @@ fun GAuthLoginScreen(
         Box(modifier = Modifier.padding(top = 16.dp)) {
             ArrowLeft2Icon(
                 contentDescription = "ArrowLeftIcon",
-                modifier = modifier.padding(start = 20.dp)
+                modifier = Modifier.padding(start = 20.dp)
             )
             Text(
-                modifier = modifier
+                modifier = Modifier
                     .fillMaxWidth()
                     .padding(vertical = 2.dp),
-                text = "로그인",
+                text = stringResource(R.string.login_text),
                 style = DotoriTheme.typography.subTitle2,
                 color = DotoriTheme.colors.neutral10,
                 textAlign = TextAlign.Center
             )
         }
         Row(
-            modifier = modifier
+            modifier = Modifier
                 .fillMaxWidth()
                 .padding(top = 50.dp)
         ) { DrawerViewHeader() }
         Text(
-            modifier = modifier
+            modifier = Modifier
                 .size(width = 208.dp, height = 34.dp)
                 .padding(start = 24.dp),
-            text = "광주소프트웨어마이스터고 기숙사 관리 시스템, DOTORI",
+            text = stringResource(R.string.login_page_dotori_description),
             style = DotoriTheme.typography.body2,
             color = DotoriTheme.colors.neutral20
         )
-        Spacer(modifier = modifier.weight(1f))
+        Spacer(modifier = Modifier.weight(1f))
         GAuthButton(
             style = Types.Style.DEFAULT,
             actionType = Types.ActionType.SIGNIN,
