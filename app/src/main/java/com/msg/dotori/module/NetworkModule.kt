@@ -1,7 +1,9 @@
 package com.msg.dotori.module
 
 import android.util.Log
+import com.msg.dotori.BuildConfig
 import com.msg.data.remote.network.AuthApi
+import com.msg.data.remote.network.GAuthApi
 import com.msg.data.remote.network.MassageApi
 import com.msg.data.remote.network.MusicApi
 import com.msg.data.remote.network.NoticeApi
@@ -9,7 +11,6 @@ import com.msg.data.remote.network.RuleViolationApi
 import com.msg.data.remote.network.SelfStudyApi
 import com.msg.data.remote.network.StudentInfoApi
 import com.msg.data.remote.util.AuthInterceptor
-import com.msg.dotori.BuildConfig
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -18,7 +19,6 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import retrofit2.create
 import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
@@ -54,7 +54,7 @@ object NetworkModule {
         gsonConverterFactory: GsonConverterFactory
     ): Retrofit {
         return Retrofit.Builder()
-            .baseUrl(BuildConfig.DEVELOP_URL)
+            .baseUrl(BuildConfig.RELEASE_URL)
             .client(okHttpClient)
             .addConverterFactory(gsonConverterFactory)
             .build()
@@ -64,6 +64,12 @@ object NetworkModule {
     @Singleton
     fun provideConverterFactory(): GsonConverterFactory {
         return GsonConverterFactory.create()
+    }
+
+    @Provides
+    @Singleton
+    fun provideGAuthApi(retrofit: Retrofit): GAuthApi {
+        return retrofit.create(GAuthApi::class.java)
     }
 
     @Provides
