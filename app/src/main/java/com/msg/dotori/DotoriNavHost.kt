@@ -34,9 +34,9 @@ fun DotoriNavHost(
         studentInfoScreen()
         noticeScreen(
             navigateToNoticeEdit = { navController.navigateToNoticeEdit() },
-            navigateToNoticeDetail = { navController.navigateToNoticeDetail(it) }
+            navigateToNoticeDetail = { navController.navigateToNoticeDetail(it.toString()) }
         )
-        noticeDetailScreen(navigateToNoticeEdit = { navController.navigateToNoticeEdit(it) })
+        noticeDetailScreen(navigateToNoticeEdit = { navController.navigateToNoticeEdit(it.toString()) })
         noticeEditScreen(navigateToNotice = { navController.navigateToNotice() })
         mainScreen()
     }
