@@ -35,11 +35,11 @@ class NoticeDetailViewModel @Inject constructor(
 
     fun deleteNoticeById(
         role: String,
-        noticeId: Long
+        noticeId: String
     ) = viewModelScope.launch {
         deleteNoticeByIdUseCase(
             role = role,
-            noticeId = noticeId
+            noticeId = noticeId.toLong()
         ).onSuccess {
             _deleteUiState.value = Event.Success()
         }.onFailure {
@@ -51,11 +51,11 @@ class NoticeDetailViewModel @Inject constructor(
 
     fun getNoticeDetail(
         role: String,
-        noticeId: Long
+        noticeId: String
     ) = viewModelScope.launch {
         getNoticeDetailUseCase(
             role = role,
-            noticeId = noticeId
+            noticeId = noticeId.toLong()
         ).onSuccess {
             _noticeUiState.value = Event.Success(it)
         }.onFailure {

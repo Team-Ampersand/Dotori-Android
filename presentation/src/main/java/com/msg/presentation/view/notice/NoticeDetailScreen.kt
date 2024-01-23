@@ -54,7 +54,7 @@ fun NoticeDetailScreen(
         noticeDetailViewModel.getRole()
         noticeDetailViewModel.getNoticeDetail(
             role = roleUiState.data!!,
-            noticeId = checkNotNull(noticeId)
+            noticeId = checkNotNull(noticeId.toString())
         )
     }
 
@@ -67,7 +67,7 @@ fun NoticeDetailScreen(
                 onConfirm = {
                     noticeDetailViewModel.deleteNoticeById(
                         role = roleUiState.data!!,
-                        noticeId = checkNotNull(noticeId)
+                        noticeId = checkNotNull(noticeId.toString())
                     )
                 }
             )
