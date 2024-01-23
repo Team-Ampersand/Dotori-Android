@@ -3,7 +3,6 @@ package com.msg.dotori.module
 import android.util.Log
 import com.msg.dotori.BuildConfig
 import com.msg.data.remote.network.AuthApi
-import com.msg.data.remote.network.GAuthApi
 import com.msg.data.remote.network.MassageApi
 import com.msg.data.remote.network.MusicApi
 import com.msg.data.remote.network.NoticeApi
@@ -64,12 +63,6 @@ object NetworkModule {
     @Singleton
     fun provideConverterFactory(): GsonConverterFactory {
         return GsonConverterFactory.create()
-    }
-
-    @Provides
-    @Singleton
-    fun provideGAuthApi(retrofit: Retrofit): GAuthApi {
-        return retrofit.create(GAuthApi::class.java)
     }
 
     @Provides

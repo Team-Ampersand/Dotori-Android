@@ -2,8 +2,6 @@ package com.msg.dotori.module
 
 import com.msg.data.remote.datasource.auth.AuthDataSourceImpl
 import com.msg.data.remote.datasource.auth.AuthDataSource
-import com.msg.data.remote.datasource.auth.GAuthDataSource
-import com.msg.data.remote.datasource.auth.GAuthDataSourceImpl
 import com.msg.data.remote.datasource.massage.MassageDataSource
 import com.msg.data.remote.datasource.massage.MassageDataSourceImpl
 import com.msg.data.remote.datasource.music.MusicDataSource
@@ -24,9 +22,6 @@ import dagger.hilt.components.SingletonComponent
 @Module
 @InstallIn(SingletonComponent::class)
 interface RemoteDataSourceModule {
-
-    @Binds
-    fun bindsGAuthDataSource(gauthDataSourceImpl: GAuthDataSourceImpl): GAuthDataSource
     @Binds
     fun bindsAuthDataSource(authDataSourceImpl: AuthDataSourceImpl): AuthDataSource
 
