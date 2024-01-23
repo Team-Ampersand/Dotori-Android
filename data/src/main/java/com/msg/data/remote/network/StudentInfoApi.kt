@@ -9,10 +9,10 @@ import retrofit2.http.PUT
 import retrofit2.http.Query
 
 interface StudentInfoApi {
-    @GET("/student-info")
+    @GET("student-info")
     suspend fun getAllStudentInfo(): List<StudentInfoResponse>
 
-    @GET("/student-info/search")
+    @GET("student-info/search")
     suspend fun getSearchStudentInfo(
         @Query("name") name: String? = null,
         @Query("gender") gender: String? = null,
@@ -22,7 +22,7 @@ interface StudentInfoApi {
         @Query("selfStudy") selfStudy: Boolean? = null,
     ): List<SearchStudentInfoResponse>
 
-    @PUT("/student-info/modify")
+    @PUT("student-info/modify")
     suspend fun modifyStudentInfo(
         @Body body: StudentInfoRequest
     )

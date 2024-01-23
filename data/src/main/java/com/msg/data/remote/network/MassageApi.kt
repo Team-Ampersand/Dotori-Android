@@ -11,27 +11,27 @@ import retrofit2.http.POST
 import retrofit2.http.Path
 
 interface MassageApi {
-    @GET("/{role}/massage")
+    @GET("{role}/massage")
     suspend fun getMassageInfo(
         @Path("role") role: String
     ): MassageInfoResponse
 
-    @GET("/{role}/massage/rank")
+    @GET("{role}/massage/rank")
     suspend fun getMassageRank(
         @Path("role") role: String
     ): List<MassageListResponse>
 
-    @POST("/{role}/massage")
+    @POST("{role}/massage")
     suspend fun requestMassage(
         @Path("role") role: String
     ): ResponseBody
 
-    @DELETE("/{role}/massage")
+    @DELETE("{role}/massage")
     suspend fun cancelMassage(
         @Path("role") role: String
     ): ResponseBody
 
-    @PATCH("/{role}/massage/limit")
+    @PATCH("{role}/massage/limit")
     suspend fun changeMassageLimit(
         @Path("role") role: String,
         @Body limit: Int
