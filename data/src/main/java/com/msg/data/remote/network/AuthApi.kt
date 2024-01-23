@@ -7,11 +7,11 @@ import retrofit2.http.PATCH
 import retrofit2.http.POST
 
 interface AuthApi {
-    @POST("/auth")
+    @POST("auth")
     suspend fun login(
         @Body loginRequest: LoginRequest
     ): LoginResponse
 
-    @PATCH("/auth")
+    @PATCH("auth")
     suspend fun tokenReissue(): LoginResponse
 }

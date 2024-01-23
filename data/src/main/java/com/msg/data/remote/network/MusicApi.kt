@@ -13,19 +13,19 @@ import retrofit2.http.Query
 import retrofit2.http.Url
 
 interface MusicApi {
-    @GET("/{role}/music")
+    @GET("{role}/music")
     suspend fun getMusics(
         @Path("role") role: String,
         @Query("date") date: String
     ): List<MusicResponse>
 
-    @POST("/{role}/music")
+    @POST("{role}/music")
     suspend fun requestMusic(
         @Path("role") role: String,
         @Body body: MusicRequest
     )
 
-    @DELETE("/{role}/music/{music_id}")
+    @DELETE("{role}/music/{music_id}")
     suspend fun deleteMusic(
         @Path("role") role: String,
         @Path("music_id") musicId: Long

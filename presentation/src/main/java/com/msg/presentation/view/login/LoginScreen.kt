@@ -1,6 +1,7 @@
 package com.msg.presentation.view.login
 
 import android.annotation.SuppressLint
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
@@ -15,6 +16,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -49,6 +51,13 @@ fun LoginScreen(
     var passwordText by remember { mutableStateOf("") }
     var isIdClicked by remember { mutableStateOf(false) }
     var isPasswordClicked by remember { mutableStateOf(false) }
+
+    val loginUiState by loginViewModel.loginState.collectAsState()
+
+    when (loginUiState) {
+        is Event.Success -> navigateToMain()
+        else -> {}
+    }
 
     Column(
         modifier = modifier
@@ -138,7 +147,6 @@ fun LoginScreen(
                     password = passwordText
                 )
             )
-            if(loginViewModel.loginState.value == Event.Success<LoginResponseModel>()) navigateToMain()
         }
         Spacer(modifier = Modifier.height(16.dp))
         Row(

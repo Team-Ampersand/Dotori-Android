@@ -1,7 +1,6 @@
 package com.msg.dotori.module
 
 import com.msg.data.repository.AuthRepositoryImpl
-import com.msg.data.repository.GAuthRepositoryImpl
 import com.msg.data.repository.MassageRepositoryImpl
 import com.msg.data.repository.MusicRepositoryImpl
 import com.msg.data.repository.NoticeRepositoryImpl
@@ -9,7 +8,6 @@ import com.msg.data.repository.RuleViolationRepositoryImpl
 import com.msg.data.repository.SelfStudyRepositoryImpl
 import com.msg.data.repository.StudentInfoRepositoryImpl
 import com.msg.domain.repository.AuthRepository
-import com.msg.domain.repository.GAuthRepository
 import com.msg.domain.repository.MassageRepository
 import com.msg.domain.repository.MusicRepository
 import com.msg.domain.repository.NoticeRepository
@@ -24,9 +22,6 @@ import dagger.hilt.components.SingletonComponent
 @Module
 @InstallIn(SingletonComponent::class)
 interface RepositoryModule {
-
-    @Binds
-    fun bindsGAuthRepository(gauthRepositoryImpl: GAuthRepositoryImpl): GAuthRepository
     @Binds
     fun bindsAuthRepository(authRepositoryImpl: AuthRepositoryImpl): AuthRepository
 

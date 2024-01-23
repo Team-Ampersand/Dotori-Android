@@ -16,8 +16,8 @@ android {
         applicationId = "com.msg.dotori"
         minSdk = ProjectProperties.Versions.MIN_SDK
         targetSdk = ProjectProperties.Versions.TARGET_SDK
-        versionCode = 1
-        versionName = "1.0"
+        versionCode = 3
+        versionName = "1.2"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
@@ -47,6 +47,12 @@ android {
     kotlinOptions {
         jvmTarget = "11"
     }
+    buildFeatures {
+        compose = true
+    }
+    composeOptions {
+        kotlinCompilerExtensionVersion = Versions.COMPOSE_COMPILER
+    }
 }
 
 dependencies {
@@ -68,6 +74,10 @@ dependencies {
     implementation(Dependency.Libraries.DUS)
 
     implementation(Dependency.Compose.NAVIGATION_COMPOSE)
+
+    implementation(Dependency.Compose.COMPOSE)
+    implementation(Dependency.Compose.COMPOSE_TOOL)
+    implementation(Dependency.Compose.COMPOSE_MATERIAL)
 
     testImplementation(Dependency.UnitTest.JUNIT)
     androidTestImplementation(Dependency.AndroidTest.ANDROID_JUNIT)

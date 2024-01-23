@@ -13,17 +13,17 @@ import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface SelfStudyApi {
-    @GET("/{role}/self-study/info")
+    @GET("{role}/self-study/info")
     suspend fun getSelfStudyInfo(
         @Path("role") role: String
     ): SelfStudyInfoResponse
 
-    @GET("/{role}/self-study/rank")
+    @GET("{role}/self-study/rank")
     suspend fun getSelfStudyList(
         @Path("role") role: String
     ): List<SelfStudyListResponse>
 
-    @GET("/{role}/self-study/search")
+    @GET("{role}/self-study/search")
     suspend fun searchSelfStudyStudent(
         @Path("role") role: String,
         @Query("name") name: String?,
@@ -32,35 +32,35 @@ interface SelfStudyApi {
         @Query("grade") grade: Int?
     ): List<SelfStudyListResponse>
 
-    @PUT("/{role}/self-study/ban/{userId}")
+    @PUT("{role}/self-study/ban/{userId}")
     suspend fun banSelfStudy(
         @Path("role") role: String,
         @Path("userId") userId: Long
     )
 
-    @PUT("/{role}/self-study/ban/cancel/{userId}")
+    @PUT("{role}/self-study/ban/cancel/{userId}")
     suspend fun banCancelSelfStudy(
         @Path("role") role: String,
         @Path("userId") userId: Long
     )
 
-    @POST("/{role}/self-study")
+    @POST("{role}/self-study")
     suspend fun selfStudy(
         @Path("role") role: String
     ): ResponseBody
 
-    @DELETE("/{role}/self-study")
+    @DELETE("{role}/self-study")
     suspend fun cancelSelfStudy(
         @Path("role") role: String
     ): ResponseBody
 
-    @PATCH("/{role}/self-study/limit")
+    @PATCH("{role}/self-study/limit")
     suspend fun changeSelfStudyLimit(
         @Path("role") role: String,
         @Body limit: Int
     )
 
-    @PATCH("/{role}/self-study/check/{memberId}")
+    @PATCH("{role}/self-study/check/{memberId}")
     suspend fun checkSelfStudy(
         @Path("role") role: String,
         @Path("memberId") memberId: Long,
