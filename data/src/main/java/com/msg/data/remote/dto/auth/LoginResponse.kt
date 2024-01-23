@@ -6,12 +6,12 @@ data class LoginResponse(
     val accessToken: String,
     val refreshToken: String,
     val expiresAt: String,
-    val roles: Role
+    val roles: List<Role>
 )
 
 fun LoginResponse.asLoginResponseModel() = LoginResponseModel(
     accessToken = accessToken,
     refreshToken = refreshToken,
     expiresAt = expiresAt,
-    roles = roles.asRoleModel()
+    roles = roles.map { it.asRoleModel() }
 )

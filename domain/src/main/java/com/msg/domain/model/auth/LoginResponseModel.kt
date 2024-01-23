@@ -4,5 +4,5 @@ data class LoginResponseModel(
     val accessToken: String,
     val refreshToken: String,
     val expiresAt: String,
-    val roles: RoleModel
+    val roles: List<RoleModel>
 )
