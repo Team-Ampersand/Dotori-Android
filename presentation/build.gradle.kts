@@ -1,6 +1,10 @@
+import java.io.FileInputStream
+import java.util.Properties
+
 plugins {
     id(ProjectProperties.GradlePlugin.ANDROID_LIBRARY)
     id(ProjectProperties.GradlePlugin.KOTLIN_ANDROID)
+    id(ProjectProperties.GradlePlugin.HILT_PLUGIN)
     kotlin(ProjectProperties.GradlePlugin.KAPT)
 }
 
