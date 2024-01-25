@@ -22,10 +22,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.dotori.dotori_components.components.button.DotoriButton
-import com.dotori.dotori_components.components.button.DotoriSegmentedButtons
 import com.dotori.dotori_components.components.text_field.DotoriTextField
 import com.dotori.dotori_components.theme.ArrowLeft2Icon
 import com.dotori.dotori_components.theme.DotoriLogoIcon
@@ -35,18 +33,16 @@ import com.dotori.dotori_components.theme.XMarkIcon
 import com.msg.presentation.view.signup.component.SignUpDatIndicator
 
 @Composable
-fun SignUpScreen(
+fun AuthenticationScreen(
     modifier: Modifier = Modifier,
     navigateToBack: () -> Unit,
     navigateToLogin: () -> Unit,
-    navigateToAuthentication: () -> Unit
+    navigateToPassword: () -> Unit
 ) {
-    var nameText by remember { mutableStateOf("") }
-    var stuNumberText by remember { mutableStateOf("") }
-    var isNameClicked by remember { mutableStateOf(false) }
-    var isStuNumberClicked by remember { mutableStateOf(false) }
-    var genderText by remember { mutableStateOf("") }
-    var genderList = mutableListOf("남", "여")
+    var emailText by remember { mutableStateOf("") }
+    var numberText by remember { mutableStateOf("") }
+    var isEmailClicked by remember { mutableStateOf(false) }
+    var isNumberClicked by remember { mutableStateOf(false) }
 
     Column(
         modifier = modifier
@@ -87,71 +83,65 @@ fun SignUpScreen(
                 DotoriLogoIcon()
                 DotoriText()
             }
-            SignUpDatIndicator(index = 1)
+            SignUpDatIndicator(index = 2)
         }
         Spacer(modifier = Modifier.height(8.dp))
         Text(
             modifier = Modifier.fillMaxWidth(),
-            text = "이름",
+            text = "이메일",
+            style = DotoriTheme.typography.smallTitle,
+            color = DotoriTheme.colors.neutral10,
+            textAlign = TextAlign.Start
+        )
+        Spacer(modifier = Modifier.height(8.dp))
+        Row(modifier = Modifier.fillMaxWidth()) {
+            DotoriTextField(
+                modifier = Modifier
+                    .weight(2f)
+                    .onFocusChanged { isEmailClicked = it.isFocused },
+                value = emailText,
+                placeholder = "이메일",
+                onValueChange = { emailText = it },
+                trailingIcon = {
+                    if (isEmailClicked && emailText.isNotBlank()) XMarkIcon(
+                        modifier = Modifier.clickable(
+                            interactionSource = remember { MutableInteractionSource() },
+                            indication = null,
+                            onClick = { emailText = "" }
+                        )
+                    )
+                }
+            )
+            DotoriButton(
+                modifier = Modifier
+                    .weight(1f)
+                    .height(52.dp),
+                text = "인증하기"
+            ) {}
+        }
+        Spacer(modifier = Modifier.height(24.dp))
+        Text(
+            modifier = Modifier.fillMaxWidth(),
+            text = "인증번호",
             style = DotoriTheme.typography.smallTitle,
             color = DotoriTheme.colors.neutral10,
             textAlign = TextAlign.Start
         )
         Spacer(modifier = Modifier.height(8.dp))
         DotoriTextField(
-            modifier = Modifier.onFocusChanged { isNameClicked = it.isFocused },
-            value = nameText,
-            placeholder = "이름을 입력해주세요.",
-            onValueChange = { nameText = it },
-            trailingIcon = { if (isNameClicked && nameText.isNotBlank()) XMarkIcon(
-                modifier = Modifier.clickable(
-                    interactionSource = remember { MutableInteractionSource() },
-                    indication = null,
-                    onClick = { nameText = "" }
+            modifier = Modifier.onFocusChanged { isNumberClicked = it.isFocused },
+            value = numberText,
+            placeholder = "인증번호",
+            onValueChange = { numberText = it },
+            trailingIcon = {
+                if (isNumberClicked && numberText.isNotBlank()) XMarkIcon(
+                    modifier = Modifier.clickable(
+                        interactionSource = remember { MutableInteractionSource() },
+                        indication = null,
+                        onClick = { numberText = "" }
+                    )
                 )
-            ) }
-        )
-        Spacer(modifier = Modifier.height(24.dp))
-        Text(
-            modifier = Modifier.fillMaxWidth(),
-            text = "학번",
-            style = DotoriTheme.typography.smallTitle,
-            color = DotoriTheme.colors.neutral10,
-            textAlign = TextAlign.Start
-        )
-        Spacer(modifier = Modifier.height(8.dp))
-        DotoriTextField(
-            modifier = Modifier.onFocusChanged { isStuNumberClicked = it.isFocused },
-            value = stuNumberText,
-            placeholder = "학번을 입력해주세요.",
-            onValueChange = { stuNumberText = it },
-            trailingIcon = { if (isStuNumberClicked && stuNumberText.isNotBlank()) XMarkIcon(
-                modifier = Modifier.clickable(
-                    interactionSource = remember { MutableInteractionSource() },
-                    indication = null,
-                    onClick = { stuNumberText = "" }
-                )
-            ) }
-        )
-        Spacer(modifier = Modifier.height(24.dp))
-        Text(
-            modifier = Modifier.fillMaxWidth(),
-            text = "성별",
-            style = DotoriTheme.typography.smallTitle,
-            color = DotoriTheme.colors.neutral10,
-            textAlign = TextAlign.Start
-        )
-        Spacer(modifier = Modifier.height(8.dp))
-        DotoriSegmentedButtons(
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(52.dp),
-            textPadding = 10.dp,
-            rowPadding = 6.dp,
-            outRoundedCornerShape = 8.dp,
-            innerRoundedCornerShape = 4.dp,
-            sectionNames = genderList,
-            onSwitchClick = {}
+            }
         )
         Spacer(modifier = Modifier.height(24.dp))
         DotoriButton(
@@ -160,7 +150,7 @@ fun SignUpScreen(
                 .height(52.dp),
             text = "다음"
         ) {
-            navigateToAuthentication()
+            navigateToPassword()
         }
         Spacer(modifier = Modifier.height(16.dp))
         Row(
@@ -185,15 +175,4 @@ fun SignUpScreen(
             )
         }
     }
-}
-
-@Preview
-@Composable
-fun SignUpScreenPreview() {
-    SignUpScreen(
-        modifier = Modifier,
-        navigateToBack = {},
-        navigateToLogin = {},
-        navigateToAuthentication = {}
-    )
 }
