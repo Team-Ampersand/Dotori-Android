@@ -23,6 +23,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.onFocusChanged
+import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -45,7 +46,8 @@ import com.msg.presentation.viewmodel.util.Event
 fun LoginScreen(
     modifier: Modifier = Modifier,
     loginViewModel: LoginViewModel = hiltViewModel(),
-    navigateToMain: () -> Unit
+    navigateToMain: () -> Unit,
+    navigateToSignUp: () -> Unit
 ) {
     var idText by remember { mutableStateOf("") }
     var passwordText by remember { mutableStateOf("") }
@@ -66,7 +68,10 @@ fun LoginScreen(
             .padding(horizontal = 20.dp)
     ) {
         Box(modifier = Modifier.padding(top = 16.dp)) {
-            ArrowLeft2Icon(contentDescription = "ArrowLeftIcon")
+            ArrowLeft2Icon(
+                modifier = Modifier.clickable {  },
+                contentDescription = "ArrowLeftIcon"
+            )
             Text(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -119,7 +124,8 @@ fun LoginScreen(
                     indication = null,
                     onClick = { passwordText = "" }
                 )
-            ) }
+            ) },
+            visualTransformation = PasswordVisualTransformation()
         )
         Spacer(modifier = Modifier.height(8.dp))
         Text(
@@ -162,7 +168,9 @@ fun LoginScreen(
                 modifier = Modifier.clickable(
                     interactionSource = remember { MutableInteractionSource() },
                     indication = null
-                ) {},
+                ) {
+                    navigateToSignUp()
+                },
                 text = "회원가입",
                 style = DotoriTheme.typography.body2,
                 color = DotoriTheme.colors.primary10,
@@ -174,5 +182,7 @@ fun LoginScreen(
 @Preview
 @Composable
 fun LoginScreenPreview() {
-    LoginScreen {}
+    LoginScreen(
+        navigateToMain = {}
+    ) {}
 }
