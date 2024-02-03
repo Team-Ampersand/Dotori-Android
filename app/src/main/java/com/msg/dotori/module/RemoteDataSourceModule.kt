@@ -2,6 +2,8 @@ package com.msg.dotori.module
 
 import com.msg.data.remote.datasource.auth.AuthDataSourceImpl
 import com.msg.data.remote.datasource.auth.AuthDataSource
+import com.msg.data.remote.datasource.email.EmailDataSource
+import com.msg.data.remote.datasource.email.EmailDataSourceImpl
 import com.msg.data.remote.datasource.massage.MassageDataSource
 import com.msg.data.remote.datasource.massage.MassageDataSourceImpl
 import com.msg.data.remote.datasource.music.MusicDataSource
@@ -42,4 +44,7 @@ interface RemoteDataSourceModule {
 
     @Binds
     fun bindsRuleViolationDataSource(ruleViolationDataSourceImpl: RuleViolationDataSourceImpl): RuleViolationDataSource
+
+    @Binds
+    fun bindsEmailDataSource(emailDataSourceImpl: EmailDataSourceImpl): EmailDataSource
 }
