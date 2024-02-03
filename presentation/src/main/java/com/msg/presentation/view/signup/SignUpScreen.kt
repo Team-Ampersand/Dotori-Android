@@ -45,8 +45,9 @@ fun SignUpScreen(
     var stuNumberText by remember { mutableStateOf("") }
     var isNameClicked by remember { mutableStateOf(false) }
     var isStuNumberClicked by remember { mutableStateOf(false) }
-    var genderText by remember { mutableStateOf("") }
-    var genderList = mutableListOf("남", "여")
+    var genderList = remember { mutableListOf("남", "여") }
+    var currentIndex by remember { mutableStateOf(0) }
+    var genderText by remember { mutableStateOf(genderList[currentIndex]) }
 
     Column(
         modifier = modifier
@@ -151,7 +152,10 @@ fun SignUpScreen(
             outRoundedCornerShape = 8.dp,
             innerRoundedCornerShape = 4.dp,
             sectionNames = genderList,
-            onSwitchClick = {}
+            onSwitchClick = {
+                currentIndex = (currentIndex + 1) % genderList.size
+                genderText = genderList[currentIndex]
+            }
         )
         Spacer(modifier = Modifier.height(24.dp))
         DotoriButton(
