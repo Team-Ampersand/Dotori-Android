@@ -1,6 +1,7 @@
 package com.msg.dotori
 
 import androidx.compose.runtime.Composable
+import androidx.lifecycle.viewmodel.compose.LocalViewModelStoreOwner
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import com.msg.presentation.view.find_password.navigation.findPasswordScreen
@@ -30,6 +31,8 @@ fun DotoriNavHost(
     navController: NavHostController,
     startDestination: String
 ) {
+    val viewModelStoreOwner = checkNotNull(LocalViewModelStoreOwner.current)
+
     NavHost(
         navController = navController,
         startDestination = startDestination
@@ -39,16 +42,19 @@ fun DotoriNavHost(
             navigateToSignUp = { navController.navigateToSignUp() }
         )
         signUpScreen(
+            viewModelStoreOwner = viewModelStoreOwner,
             navigateToBack = { navController.popBackStack() },
             navigateToLogin = { navController.navigateToLogin() },
             navigateToAuthentication = { navController.navigateToAuthentication() }
         )
         authenticationScreen(
+            viewModelStoreOwner = viewModelStoreOwner,
             navigateToBack = { navController.popBackStack() },
             navigateToLogin = { navController.navigateToLogin() },
             navigateToPassword = { navController.navigateToPassword() }
         )
         passwordScreen(
+            viewModelStoreOwner = viewModelStoreOwner,
             navigateToBack = { navController.popBackStack() },
             navigateToLogin = { navController.navigateToLogin() }
         )
