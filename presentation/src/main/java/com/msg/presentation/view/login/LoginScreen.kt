@@ -68,10 +68,7 @@ fun LoginScreen(
             .padding(horizontal = 20.dp)
     ) {
         Box(modifier = Modifier.padding(top = 16.dp)) {
-            ArrowLeft2Icon(
-                modifier = Modifier.clickable {  },
-                contentDescription = "ArrowLeftIcon"
-            )
+            ArrowLeft2Icon(contentDescription = "ArrowLeftIcon")
             Text(
                 modifier = Modifier
                     .fillMaxWidth()

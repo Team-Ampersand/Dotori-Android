@@ -1,5 +1,6 @@
 package com.msg.presentation.view.signup.navigation
 
+import androidx.lifecycle.ViewModelStoreOwner
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
@@ -16,12 +17,14 @@ fun NavController.navigateToSignUp() {
 }
 
 fun NavGraphBuilder.signUpScreen(
+    viewModelStoreOwner: ViewModelStoreOwner,
     navigateToBack: () -> Unit,
     navigateToLogin: () -> Unit,
     navigateToAuthentication: () -> Unit
 ) {
     composable(signUpRoute) {
         SignUpScreen(
+            viewModelStoreOwner = viewModelStoreOwner,
             navigateToBack = navigateToBack,
             navigateToLogin = navigateToLogin,
             navigateToAuthentication = navigateToAuthentication
@@ -34,12 +37,14 @@ fun NavController.navigateToAuthentication() {
 }
 
 fun NavGraphBuilder.authenticationScreen(
+    viewModelStoreOwner: ViewModelStoreOwner,
     navigateToBack: () -> Unit,
     navigateToLogin: () -> Unit,
     navigateToPassword: () -> Unit
 ) {
     composable(authenticationRoute) {
         AuthenticationScreen(
+            viewModelStoreOwner = viewModelStoreOwner,
             navigateToBack = navigateToBack,
             navigateToLogin = navigateToLogin,
             navigateToPassword = navigateToPassword
@@ -52,11 +57,13 @@ fun NavController.navigateToPassword() {
 }
 
 fun NavGraphBuilder.passwordScreen(
+    viewModelStoreOwner: ViewModelStoreOwner,
     navigateToBack: () -> Unit,
     navigateToLogin: () -> Unit
 ) {
     composable(passwordRoute) {
         PasswordScreen(
+            viewModelStoreOwner = viewModelStoreOwner,
             navigateToBack = navigateToBack,
             navigateToLogin = navigateToLogin
         )

@@ -26,9 +26,16 @@ class AuthInterceptor @Inject constructor(
         val builder = request.newBuilder()
         val path = request.url.encodedPath
         val ignorePath = listOf("/auth")
+        val ignorePath2 = listOf("/email")
         val currentTime = LocalDateTime.now()
 
         ignorePath.forEach {
+            if (path.contains(it)) {
+                return chain.proceed(request)
+            }
+        }
+
+        ignorePath2.forEach {
             if (path.contains(it)) {
                 return chain.proceed(request)
             }

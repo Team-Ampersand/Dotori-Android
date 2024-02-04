@@ -1,6 +1,7 @@
 package com.msg.dotori.module
 
 import com.msg.data.repository.AuthRepositoryImpl
+import com.msg.data.repository.EmailRepositoryImpl
 import com.msg.data.repository.MassageRepositoryImpl
 import com.msg.data.repository.MusicRepositoryImpl
 import com.msg.data.repository.NoticeRepositoryImpl
@@ -8,6 +9,7 @@ import com.msg.data.repository.RuleViolationRepositoryImpl
 import com.msg.data.repository.SelfStudyRepositoryImpl
 import com.msg.data.repository.StudentInfoRepositoryImpl
 import com.msg.domain.repository.AuthRepository
+import com.msg.domain.repository.EmailRepository
 import com.msg.domain.repository.MassageRepository
 import com.msg.domain.repository.MusicRepository
 import com.msg.domain.repository.NoticeRepository
@@ -42,4 +44,7 @@ interface RepositoryModule {
 
     @Binds
     fun bindsRuleViolationRepository(ruleViolationRepositoryImpl: RuleViolationRepositoryImpl): RuleViolationRepository
+
+    @Binds
+    fun bindsEmailRepository(emailRepositoryImpl: EmailRepositoryImpl): EmailRepository
 }

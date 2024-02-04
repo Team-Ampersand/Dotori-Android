@@ -3,6 +3,7 @@ package com.msg.dotori.module
 import android.util.Log
 import com.msg.dotori.BuildConfig
 import com.msg.data.remote.network.AuthApi
+import com.msg.data.remote.network.EmailApi
 import com.msg.data.remote.network.MassageApi
 import com.msg.data.remote.network.MusicApi
 import com.msg.data.remote.network.NoticeApi
@@ -18,6 +19,7 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.create
 import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
@@ -53,7 +55,7 @@ object NetworkModule {
         gsonConverterFactory: GsonConverterFactory
     ): Retrofit {
         return Retrofit.Builder()
-            .baseUrl(BuildConfig.RELEASE_URL)
+            .baseUrl(BuildConfig.DEVELOP_URL)
             .client(okHttpClient)
             .addConverterFactory(gsonConverterFactory)
             .build()
@@ -92,4 +94,8 @@ object NetworkModule {
     @Provides
     @Singleton
     fun provideRuleViolationApi(retrofit: Retrofit): RuleViolationApi = retrofit.create(RuleViolationApi::class.java)
+
+    @Provides
+    @Singleton
+    fun provideEmailApi(retrofit: Retrofit): EmailApi = retrofit.create(EmailApi::class.java)
 }
