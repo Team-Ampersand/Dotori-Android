@@ -1,5 +1,6 @@
 package com.msg.presentation.view.signup
 
+import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
@@ -22,6 +23,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.onFocusChanged
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
@@ -38,6 +40,7 @@ import com.dotori.dotori_components.theme.EyeOpenIcon
 import com.dotori.dotori_components.theme.XMarkIcon
 import com.msg.domain.model.auth.SignUpRequestModel
 import com.msg.presentation.view.signup.component.SignUpDatIndicator
+import com.msg.presentation.view.util.isStrongPassword
 import com.msg.presentation.viewmodel.util.Event
 import com.msg.presentation.viewmodel.util.SignUpViewModelProvider
 
@@ -49,6 +52,7 @@ fun PasswordScreen(
     navigateToLogin: () -> Unit
 ) {
     SignUpViewModelProvider(viewModelStoreOwner = viewModelStoreOwner) { signUpViewModel ->
+        val context = LocalContext.current
         var passwordText by remember { mutableStateOf("") }
         var checkPasswordText by remember { mutableStateOf("") }
         var isPasswordVisible by remember { mutableStateOf(false) }
@@ -190,7 +194,11 @@ fun PasswordScreen(
                     .height(52.dp),
                 text = "회원가입"
             ) {
-                if (passwordText == checkPasswordText) {
+                if (passwordText != checkPasswordText) {
+                    Toast.makeText(context, "비밀번호가 서로 일치하지 않습니다..", Toast.LENGTH_SHORT).show()
+                } else if (!isStrongPassword(passwordText)) {
+                    Toast.makeText(context, "비밀번호 형식에 맞게 입력해주세요.", Toast.LENGTH_SHORT).show()
+                } else {
                     signUpViewModel.password.value = passwordText
                     signUpViewModel.signUp(
                         SignUpRequestModel(

@@ -27,23 +27,24 @@ class LoginViewModel @Inject constructor(
     val loginState = _loginState.asStateFlow()
 
     fun login(loginRequestModel: LoginRequestModel) = viewModelScope.launch {
-            loginUseCase(loginRequestModel)
-                .onSuccess {
-                    _loginState.value = Event.Success(it)
-                    saveTokenUseCase(
-                        accessToken = it.accessToken,
-                        refreshToken = it.refreshToken,
-                        expiresAt = it.expiresAt
-                    )
-                    saveRoleUseCase(it.roles.toString())
-                    Log.d("failure", "success")
-                }
-                .onFailure {
-                    Log.d("failure", it.message.toString())
-                    it.exceptionHandling(
-                        badRequestAction = { _loginState.value = Event.BadRequest },
-                        notFoundAction = { _loginState.value = Event.NotFound }
-                    )
-                }
-        }
+        _loginState.value = Event.Loading
+        loginUseCase(loginRequestModel)
+            .onSuccess {
+                _loginState.value = Event.Success(it)
+                saveTokenUseCase(
+                    accessToken = it.accessToken,
+                    refreshToken = it.refreshToken,
+                    expiresAt = it.expiresAt
+                )
+                saveRoleUseCase(it.roles.toString())
+                Log.d("failure", "success")
+            }
+            .onFailure {
+                Log.d("failure", it.message.toString())
+                it.exceptionHandling(
+                    badRequestAction = { _loginState.value = Event.BadRequest },
+                    notFoundAction = { _loginState.value = Event.NotFound }
+                )
+            }
+    }
 }
