@@ -41,6 +41,7 @@ class SignUpViewModel @Inject constructor(
 
 
     fun signUp(body: SignUpRequestModel) = viewModelScope.launch {
+        _signUpState.value = Event.Loading
         signUpUseCase(body)
             .onSuccess {
                 _signUpState.value = Event.Success()

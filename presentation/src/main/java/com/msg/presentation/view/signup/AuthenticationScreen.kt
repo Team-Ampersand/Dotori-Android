@@ -1,5 +1,6 @@
 package com.msg.presentation.view.signup
 
+import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
@@ -22,6 +23,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.onFocusChanged
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.ViewModelStoreOwner
@@ -35,6 +37,7 @@ import com.dotori.dotori_components.theme.XMarkIcon
 import com.msg.domain.model.email.EmailVerifyRequestModel
 import com.msg.domain.model.email.SendEmailRequestModel
 import com.msg.presentation.view.signup.component.SignUpDatIndicator
+import com.msg.presentation.view.util.isStrongEmail
 import com.msg.presentation.viewmodel.util.Event
 import com.msg.presentation.viewmodel.util.SignUpViewModelProvider
 
@@ -47,6 +50,7 @@ fun AuthenticationScreen(
     navigateToPassword: () -> Unit
 ) {
     SignUpViewModelProvider(viewModelStoreOwner = viewModelStoreOwner) { signUpViewModel ->
+        val context = LocalContext.current
         var emailText by remember { mutableStateOf("") }
         var numberText by remember { mutableStateOf("") }
         var isEmailClicked by remember { mutableStateOf(false) }
@@ -140,8 +144,12 @@ fun AuthenticationScreen(
                         .height(52.dp),
                     text = "인증하기"
                 ) {
-                    signUpViewModel.email.value = emailText
-                    signUpViewModel.sendEmail(SendEmailRequestModel(signUpViewModel.email.value))
+                    if (isStrongEmail(emailText)) {
+                        signUpViewModel.email.value = emailText
+                        signUpViewModel.sendEmail(SendEmailRequestModel(signUpViewModel.email.value))
+                    } else {
+                        Toast.makeText(context, "gsm메일 형식에 맞게 입력해주세요.", Toast.LENGTH_SHORT).show()
+                    }
                 }
             }
             Spacer(modifier = Modifier.height(24.dp))
