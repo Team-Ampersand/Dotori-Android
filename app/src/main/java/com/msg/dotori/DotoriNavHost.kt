@@ -5,6 +5,9 @@ import androidx.lifecycle.viewmodel.compose.LocalViewModelStoreOwner
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import com.msg.presentation.view.find_password.navigation.findPasswordScreen
+import com.msg.presentation.view.find_password.navigation.navigateToFindPassword
+import com.msg.presentation.view.find_password.navigation.navigateToPasswordAuthentication
+import com.msg.presentation.view.find_password.navigation.passwordAuthenticationScreen
 import com.msg.presentation.view.home.navigation.mainScreen
 import com.msg.presentation.view.home.navigation.navigateToMain
 import com.msg.presentation.view.login.navigation.loginScreen
@@ -39,7 +42,8 @@ fun DotoriNavHost(
     ) {
         loginScreen(
             navigateToMain = { navController.navigateToMain() },
-            navigateToSignUp = { navController.navigateToSignUp() }
+            navigateToSignUp = { navController.navigateToSignUp() },
+            navigateToFindPassword = { navController.navigateToPasswordAuthentication() }
         )
         signUpScreen(
             viewModelStoreOwner = viewModelStoreOwner,
@@ -58,7 +62,15 @@ fun DotoriNavHost(
             navigateToBack = { navController.popBackStack() },
             navigateToLogin = { navController.navigateToLogin() }
         )
-        findPasswordScreen()
+        passwordAuthenticationScreen(
+            navigateToBack = { navController.popBackStack() },
+            navigateToLogin = { navController.navigateToLogin() },
+            navigateToFindPassword = { navController.navigateToFindPassword() }
+        )
+        findPasswordScreen(
+            navigateToBack = { navController.popBackStack() },
+            navigateToLogin = { navController.navigateToLogin() }
+        )
         massageChairScreen()
         selfStudyScreen()
         musicScreen()

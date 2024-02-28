@@ -1,5 +1,6 @@
 package com.msg.presentation.view.find_password
 
+import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
@@ -14,49 +15,44 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.text.input.PasswordVisualTransformation
-import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.ViewModelStoreOwner
 import com.dotori.dotori_components.components.button.DotoriButton
 import com.dotori.dotori_components.components.drawer.content.DrawerViewHeader
 import com.dotori.dotori_components.components.text_field.DotoriTextField
 import com.dotori.dotori_components.theme.ArrowLeft2Icon
+import com.dotori.dotori_components.theme.DotoriLogoIcon
+import com.dotori.dotori_components.theme.DotoriText
 import com.dotori.dotori_components.theme.DotoriTheme
-import com.dotori.dotori_components.theme.EyeCloseIcon
-import com.dotori.dotori_components.theme.EyeOpenIcon
+import com.dotori.dotori_components.theme.XMarkIcon
+import com.msg.domain.model.email.EmailVerifyRequestModel
+import com.msg.domain.model.email.SendEmailRequestModel
+import com.msg.presentation.view.signup.component.SignUpDatIndicator
+import com.msg.presentation.view.util.isStrongEmail
+import com.msg.presentation.viewmodel.util.Event
+import com.msg.presentation.viewmodel.util.SignUpViewModelProvider
 
 @Composable
-fun FindPasswordScreen(
+fun PasswordAuthenticationScreen(
     modifier: Modifier = Modifier,
     navigateToBack: () -> Unit,
-    navigateToLogin: () -> Unit
+    navigateToLogin: () -> Unit,
+    navigateToFindPassword: () -> Unit
 ) {
-    var passwordText by remember { mutableStateOf("") }
-    var checkPasswordText by remember { mutableStateOf("") }
-    var isPasswordVisible by remember { mutableStateOf(false) }
-    val passwordVisualTransformation = remember(isPasswordVisible) {
-        if (isPasswordVisible) {
-            VisualTransformation.None
-        } else {
-            PasswordVisualTransformation()
-        }
-    }
-    var isCheckPasswordVisible by remember { mutableStateOf(false) }
-    val checkPasswordVisualTransformation = remember(isCheckPasswordVisible) {
-        if (isCheckPasswordVisible) {
-            VisualTransformation.None
-        } else {
-            PasswordVisualTransformation()
-        }
-    }
+    var emailText by remember { mutableStateOf("") }
+    var numberText by remember { mutableStateOf("") }
+    var isEmailClicked by remember { mutableStateOf(false) }
+    var isNumberClicked by remember { mutableStateOf(false) }
 
     Column(
         modifier = modifier
@@ -89,75 +85,72 @@ fun FindPasswordScreen(
         Spacer(modifier = Modifier.height(8.dp))
         Text(
             modifier = Modifier.fillMaxWidth(),
-            text = "새로운 비밀번호",
+            text = "이메일",
             style = DotoriTheme.typography.smallTitle,
             color = DotoriTheme.colors.neutral10,
             textAlign = TextAlign.Start
         )
         Spacer(modifier = Modifier.height(8.dp))
-        DotoriTextField(
-            value = passwordText,
-            placeholder = "특수문자 포함 8~20",
-            onValueChange = { passwordText = it },
-            trailingIcon = {
-                if (isPasswordVisible) EyeCloseIcon(
-                    modifier = Modifier.clickable(
-                        interactionSource = remember { MutableInteractionSource() },
-                        indication = null,
-                        onClick = { isPasswordVisible = !isPasswordVisible }
-                    )
-                ) else {
-                    EyeOpenIcon(
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.spacedBy(8.dp)
+        ) {
+            DotoriTextField(
+                modifier = Modifier
+                    .fillMaxWidth(0.65f)
+                    .onFocusChanged { isEmailClicked = it.isFocused },
+                value = emailText,
+                placeholder = "이메일",
+                onValueChange = { emailText = it },
+                trailingIcon = {
+                    if (isEmailClicked && emailText.isNotBlank()) XMarkIcon(
                         modifier = Modifier.clickable(
                             interactionSource = remember { MutableInteractionSource() },
                             indication = null,
-                            onClick = { isPasswordVisible = !isPasswordVisible }
+                            onClick = { emailText = "" }
                         )
                     )
                 }
-            },
-            visualTransformation = passwordVisualTransformation
-        )
+            )
+            DotoriButton(
+                modifier = Modifier
+                    .weight(1f)
+                    .height(52.dp),
+                text = "인증하기"
+            ) {}
+        }
         Spacer(modifier = Modifier.height(24.dp))
         Text(
             modifier = Modifier.fillMaxWidth(),
-            text = "새로운 비밀번호 확인",
+            text = "인증번호",
             style = DotoriTheme.typography.smallTitle,
             color = DotoriTheme.colors.neutral10,
             textAlign = TextAlign.Start
         )
         Spacer(modifier = Modifier.height(8.dp))
         DotoriTextField(
-            value = checkPasswordText,
-            placeholder = "새로운 비밀번호 확인",
-            onValueChange = { checkPasswordText = it },
+            modifier = Modifier.onFocusChanged { isNumberClicked = it.isFocused },
+            value = numberText,
+            placeholder = "인증번호",
+            onValueChange = { numberText = it },
             trailingIcon = {
-                if (isCheckPasswordVisible) EyeCloseIcon(
+                if (isNumberClicked && numberText.isNotBlank()) XMarkIcon(
                     modifier = Modifier.clickable(
                         interactionSource = remember { MutableInteractionSource() },
                         indication = null,
-                        onClick = { isCheckPasswordVisible = !isCheckPasswordVisible }
+                        onClick = { numberText = "" }
                     )
-                ) else {
-                    EyeOpenIcon(
-                        modifier = Modifier.clickable(
-                            interactionSource = remember { MutableInteractionSource() },
-                            indication = null,
-                            onClick = { isCheckPasswordVisible = !isCheckPasswordVisible }
-                        )
-                    )
-                }
-            },
-            visualTransformation = checkPasswordVisualTransformation
+                )
+            }
         )
         Spacer(modifier = Modifier.height(24.dp))
         DotoriButton(
             modifier = Modifier
                 .fillMaxWidth()
                 .height(52.dp),
-            text = "확인"
+            text = "다음"
         ) {
-            navigateToLogin()
+            navigateToFindPassword()
         }
         Spacer(modifier = Modifier.height(16.dp))
         Row(
@@ -182,12 +175,4 @@ fun FindPasswordScreen(
             )
         }
     }
-}
-
-@Preview
-@Composable
-fun FindPasswordScreenPreview() {
-    FindPasswordScreen(
-        navigateToBack = {}
-    ) {}
 }
