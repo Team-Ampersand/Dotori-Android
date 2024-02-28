@@ -1,4 +1,5 @@
 <resources>
     <string name = "login_page_dotori_description">광주소프트웨어마이스터고 기숙사 관리 시스템, DOTORI</string>
     <string name = "login_text">로그인</string>
+    <string name = "cafeteria">급식</string>
 </resources>
