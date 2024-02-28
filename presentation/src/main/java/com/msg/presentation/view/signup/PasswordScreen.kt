@@ -137,7 +137,7 @@ fun PasswordScreen(
                 placeholder = "비밀번호",
                 onValueChange = { passwordText = it },
                 trailingIcon = {
-                    if (isCheckPasswordVisible) EyeCloseIcon(
+                    if (isPasswordVisible) EyeCloseIcon(
                         modifier = Modifier.clickable(
                             interactionSource = remember { MutableInteractionSource() },
                             indication = null,
