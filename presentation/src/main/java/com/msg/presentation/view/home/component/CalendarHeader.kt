@@ -51,7 +51,7 @@ fun CalendarHeader(
         Image(
             modifier = Modifier.clickable { onRightClicked() },
             painter = painterResource(R.drawable.ic_right_icon),
-            contentDescription = "previous"
+            contentDescription = "next"
         )
     }
 }
