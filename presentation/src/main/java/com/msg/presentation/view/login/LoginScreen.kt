@@ -49,7 +49,8 @@ fun LoginScreen(
     modifier: Modifier = Modifier,
     loginViewModel: LoginViewModel = hiltViewModel(),
     navigateToMain: () -> Unit,
-    navigateToSignUp: () -> Unit
+    navigateToSignUp: () -> Unit,
+    navigateToFindPassword: () -> Unit
 ) {
     val context = LocalContext.current
     var idText by remember { mutableStateOf("") }
@@ -138,7 +139,7 @@ fun LoginScreen(
                 .clickable(
                     interactionSource = remember { MutableInteractionSource() },
                     indication = null
-                ) {},
+                ) { navigateToFindPassword() },
             text = "비밀번호 찾기",
             style = DotoriTheme.typography.body2,
             color = DotoriTheme.colors.neutral20,
@@ -191,6 +192,7 @@ fun LoginScreen(
 @Composable
 fun LoginScreenPreview() {
     LoginScreen(
-        navigateToMain = {}
+        navigateToMain = {},
+        navigateToSignUp = {}
     ) {}
 }
