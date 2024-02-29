@@ -9,7 +9,7 @@ import com.msg.domain.model.email.EmailVerifyRequestModel
 import com.msg.domain.model.email.SendEmailRequestModel
 import com.msg.domain.usecase.auth.SignUpUseCase
 import com.msg.domain.usecase.email.EmailVerifyUseCase
-import com.msg.domain.usecase.email.SendEmailUseCase
+import com.msg.domain.usecase.email.SendSignUpEmailUseCase
 import com.msg.presentation.exception.exceptionHandling
 import com.msg.presentation.viewmodel.util.Event
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -21,14 +21,14 @@ import javax.inject.Inject
 @HiltViewModel
 class SignUpViewModel @Inject constructor(
     private val signUpUseCase: SignUpUseCase,
-    private val sendEmailUseCase: SendEmailUseCase,
+    private val sendSignUpEmailUseCase: SendSignUpEmailUseCase,
     private val emailVerifyUseCase: EmailVerifyUseCase
 ) : ViewModel() {
     private val _signUpState = MutableStateFlow<Event<Nothing>>(Event.Loading)
     val signUpState = _signUpState.asStateFlow()
 
-    private val _sendEmailState = MutableStateFlow<Event<Nothing>>(Event.Loading)
-    val sendEmailState = _sendEmailState.asStateFlow()
+    private val _sendSignUpEmailState = MutableStateFlow<Event<Nothing>>(Event.Loading)
+    val sendSignUpEmailState = _sendSignUpEmailState.asStateFlow()
 
     private val _emailVerifyState = MutableStateFlow<Event<Nothing>>(Event.Loading)
     val emailVerifyState = _emailVerifyState.asStateFlow()
@@ -48,7 +48,7 @@ class SignUpViewModel @Inject constructor(
             }.onFailure {
                 it.exceptionHandling(
                     badRequestAction = { Event.BadRequest },
-                    conflictAction = { Event.Conflict }
+                    conflictAction = { _signUpState.value = Event.Conflict }
                 )
             }
     }
@@ -57,13 +57,13 @@ class SignUpViewModel @Inject constructor(
         _signUpState.value = Event.Loading
     }
 
-    fun sendEmail(body: SendEmailRequestModel) = viewModelScope.launch {
-        sendEmailUseCase(body)
+    fun sendSignUpEmail(body: SendEmailRequestModel) = viewModelScope.launch {
+        sendSignUpEmailUseCase(body)
             .onSuccess {
-                _sendEmailState.value = Event.Success()
+                _sendSignUpEmailState.value = Event.Success()
             }.onFailure {
                 it.exceptionHandling(
-                    conflictAction = { Event.Conflict }
+                    conflictAction = { _sendSignUpEmailState.value = Event.Conflict }
                 )
             }
     }
@@ -75,7 +75,7 @@ class SignUpViewModel @Inject constructor(
             }
             .onFailure {
                 it.exceptionHandling(
-                    notFoundAction = { Event.NotFound }
+                    notFoundAction = { _emailVerifyState.value = Event.NotFound }
                 )
             }
     }
