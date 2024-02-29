@@ -11,7 +11,9 @@ import javax.inject.Inject
 class EmailRepositoryImpl @Inject constructor(
     private val emailDataSource: EmailDataSource
 ): EmailRepository {
-    override suspend fun sendEmail(body: SendEmailRequestModel) = emailDataSource.sendEmail(body.asSendEmailRequest())
+    override suspend fun sendSignUpEmail(body: SendEmailRequestModel) = emailDataSource.sendSignUpEmail(body.asSendEmailRequest())
+
+    override suspend fun sendPasswordEmail(body: SendEmailRequestModel) = emailDataSource.sendPasswordEmail(body.asSendEmailRequest())
 
     override suspend fun emailVerify(body: EmailVerifyRequestModel) = emailDataSource.emailVerify(body.asEmailVerifyRequest())
 }
