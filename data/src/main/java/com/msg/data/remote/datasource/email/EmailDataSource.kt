@@ -4,7 +4,9 @@ import com.msg.data.remote.dto.email.EmailVerifyRequest
 import com.msg.data.remote.dto.email.SendEmailRequest
 
 interface EmailDataSource {
-    suspend fun sendEmail(body: SendEmailRequest)
+    suspend fun sendSignUpEmail(body: SendEmailRequest)
+
+    suspend fun sendPasswordEmail(body: SendEmailRequest)
 
     suspend fun emailVerify(body: EmailVerifyRequest)
 }

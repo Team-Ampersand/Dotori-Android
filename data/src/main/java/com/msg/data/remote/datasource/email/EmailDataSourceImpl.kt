@@ -9,8 +9,12 @@ import javax.inject.Inject
 class EmailDataSourceImpl @Inject constructor(
     private val emailApi: EmailApi
 ): EmailDataSource {
-    override suspend fun sendEmail(body: SendEmailRequest) = safeApiCall {
-        emailApi.sendEmail(body)
+    override suspend fun sendSignUpEmail(body: SendEmailRequest) = safeApiCall {
+        emailApi.sendSignUpEmail(body)
+    }
+
+    override suspend fun sendPasswordEmail(body: SendEmailRequest)  = safeApiCall {
+        emailApi.sendPasswordEmail(body)
     }
 
     override suspend fun emailVerify(body: EmailVerifyRequest) = safeApiCall {
