@@ -1,5 +1,6 @@
 package com.msg.data.remote.datasource.auth
 
+import com.msg.data.remote.dto.auth.ChangePasswordRequest
 import com.msg.data.remote.dto.auth.LoginRequest
 import com.msg.data.remote.dto.auth.LoginResponse
 import com.msg.data.remote.dto.auth.SignUpRequest
@@ -20,5 +21,9 @@ class AuthDataSourceImpl @Inject constructor(
 
     override suspend fun signUp(body: SignUpRequest) = safeApiCall {
         authApi.signUp(body)
+    }
+
+    override suspend fun changePassword(body: ChangePasswordRequest) = safeApiCall {
+        authApi.changePassword(body)
     }
 }

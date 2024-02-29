@@ -1,5 +1,6 @@
 package com.msg.presentation.view.find_password.navigation
 
+import androidx.lifecycle.ViewModelStoreOwner
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
@@ -14,12 +15,14 @@ fun NavController.navigateToPasswordAuthentication() {
 }
 
 fun NavGraphBuilder.passwordAuthenticationScreen(
+    viewModelStoreOwner: ViewModelStoreOwner,
     navigateToBack: () -> Unit,
     navigateToLogin: () -> Unit,
     navigateToFindPassword: () -> Unit
 ) {
     composable(passwordAuthenticationRoute) {
         PasswordAuthenticationScreen(
+            viewModelStoreOwner = viewModelStoreOwner,
             navigateToBack = navigateToBack,
             navigateToLogin = navigateToLogin,
             navigateToFindPassword = navigateToFindPassword
@@ -32,11 +35,13 @@ fun NavController.navigateToFindPassword() {
 }
 
 fun NavGraphBuilder.findPasswordScreen(
+    viewModelStoreOwner: ViewModelStoreOwner,
     navigateToBack: () -> Unit,
     navigateToLogin: () -> Unit
 ) {
     composable(findPasswordRoute) {
         FindPasswordScreen(
+            viewModelStoreOwner = viewModelStoreOwner,
             navigateToBack = navigateToBack,
             navigateToLogin = navigateToLogin
         )

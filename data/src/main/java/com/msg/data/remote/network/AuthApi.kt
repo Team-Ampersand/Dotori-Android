@@ -3,6 +3,7 @@ package com.msg.data.remote.network
 import com.msg.data.remote.dto.auth.LoginRequest
 import com.msg.data.remote.dto.auth.LoginResponse
 import com.msg.data.remote.dto.auth.SignUpRequest
+import com.msg.data.remote.dto.auth.ChangePasswordRequest
 import retrofit2.http.Body
 import retrofit2.http.PATCH
 import retrofit2.http.POST
@@ -19,5 +20,10 @@ interface AuthApi {
     @POST("auth/signup")
     suspend fun signUp(
         @Body body: SignUpRequest
+    )
+
+    @PATCH("auth/password")
+    suspend fun changePassword(
+        @Body body: ChangePasswordRequest
     )
 }

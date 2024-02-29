@@ -2,9 +2,11 @@ package com.msg.data.repository
 
 import com.msg.data.local.datasource.LocalDataSource
 import com.msg.data.remote.datasource.auth.AuthDataSource
+import com.msg.data.remote.dto.auth.asChangePasswordRequest
 import com.msg.data.remote.dto.auth.asLoginRequest
 import com.msg.data.remote.dto.auth.asLoginResponseModel
 import com.msg.data.remote.dto.auth.asSignUpRequest
+import com.msg.domain.model.auth.ChangePasswordRequestModel
 import com.msg.domain.model.auth.LoginRequestModel
 import com.msg.domain.model.auth.LoginResponseModel
 import com.msg.domain.model.auth.SignUpRequestModel
@@ -35,4 +37,6 @@ class AuthRepositoryImpl @Inject constructor(
     override suspend fun getRole(): String = localDataSource.getRole().first()
 
     override suspend fun signUp(body: SignUpRequestModel) = authDataSource.signUp(body.asSignUpRequest())
+
+    override suspend fun changePassword(body: ChangePasswordRequestModel) = authDataSource.changePassword(body.asChangePasswordRequest())
 }

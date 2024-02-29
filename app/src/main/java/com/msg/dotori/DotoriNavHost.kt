@@ -63,11 +63,13 @@ fun DotoriNavHost(
             navigateToLogin = { navController.navigateToLogin() }
         )
         passwordAuthenticationScreen(
+            viewModelStoreOwner = viewModelStoreOwner,
             navigateToBack = { navController.popBackStack() },
             navigateToLogin = { navController.navigateToLogin() },
             navigateToFindPassword = { navController.navigateToFindPassword() }
         )
         findPasswordScreen(
+            viewModelStoreOwner = viewModelStoreOwner,
             navigateToBack = { navController.popBackStack() },
             navigateToLogin = { navController.navigateToLogin() }
         )

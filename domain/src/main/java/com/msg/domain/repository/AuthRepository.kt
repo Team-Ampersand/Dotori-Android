@@ -1,5 +1,6 @@
 package com.msg.domain.repository
 
+import com.msg.domain.model.auth.ChangePasswordRequestModel
 import com.msg.domain.model.auth.LoginRequestModel
 import com.msg.domain.model.auth.LoginResponseModel
 import com.msg.domain.model.auth.SignUpRequestModel
@@ -20,4 +21,6 @@ interface AuthRepository {
     suspend fun getRole(): String
 
     suspend fun signUp(body: SignUpRequestModel)
+
+    suspend fun changePassword(body: ChangePasswordRequestModel)
 }

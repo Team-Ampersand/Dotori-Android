@@ -56,7 +56,7 @@ fun AuthenticationScreen(
         var isEmailClicked by remember { mutableStateOf(false) }
         var isNumberClicked by remember { mutableStateOf(false) }
 
-        val sendEmailState by signUpViewModel.sendEmailState.collectAsState()
+        val sendEmailState by signUpViewModel.sendSignUpEmailState.collectAsState()
         val emailVerifyState by signUpViewModel.emailVerifyState.collectAsState()
 
         when (emailVerifyState) {
@@ -146,7 +146,7 @@ fun AuthenticationScreen(
                 ) {
                     if (isStrongEmail(emailText)) {
                         signUpViewModel.email.value = emailText
-                        signUpViewModel.sendEmail(SendEmailRequestModel(signUpViewModel.email.value))
+                        signUpViewModel.sendSignUpEmail(SendEmailRequestModel(signUpViewModel.email.value))
                     } else {
                         Toast.makeText(context, "gsm메일 형식에 맞게 입력해주세요.", Toast.LENGTH_SHORT).show()
                     }
