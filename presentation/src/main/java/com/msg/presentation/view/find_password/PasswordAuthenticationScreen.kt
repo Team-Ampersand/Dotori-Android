@@ -20,7 +20,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.platform.LocalContext
@@ -31,148 +30,167 @@ import com.dotori.dotori_components.components.button.DotoriButton
 import com.dotori.dotori_components.components.drawer.content.DrawerViewHeader
 import com.dotori.dotori_components.components.text_field.DotoriTextField
 import com.dotori.dotori_components.theme.ArrowLeft2Icon
-import com.dotori.dotori_components.theme.DotoriLogoIcon
-import com.dotori.dotori_components.theme.DotoriText
 import com.dotori.dotori_components.theme.DotoriTheme
 import com.dotori.dotori_components.theme.XMarkIcon
 import com.msg.domain.model.email.EmailVerifyRequestModel
 import com.msg.domain.model.email.SendEmailRequestModel
-import com.msg.presentation.view.signup.component.SignUpDatIndicator
 import com.msg.presentation.view.util.isStrongEmail
 import com.msg.presentation.viewmodel.util.Event
-import com.msg.presentation.viewmodel.util.SignUpViewModelProvider
+import com.msg.presentation.viewmodel.util.FindPasswordViewModelProvider
 
 @Composable
 fun PasswordAuthenticationScreen(
     modifier: Modifier = Modifier,
+    viewModelStoreOwner: ViewModelStoreOwner,
     navigateToBack: () -> Unit,
     navigateToLogin: () -> Unit,
     navigateToFindPassword: () -> Unit
 ) {
-    var emailText by remember { mutableStateOf("") }
-    var numberText by remember { mutableStateOf("") }
-    var isEmailClicked by remember { mutableStateOf(false) }
-    var isNumberClicked by remember { mutableStateOf(false) }
+    FindPasswordViewModelProvider(viewModelStoreOwner = viewModelStoreOwner) { findPasswordViewModel ->
+        val context = LocalContext.current
+        var emailText by remember { mutableStateOf("") }
+        var numberText by remember { mutableStateOf("") }
+        var isEmailClicked by remember { mutableStateOf(false) }
+        var isNumberClicked by remember { mutableStateOf(false) }
 
-    Column(
-        modifier = modifier
-            .fillMaxSize()
-            .background(DotoriTheme.colors.background)
-            .padding(horizontal = 20.dp)
-    ) {
-        Box(modifier = Modifier.padding(top = 16.dp)) {
-            ArrowLeft2Icon(
-                modifier = Modifier.clickable(
-                    interactionSource = remember { MutableInteractionSource() },
-                    indication = null
-                ) { navigateToBack() },
-                contentDescription = "ArrowLeftIcon"
-            )
-            Text(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(vertical = 2.dp),
-                text = "비밀번호 찾기",
-                style = DotoriTheme.typography.subTitle2,
-                color = DotoriTheme.colors.neutral10,
-                textAlign = TextAlign.Center
-            )
+        val sendPasswordEmailState by findPasswordViewModel.sendPasswordEmailState.collectAsState()
+        val emailVerifyState by findPasswordViewModel.emailVerifyState.collectAsState()
+
+        when (emailVerifyState) {
+            is Event.Success -> {
+                navigateToFindPassword()
+                findPasswordViewModel.initEmailVerify()
+            }
+            else -> {}
         }
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.Center
-        ) { DrawerViewHeader() }
-        Spacer(modifier = Modifier.height(8.dp))
-        Text(
-            modifier = Modifier.fillMaxWidth(),
-            text = "이메일",
-            style = DotoriTheme.typography.smallTitle,
-            color = DotoriTheme.colors.neutral10,
-            textAlign = TextAlign.Start
-        )
-        Spacer(modifier = Modifier.height(8.dp))
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.spacedBy(8.dp)
+
+        Column(
+            modifier = modifier
+                .fillMaxSize()
+                .background(DotoriTheme.colors.background)
+                .padding(horizontal = 20.dp)
         ) {
+            Box(modifier = Modifier.padding(top = 16.dp)) {
+                ArrowLeft2Icon(
+                    modifier = Modifier.clickable(
+                        interactionSource = remember { MutableInteractionSource() },
+                        indication = null
+                    ) { navigateToBack() },
+                    contentDescription = "ArrowLeftIcon"
+                )
+                Text(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(vertical = 2.dp),
+                    text = "비밀번호 찾기",
+                    style = DotoriTheme.typography.subTitle2,
+                    color = DotoriTheme.colors.neutral10,
+                    textAlign = TextAlign.Center
+                )
+            }
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.Center
+            ) { DrawerViewHeader() }
+            Spacer(modifier = Modifier.height(8.dp))
+            Text(
+                modifier = Modifier.fillMaxWidth(),
+                text = "이메일",
+                style = DotoriTheme.typography.smallTitle,
+                color = DotoriTheme.colors.neutral10,
+                textAlign = TextAlign.Start
+            )
+            Spacer(modifier = Modifier.height(8.dp))
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.spacedBy(8.dp)
+            ) {
+                DotoriTextField(
+                    modifier = Modifier
+                        .fillMaxWidth(0.65f)
+                        .onFocusChanged { isEmailClicked = it.isFocused },
+                    value = emailText,
+                    placeholder = "이메일",
+                    onValueChange = { emailText = it },
+                    trailingIcon = {
+                        if (isEmailClicked && emailText.isNotBlank()) XMarkIcon(
+                            modifier = Modifier.clickable(
+                                interactionSource = remember { MutableInteractionSource() },
+                                indication = null,
+                                onClick = { emailText = "" }
+                            )
+                        )
+                    }
+                )
+                DotoriButton(
+                    modifier = Modifier
+                        .weight(1f)
+                        .height(52.dp),
+                    text = "인증하기"
+                ) {
+                    if (isStrongEmail(emailText)) {
+                        findPasswordViewModel.email.value = emailText
+                        findPasswordViewModel.sendPasswordEmail(SendEmailRequestModel(findPasswordViewModel.email.value))
+                    } else {
+                        Toast.makeText(context, "gsm메일 형식에 맞게 입력해주세요.", Toast.LENGTH_SHORT).show()
+                    }
+                }
+            }
+            Spacer(modifier = Modifier.height(24.dp))
+            Text(
+                modifier = Modifier.fillMaxWidth(),
+                text = "인증번호",
+                style = DotoriTheme.typography.smallTitle,
+                color = DotoriTheme.colors.neutral10,
+                textAlign = TextAlign.Start
+            )
+            Spacer(modifier = Modifier.height(8.dp))
             DotoriTextField(
-                modifier = Modifier
-                    .fillMaxWidth(0.65f)
-                    .onFocusChanged { isEmailClicked = it.isFocused },
-                value = emailText,
-                placeholder = "이메일",
-                onValueChange = { emailText = it },
+                modifier = Modifier.onFocusChanged { isNumberClicked = it.isFocused },
+                value = numberText,
+                placeholder = "인증번호",
+                onValueChange = { numberText = it },
                 trailingIcon = {
-                    if (isEmailClicked && emailText.isNotBlank()) XMarkIcon(
+                    if (isNumberClicked && numberText.isNotBlank()) XMarkIcon(
                         modifier = Modifier.clickable(
                             interactionSource = remember { MutableInteractionSource() },
                             indication = null,
-                            onClick = { emailText = "" }
+                            onClick = { numberText = "" }
                         )
                     )
                 }
             )
+            Spacer(modifier = Modifier.height(24.dp))
             DotoriButton(
                 modifier = Modifier
-                    .weight(1f)
+                    .fillMaxWidth()
                     .height(52.dp),
-                text = "인증하기"
-            ) {}
-        }
-        Spacer(modifier = Modifier.height(24.dp))
-        Text(
-            modifier = Modifier.fillMaxWidth(),
-            text = "인증번호",
-            style = DotoriTheme.typography.smallTitle,
-            color = DotoriTheme.colors.neutral10,
-            textAlign = TextAlign.Start
-        )
-        Spacer(modifier = Modifier.height(8.dp))
-        DotoriTextField(
-            modifier = Modifier.onFocusChanged { isNumberClicked = it.isFocused },
-            value = numberText,
-            placeholder = "인증번호",
-            onValueChange = { numberText = it },
-            trailingIcon = {
-                if (isNumberClicked && numberText.isNotBlank()) XMarkIcon(
+                text = "다음"
+            ) {
+                findPasswordViewModel.emailVerify(EmailVerifyRequestModel(numberText))
+            }
+            Spacer(modifier = Modifier.height(16.dp))
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.Center
+            ) {
+                Text(
+                    text = "비밀번호를 변경할 필요가 없다면? ",
+                    style = DotoriTheme.typography.body2,
+                    color = DotoriTheme.colors.neutral20,
+                )
+                Text(
                     modifier = Modifier.clickable(
                         interactionSource = remember { MutableInteractionSource() },
-                        indication = null,
-                        onClick = { numberText = "" }
-                    )
+                        indication = null
+                    ) {
+                        navigateToLogin()
+                    },
+                    text = "로그인",
+                    style = DotoriTheme.typography.body2,
+                    color = DotoriTheme.colors.primary10,
                 )
             }
-        )
-        Spacer(modifier = Modifier.height(24.dp))
-        DotoriButton(
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(52.dp),
-            text = "다음"
-        ) {
-            navigateToFindPassword()
-        }
-        Spacer(modifier = Modifier.height(16.dp))
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.Center
-        ) {
-            Text(
-                text = "비밀번호를 변경할 필요가 없다면? ",
-                style = DotoriTheme.typography.body2,
-                color = DotoriTheme.colors.neutral20,
-            )
-            Text(
-                modifier = Modifier.clickable(
-                    interactionSource = remember { MutableInteractionSource() },
-                    indication = null
-                ) {
-                    navigateToLogin()
-                },
-                text = "로그인",
-                style = DotoriTheme.typography.body2,
-                color = DotoriTheme.colors.primary10,
-            )
         }
     }
 }
