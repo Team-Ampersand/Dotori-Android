@@ -7,7 +7,12 @@ import retrofit2.http.POST
 
 interface EmailApi {
     @POST("email/signup")
-    suspend fun sendEmail(
+    suspend fun sendSignUpEmail(
+        @Body body: SendEmailRequest
+    )
+
+    @POST("email/password")
+    suspend fun sendPasswordEmail(
         @Body body: SendEmailRequest
     )
 
